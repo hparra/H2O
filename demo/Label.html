@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>H2O Label Demo</title>
+		<script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
+		<script type="text/javascript" src="../src/js/H2O.js"></script>
+		<script type="text/javascript" src="../src/js/H2O.Label.js"></script>
+	</head>
+	<body id="shit" style="margin:0px; padding:0px; ">
+		<div id="box1" style="position:absolute;width:100%;height:50%;float:left">
+		</div>
+		<div id="box2" style="position:absolute;width:100%;height:50%;float:left">
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			hello_label = H2O.Label({ id: "hello_label", text: "Hello!" });
+			bye_label = H2O.Label({ id: "bye_label", text: "bye!" });
+			$("#box1").append(hello_label);
+			$("#box2").append(bye_label);
+		});
+	</script>
+</html>
