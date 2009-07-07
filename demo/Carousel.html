@@ -1,0 +1,79 @@
+<html>
+<head>
+	<title>FCarousel</title>
+	<script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="../../FCarousel/javascripts/movielist.js"></script>
+	<script type="text/javascript" src="../src/js/H2O.Carousel.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function () {
+			FCarousel.preinitialize(MOVIE_LIST);
+			
+			$(window).resize(function () {
+				FCarousel.resize();
+			});
+
+		});
+	</script>
+	<style type="text/css" media="screen">
+		#FCarousel {
+			background-color: green;
+			width: 100%;
+			height: 95%;
+			overflow: hidden;
+		}
+		
+		#Holder {
+			background-color: blue;
+			height: 100%;
+			left: 0px;
+		}
+		
+		.page {
+			float: left;
+		}
+	
+		/* Resizing*/
+		.box {
+			position: static;
+			clear: none;
+			float: left;
+			overflow: hidden;
+			display: block;
+		}
+
+			.box a {
+				position: static;
+				width: 100%;
+				height: 100%;
+				display: block;
+				border: none;
+			}
+
+		.icon {
+			position: relative;
+			top: 50%;
+			left: 50%;
+		}
+
+			.icon img {
+				position: static;
+				border: none;
+				width: 100%;
+				height: 100%;
+			}
+	</style>
+</head>
+
+<body>
+
+<div id="FCarousel">
+	<div id="Holder">
+	
+	</div>
+</div>
+
+<button type="button" onClick="FCarousel.prevPage(1)">Prev</button>
+<button type="button" onClick="FCarousel.nextPage(1)">Next</button>
+
+</body>
+</html>
