@@ -2,13 +2,14 @@
 // USE: my_label = new H2O.Label()
 H2O.Label = function(options) {
 	var self = null;
+	
 	(function() { // constructor
 		
 		// check for options, if not create defaults
 		//options.id = options.id || "testID";
 		//options.text ||= "testTEXT";
 
-		self = document.createElement('div'); // TODO: should we use P or H1 instead for accessibility?
+		self = document.createElement('div'); // TODO: should we use P or H2 instead for accessibility?
 		self.setAttribute('id', options.id); // TODO: assign random id if not present
 		//label.setAttribute('class' ''); // TODO: accept classes as options
 		self.setAttribute('style','\
@@ -18,7 +19,8 @@ H2O.Label = function(options) {
 			overflow: hidden;\
 		');
 		self.innerHTML = options.text;
-		self.addEventListener("DOMNodeInserted", function(e) {
+		
+		self.addEventListener("DOMNodeInserted", function(e) { // NOTE: Not supported in IE
 			console.log(self.parentNode);
 			if ((self.parentNode.id) === undefined) {
 				// the hell? it fires twice and the first time is no good.
