@@ -6,10 +6,10 @@ H2O.Carousel = function(options) {
 	
 	(function() { // constructor
 		
-		data = options.JSON // TODO: check data first
+		data = options.JSON // TODO: check data first and handle necessary stuff
 		
 		size = 0;
-		for (i in options.JSON) {
+		for (i in data) {
 			size = size + 1;
 		}
 		
@@ -45,7 +45,7 @@ H2O.Carousel = function(options) {
 		
 		pageNum = 1;
 		
-		for (i in options.JSON) {
+		for (i in data) {
 			if (i >= (options.rowAmt * options.columnAmt * pageNum)) {
 				pageNum = pageNum + 1;
 			};
@@ -66,8 +66,8 @@ H2O.Carousel = function(options) {
 
             /* this loads slowly the first time. should preload. */
             img = document.createElement('img');
-            img.setAttribute('alt', options.JSON[i].title + " " + options.JSON[i].length); 
-            img.setAttribute('src', options.JSON[i].thumb); 
+            img.setAttribute('alt', data[i].title + " " + data[i].length); 
+            img.setAttribute('src', data[i].thumb); 
 
             icon.appendChild(img);
             //a.appendChild(icon);
@@ -152,12 +152,12 @@ H2O.Carousel = function(options) {
 				// 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				// 				}, 800);
 				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth)+"px";
+				currentPage = page; // Change Page "State"
 			};
 		} else if (page === currentPage) {
 			// TODO: find better way to notify this
 			alert("You're already here!");
 		}
-		currentPage = page; // Change Page "State"
 		console.log(currentPage);
 	};
 	
