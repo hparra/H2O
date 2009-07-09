@@ -8,9 +8,17 @@
 	
 <script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
-
+<script type="text/javascript" charset="utf-8">
+		$(document).ready(function () {
+			testChart = H2O.Chart({ id: 'canvas', sizeX: 700, sizeY: 400, graphCeil: 100, intervalY: 25 });
+			$('#canvas').append(testChart);
+			$('#box1').append(testChart);
+		});
+</script>
 <style type="text/css">
   #canvas { 
+  			width: 70%;
+			height: 70%;
 			-moz-border-radius: 5px;
 			-webkit-border-radius: 5px; 
 			-webkit-box-shadow: 10px 10px 5px #888; 
@@ -20,13 +28,9 @@
 
 </head>
 <body>
-	
+
 <canvas id="canvas" width=700 height=400 ></canvas>
 
-<script type="text/javascript"> 
-	buildGraphQuick("canvas", 25, 200, 700, 400);
-	// parameters for buildGraph is (canvas_name, interval in veritical direction, graph input ceiling, graph height in pixels, graph width in pixels)
-</script>
 
 </body>
 </html>
