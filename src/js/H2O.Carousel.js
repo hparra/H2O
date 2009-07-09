@@ -162,10 +162,18 @@ H2O.Carousel = function(options) {
 	};
 	
 	self.nextPage = function(interval) { // Go forward interval number of pages
-		self.jumpToPage(currentPage + interval); // TODO: Implied interval of 1
+		console.log(interval);
+		if (interval === undefined) {
+			interval = 1;
+		}
+		self.jumpToPage(currentPage + interval);
 	};
 	
 	self.prevPage = function(interval) { // Go backward interval number of pages
+		console.log(interval);
+		if (interval === undefined) {
+			interval = 1;
+		}
 		self.jumpToPage(currentPage - interval);
 	};
 	
