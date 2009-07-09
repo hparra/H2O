@@ -5,6 +5,9 @@ H2O.Carousel = function(options) {
 	var currentPage = 1;
 	
 	(function() { // constructor
+		
+		data = options.JSON // TODO: check data first
+		
 		size = 0;
 		for (i in options.JSON) {
 			size = size + 1;
@@ -139,29 +142,31 @@ H2O.Carousel = function(options) {
 	};
 	
 	self.jumpToPage = function(page) {	
-		if (page != self.currentPage) {
+		if (page != currentPage) {
 			if (page < 1) {
 				alert("That page doesn't exist -> " + page);
 			} else if (page > self.numOfPages) {
 				alert("That page doesn't exist -> " + page);
 			} else {
-				$('#Holder').animate({
-					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
-				}, 800);
+				// $('#Holder').animate({
+				// 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
+				// 				}, 800);
+				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth)+"px";
 			};
-		} else if (page === self.currentPage) {
+		} else if (page === currentPage) {
 			// TODO: find better way to notify this
 			alert("You're already here!");
 		}
-		self.currentPage = page; // Change Page "State"
+		currentPage = page; // Change Page "State"
+		console.log(currentPage);
 	};
 	
 	self.nextPage = function(interval) { // Go forward interval number of pages
-		self.jumpToPage(self.currentPage + interval); // TODO: Implied interval of 1
+		self.jumpToPage(currentPage + interval); // TODO: Implied interval of 1
 	};
 	
 	self.prevPage = function(interval) { // Go backward interval number of pages
-		self.jumpToPage(self.currentPage - interval);
+		self.jumpToPage(currentPage - interval);
 	};
 	
 	return self;
