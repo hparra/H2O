@@ -30,10 +30,49 @@ H2O.Chart = function(options){
 	var buffer = []; // Array that keeps track of buffer
 	var resize = true;
 	var screenBuffer = []; // buffer that only has information about what is currently on the screen. Will be removed once clear() is called
-	/// This part deals with resizing/// 
-	(function() {  //constructor
+
+    /////********************** I IS PRIVATE FUNCTION ******************////////
 	
-	self = document.createElement('canvas');
+	getNumber = function(){
+		// Returns a number to be graphed
+		var temp = Math.ceil(Math.random()*200);
+		screenBuffer.push(temp);
+		return temp;
+	};
+	
+	paintBG = function(){
+		//This function will re-draw the background along with the lines
+		lineargradient = ctx.createLinearGradient(0, 0, 0, sizeYPixel);
+		lineargradient.addColorStop(0, colorBGBegin);
+		lineargradient.addColorStop(1, colorBGEnd);
+		ctx.fillStyle = lineargradient;
+		ctx.fillRect(0, 0, sizeXPixel, sizeYPixel); // This line re-draws the background
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = '#CCCCCC'; // white
+		var i = 0;
+		var k = 0;
+		var numberOfLines = Math.round(sizeYPixel / yInterval) - 1;
+		while (k <= sizeYPixel) {
+			ctx.beginPath();
+			ctx.moveTo(0, i);
+			ctx.fillStyle = "white";
+			percent = (Math.round(graphCel / numberOfLines) * k) / graphCel;
+			percent = sizeYPixel * percent;
+			percent = sizeYPixel - percent;
+			ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent);
+			k++;
+			ctx.fillStyle = lineargradient;
+			ctx.lineTo(sizeXPixel, i);
+			ctx.stroke();
+			i += yInterval;
+		}
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = '#fff'; // white
+	};
+
+	(function() {  //constructor
+
+	self = document.createElement('div');
 	self.setAttribute('id', options.id);
 	theName = options.id;
 	sizeXPixel = options.sizeX;
@@ -41,11 +80,10 @@ H2O.Chart = function(options){
 	onGraphY = sizeYPixel;
 	graphCel = options.graphCeil;
 	yInterval = options.intervalY;
-	ctx = document.getElementById(theName).getContext("2d");
+	ctx = document.getElementById(theName).getContext("2d"); // initialize ctx here ***
 	ctx.lineWidth = 3;
-	self.paintBG();	
-	self.drawGraph();
-		
+	paintBG();	
+	
 	self.addEventListener("DOMNodeInserted", function(e) {
 		console.log(self.parentNode);
 		if ((self.parentNode.id) === undefined) {
@@ -59,6 +97,9 @@ H2O.Chart = function(options){
 	}, false);
 	
 	})(); // End of constructor
+	
+	/////********************** END OF PRIVATE FUNCTION ******************////////
+
 	
 
 	self.drawGraph = function(){
@@ -95,42 +136,11 @@ H2O.Chart = function(options){
 		screenBuffer = [];
 		startPoint = input;
 		ctx.clearRect(0, 0, sizeXPixel, sizeYPixel);
-		self.paintBG();// This line re-draws the background
+		paintBG();// This line re-draws the background
 
 	};
 	/// End of graph clearing ///
 	
-	//// repaints the background ////
-	self.paintBG = function(){
-		//This function will re-draw the background along with the lines
-		lineargradient = ctx.createLinearGradient(0, 0, 0, sizeYPixel);
-		lineargradient.addColorStop(0, colorBGBegin);
-		lineargradient.addColorStop(1, colorBGEnd);
-		ctx.fillStyle = lineargradient;
-		ctx.fillRect(0, 0, sizeXPixel, sizeYPixel); // This line re-draws the background
-		ctx.lineWidth = 1;
-		ctx.strokeStyle = '#CCCCCC'; // white
-		var i = 0;
-		var k = 0;
-		var numberOfLines = Math.round(sizeYPixel / yInterval) - 1;
-		while (k <= sizeYPixel) {
-			ctx.beginPath();
-			ctx.moveTo(0, i);
-			ctx.fillStyle = "white";
-			percent = (Math.round(graphCel / numberOfLines) * k) / graphCel;
-			percent = sizeYPixel * percent;
-			percent = sizeYPixel - percent;
-			ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent);
-			k++;
-			ctx.fillStyle = lineargradient;
-			ctx.lineTo(sizeXPixel, i);
-			ctx.stroke();
-			i += yInterval;
-		}
-		ctx.lineWidth = 3;
-		ctx.strokeStyle = '#fff'; // white
-	};
-	//// End of repaintBG ///
 	
 	//Resize function//
 	self.resize = function(){
