@@ -3,35 +3,20 @@
 	<title>FCarousel</title>
 	<script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="../../FCarousel/javascripts/movielist.js"></script>
+	<script type="text/javascript" src="../src/js/H2O.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.Carousel.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			FCarousel.preinitialize(MOVIE_LIST);
-			
-			$(window).resize(function () {
-				FCarousel.resize();
-			});
-
+			test = H2O.Carousel({ id: 'Carousel', JSON: MOVIE_LIST, rowAmt: 3, columnAmt: 2 });
+			$('#WHAAA').append(test);
 		});
 	</script>
 	<style type="text/css" media="screen">
-		#FCarousel {
-			background-color: green;
+		#WHAAA {
 			width: 100%;
-			height: 95%;
-			overflow: hidden;
-		}
-		
-		#Holder {
-			background-color: blue;
 			height: 100%;
-			left: 0px;
 		}
 		
-		.page {
-			float: left;
-		}
-	
 		/* Resizing*/
 		.box {
 			position: static;
@@ -66,14 +51,11 @@
 
 <body>
 
-<div id="FCarousel">
-	<div id="Holder">
-	
-	</div>
-</div>
+<div id="WHAAA">
 
-<button type="button" onClick="FCarousel.prevPage(1)">Prev</button>
-<button type="button" onClick="FCarousel.nextPage(1)">Next</button>
+</div>
+<button type="button" onClick="test.prevPage()">Prev</button>
+<button type="button" onClick="test.nextPage()">Next</button>
 
 </body>
 </html>
