@@ -1,5 +1,5 @@
 H2O.Carousel = function(options) {
-	var self = null;
+	var self = null; // HGP: comment these variables
 	var pages = null;
 	var data = null;
 	var currentPage = 1;
@@ -20,7 +20,7 @@ H2O.Carousel = function(options) {
 			width: 100%;\
 			height: 95%;\
 			overflow: hidden;\
-		');	
+		');	 // HGP: why is height 95%?
 		
 		holder = document.createElement('div');
 		holder.setAttribute('id', 'holder');
@@ -28,11 +28,12 @@ H2O.Carousel = function(options) {
 			height: 100%;\
 			left: 0px;\
 		');
-		
+		// HGP: Isn't this implied by pages.length? 
 		self.numOfPages = Math.ceil(size / (options.rowAmt * options.columnAmt)); // TODO: Make this private?
 
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
+			// HGP: x is unnecessary. do pages[p] = doc...
 			x = document.createElement('div');
 			x.setAttribute('id', 'page' + p);
 			x.setAttribute('class', 'page'); 
@@ -52,7 +53,11 @@ H2O.Carousel = function(options) {
 		
             /* box */
             box = document.createElement('div');
-            box.setAttribute('class', 'box');
+            box.setAttribute('class', 'box');  // HGP: don't use external CSS, at least not yet. See note.
+
+			// HGP: I would disregard the Frescolita business
+			// this needs to check if a HREF exists in data
+			//
 
 			//             /* a */
 			//             a = document.createElement('a');
@@ -62,7 +67,9 @@ H2O.Carousel = function(options) {
 
             /* icon */
             icon = document.createElement('div');
-            icon.setAttribute('class', 'icon');
+            icon.setAttribute('class', 'icon'); // HGP: see above comment.
+
+			// HGP: they may not be images in the future. we'll leave it like this for now.
 
             /* this loads slowly the first time. should preload. */
             img = document.createElement('img');
@@ -117,6 +124,9 @@ H2O.Carousel = function(options) {
 		    iconHeight = boxWidth;
 		};
 		
+		// HGP: we should make this an option of some kind. I'm not yet sure how I feel about it.
+		// Where do you think we can use margin/paddin appropriately without breaking other things?
+		// Good branch later.
 		/* Padding */
 		iconWidth = iconWidth * (1 - 0.25);
 		iconHeight = iconHeight * (1 - 0.25);
@@ -141,13 +151,16 @@ H2O.Carousel = function(options) {
 		holder.style.marginLeft = (self.currentPage - 1) * -self.parentNode.offsetWidth;
 	};
 	
-	self.jumpToPage = function(page) {	
+	self.jumpToPage = function(page) {
+		// HGP: alerts are very bad! Take out.
 		if (page != currentPage) {
 			if (page < 1) {
 				alert("That page doesn't exist -> " + page);
 			} else if (page > self.numOfPages) {
 				alert("That page doesn't exist -> " + page);
 			} else {
+				
+				// This is interesting
 				// $('#Holder').animate({
 				// 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				// 				}, 800);
@@ -156,6 +169,7 @@ H2O.Carousel = function(options) {
 			};
 		} else if (page === currentPage) {
 			// TODO: find better way to notify this
+			// HGP: you shouldn't
 			alert("You're already here!");
 		}
 		console.log(currentPage);
