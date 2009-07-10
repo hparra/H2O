@@ -11,14 +11,13 @@
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
 <script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			testChart = H2O.Chart({ id: 'canvas', sizeX: 700, sizeY: 400, graphCeil: 100, intervalY: 25 });
-			$('#canvas').append(testChart);
+			testChart = H2O.Chart({ id: 'graph_canvas', sizeX: 700, sizeY: 400, graphCeil: 100, intervalY: 25 });
+			$('#graph_canvas').append(testChart);
 		});
+		
 </script>
 <style type="text/css">
-  #canvas { 
-  			width: 70%;
-			height: 70%;
+  #graph_canvas { 
 			-moz-border-radius: 5px;
 			-webkit-border-radius: 5px; 
 			-webkit-box-shadow: 10px 10px 5px #888; 
@@ -28,7 +27,7 @@
 </head>
 <body>
 
-<canvas id="canvas" ></canvas>
+<canvas id="graph_canvas" width = 700 height = 400></canvas>
 
 
 </body>

@@ -33,13 +33,7 @@ H2O.Chart = function(options){
 
     /////********************** I IS PRIVATE FUNCTION ******************////////
 	
-	getNumber = function(){
-		// Returns a number to be graphed
-		var temp = Math.ceil(Math.random()*200);
-		screenBuffer.push(temp);
-		return temp;
-	};
-	
+
 	paintBG = function(){
 		//This function will re-draw the background along with the lines
 		lineargradient = ctx.createLinearGradient(0, 0, 0, sizeYPixel);
@@ -69,40 +63,18 @@ H2O.Chart = function(options){
 		ctx.lineWidth = 3;
 		ctx.strokeStyle = '#fff'; // white
 	};
-
-	(function() {  //constructor
-
-	self = document.createElement('div');
-	self.setAttribute('id', options.id);
-	theName = options.id;
-	sizeXPixel = options.sizeX;
-	sizeYPixel = options.sizeY;
-	onGraphY = sizeYPixel;
-	graphCel = options.graphCeil;
-	yInterval = options.intervalY;
-	ctx = document.getElementById(theName).getContext("2d"); // initialize ctx here ***
-	ctx.lineWidth = 3;
-	paintBG();	
 	
-	self.addEventListener("DOMNodeInserted", function(e) {
-		console.log(self.parentNode);
-		if ((self.parentNode.id) === undefined) {
-			// the hell? it fires twice and the first time is no good.
-			// it's a DocumentFragment, from I don't know where
-		} else {
-			e.stopPropagation(); // cancel bubble
-			self.resize();
-			window.addEventListener("resize", self.resize, false);
-		}
-	}, false);
-	
-	})(); // End of constructor
-	
-	/////********************** END OF PRIVATE FUNCTION ******************////////
+	getNumber = function(){
+		// Returns a number to be graphed
+		var temp = Math.ceil(Math.random()*100);
+		screenBuffer.push(temp);
+		return temp;
+	};
+	start = function(){
+	  return setInterval(drawGraph, 100);
+	};
 
-	
-
-	self.drawGraph = function(){
+	drawGraph = function(){
 		// This function draws the graph on to the canvas. Users will not needs to call this function.
 		++totalReading;
 		if (input < minReading) {
@@ -129,26 +101,48 @@ H2O.Chart = function(options){
 		ctx.stroke();
 	};
 	/// End of drawgraph ///
-	
-	
-	/// This clears the graph ///
-	self.clear = function(){
-		screenBuffer = [];
-		startPoint = input;
-		ctx.clearRect(0, 0, sizeXPixel, sizeYPixel);
-		paintBG();// This line re-draws the background
 
-	};
-	/// End of graph clearing ///
+	(function() {  //constructor
+
+	self = document.createElement('div');
+	self.setAttribute('id', options.id);
+	theName = options.id;
+	sizeXPixel = options.sizeX;
+	sizeYPixel = options.sizeY;
+	onGraphY = sizeYPixel;
+	graphCel = options.graphCeil;
+	yInterval = options.intervalY;
+	ctx = document.getElementById(theName).getContext("2d"); // initialize ctx here
+	ctx.lineWidth = 3;
+	paintBG();	
+	start();
 	
+	self.addEventListener("DOMNodeInserted", function(e) {
+		console.log(self.parentNode);
+		if ((self.parentNode.id) === undefined) {
+			// the hell? it fires twice and the first time is no good.
+			// it's a DocumentFragment, from I don't know where
+		} else {
+			e.stopPropagation(); // cancel bubble
+			self.resize();
+			window.addEventListener("resize", self.resize, false);
+		}
+	}, false);
+	//end resize
 	
-	//Resize function//
-	self.resize = function(){
+	})(); // End of constructor
+	
+	/////********************** END OF PRIVATE FUNCTION ******************////////
+
+		
+	
+	//resize
+		self.resize = function(){
 		var w = window.innerWidth;
 		var h = window.innerHeight;
 		sizeXPixel = Math.ceil(w * sizePercent);
 		sizeYPixel = Math.ceil(h * sizePercent);
-		var c = document.getElementById('canvas');
+		var c = document.getElementById(theName);
 		c.height = sizeYPixel;
 		c.width = sizeXPixel;
 		xCoordinate = 25;
@@ -174,6 +168,20 @@ H2O.Chart = function(options){
 			ctx.stroke();
 		}
 	};
-	/////End of resize///////
+	
+	
+	
+	
+	
+	
+	/// This clears the graph ///
+	self.clear = function(){
+		screenBuffer = [];
+		startPoint = input;
+		ctx.clearRect(0, 0, sizeXPixel, sizeYPixel);
+		paintBG();// This line re-draws the background
+	};
+	/// End of graph clearing ///
+
 	return self;
 };
