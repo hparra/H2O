@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
 <script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			testChart = H2O.Chart({ id: 'graph_canvas', sizeX: 700, sizeY: 400, graphCeil: 100, intervalY: 25 });
+			testChart = H2O.Chart({ id: 'graph_canvas', sizeX: 700, sizeY: 400, graphCeil: 100, intervalY: 25, scale_percent: 70, addDot: false, scale_graph: true });
 			$('#graph_canvas').append(testChart);
 		});
 		
@@ -20,7 +20,6 @@
   #graph_canvas { 
 			-moz-border-radius: 5px;
 			-webkit-border-radius: 5px; 
-			-webkit-box-shadow: 10px 10px 5px #888; 
 			border: 7px solid #000033;
 		 }
 </style>
