@@ -11,23 +11,42 @@
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
 <script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			testChart = H2O.Chart({ id: 'graph_canvas', sizeX: 700, sizeY: 400, graphCeil: 100, intervalY: 25, scale_percent: 70, addDot: false, scale_graph: true });
-			$('#graph_canvas').append(testChart);
+			testChart = H2O.Chart({
+				id: 'graph_canvas', // HGP: should be optional
+				//sizeX: 700,
+				//sizeY: 400,
+				graphCeil: 100,
+				intervalY: 25,
+				//scale_percent: 70,
+				addDot: false,
+				scale_graph: true });
+			$('#some_graph').append(testChart);
 		});
 		
 </script>
 <style type="text/css">
-  #graph_canvas { 
+	body {
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	/* HGP: don't decorate the canvas, decorate the parent */
+	/* unfortunately, the box model makes sizing incorrect */
+  #some_graph {/*
 			-moz-border-radius: 5px;
 			-webkit-border-radius: 5px; 
 			border: 7px solid #000033;
+			*/
 		 }
 </style>
 </head>
 <body>
 
-<canvas id="graph_canvas" width = 700 height = 400></canvas>
-
+<!--canvas id="graph_canvas" width = 700 height = 400></canvas-->
+<div id="some_graph" style="width:100%; height:100%">
+	<!-- HGP: Canvas should be added dynamically -->
+</div>
 
 </body>
 </html>
