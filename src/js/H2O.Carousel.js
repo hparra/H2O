@@ -6,6 +6,7 @@ H2O.Carousel = function(options) {
 	
 	(function() { // constructor
 		
+		// HGP: Better
 		data = options.JSON // TODO: check data first and handle necessary stuff
 		
 		size = 0;
@@ -13,9 +14,11 @@ H2O.Carousel = function(options) {
 			size = size + 1;
 		}
 		
+		// HGP: Hmmm... which one of these two should really be _self_?
+		
 		self = document.createElement('div');
 		self.setAttribute('id', options.id);
-		self.setAttribute('class', 'page'); 
+		self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel'
 		self.setAttribute('style','\
 			width: 100%;\
 			height: 95%;\
@@ -34,6 +37,7 @@ H2O.Carousel = function(options) {
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
 			// HGP: x is unnecessary. do pages[p] = doc...
+			// pages.push() should work
 			x = document.createElement('div');
 			x.setAttribute('id', 'page' + p);
 			x.setAttribute('class', 'page'); 
@@ -57,7 +61,7 @@ H2O.Carousel = function(options) {
 
 			// HGP: I would disregard the Frescolita business
 			// this needs to check if a HREF exists in data
-			//
+			// we may also have an onclick value in the data
 
 			//             /* a */
 			//             a = document.createElement('a');
@@ -69,7 +73,8 @@ H2O.Carousel = function(options) {
             icon = document.createElement('div');
             icon.setAttribute('class', 'icon'); // HGP: see above comment.
 
-			// HGP: they may not be images in the future. we'll leave it like this for now.
+			// HGP: they may not be images in the future.
+			// they maybe canvases or iframes
 
             /* this loads slowly the first time. should preload. */
             img = document.createElement('img');
@@ -125,7 +130,7 @@ H2O.Carousel = function(options) {
 		};
 		
 		// HGP: we should make this an option of some kind. I'm not yet sure how I feel about it.
-		// Where do you think we can use margin/paddin appropriately without breaking other things?
+		// Where do you think we can use margin/padding appropriately without breaking other things?
 		// Good branch later.
 		/* Padding */
 		iconWidth = iconWidth * (1 - 0.25);
@@ -160,16 +165,20 @@ H2O.Carousel = function(options) {
 				alert("That page doesn't exist -> " + page);
 			} else {
 				
-				// This is interesting
+				// HGP: This is going to be a challenge...
+				// we may end up having to create our own transition library :P
+				// which makes sense because we can standardize them
+				// 
 				// $('#Holder').animate({
 				// 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				// 				}, 800);
+
 				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth)+"px";
 				currentPage = page; // Change Page "State"
 			};
 		} else if (page === currentPage) {
 			// TODO: find better way to notify this
-			// HGP: you shouldn't
+			// HGP: you shouldn't.
 			alert("You're already here!");
 		}
 		console.log(currentPage);
