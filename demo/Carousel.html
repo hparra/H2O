@@ -3,8 +3,8 @@
 	<title>FCarousel</title>
 	<script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
 
-	<!-- HGP: Broken! Include sample data in this file -->
-	<script type="text/javascript" src="../../FCarousel/javascripts/movielist.js"></script>
+	<!-- Need Asset Server to host images -->
+	<script type="text/javascript" src="movielist.js"></script>
 
 	<script type="text/javascript" src="../src/js/H2O.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.Carousel.js"></script>
@@ -12,7 +12,7 @@
 		$(document).ready(function () {
 			// HGP: JSON parameter should be lowercase. Maybe even called data
 			// a 'format' parameter may say json
-			test = H2O.Carousel({ id: 'Carousel', JSON: MOVIE_LIST, rowAmt: 3, columnAmt: 2 });
+			test = H2O.Carousel({ id: 'Carousel', data: MOVIE_LIST, rowAmt: 3, columnAmt: 2 });
 			$('#WHAAA').append(test);
 		});
 	</script>

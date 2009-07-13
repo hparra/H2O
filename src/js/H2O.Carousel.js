@@ -1,13 +1,13 @@
 H2O.Carousel = function(options) {
-	var self = null; // HGP: comment these variables
-	var pages = null;
-	var data = null;
-	var currentPage = 1;
+	var self = null; // H2O.Carousel Object
+	var pages = null; // Array storing each "page" of the carousel
+	var data = null; // JSON data
+	var currentPage = 1; // Current Carousel State
 	
 	(function() { // constructor
 		
 		// HGP: Better
-		data = options.JSON // TODO: check data first and handle necessary stuff
+		data = options.data // TODO: check data first and handle necessary stuff
 		
 		size = 0;
 		for (i in data) {
@@ -18,12 +18,12 @@ H2O.Carousel = function(options) {
 		
 		self = document.createElement('div');
 		self.setAttribute('id', options.id);
-		self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel'
+		//self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel' 
 		self.setAttribute('style','\
 			width: 100%;\
-			height: 95%;\
+			height: 100%;\
 			overflow: hidden;\
-		');	 // HGP: why is height 95%?
+		');	
 		
 		holder = document.createElement('div');
 		holder.setAttribute('id', 'holder');
@@ -31,18 +31,17 @@ H2O.Carousel = function(options) {
 			height: 100%;\
 			left: 0px;\
 		');
-		// HGP: Isn't this implied by pages.length? 
+		// HGP: Isn't this implied by pages.length?
+		// ALLEN: The array 'pages' doesn't know how long it should be without calculating based on the formula below. It's initialized as null. 
 		self.numOfPages = Math.ceil(size / (options.rowAmt * options.columnAmt)); // TODO: Make this private?
 
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
-			// HGP: x is unnecessary. do pages[p] = doc...
 			// pages.push() should work
-			x = document.createElement('div');
-			x.setAttribute('id', 'page' + p);
-			x.setAttribute('class', 'page'); 
-			x.setAttribute('style','float: left;');
-			pages[p] = x;
+			pages[p] = document.createElement('div');
+			pages[p].setAttribute('id', 'page' + p);
+			pages[p].setAttribute('class', 'page'); 
+			pages[p].setAttribute('style','float: left;');
 			holder.appendChild(pages[p]);
 		};
 		
@@ -160,9 +159,9 @@ H2O.Carousel = function(options) {
 		// HGP: alerts are very bad! Take out.
 		if (page != currentPage) {
 			if (page < 1) {
-				alert("That page doesn't exist -> " + page);
+				// Shake Animation
 			} else if (page > self.numOfPages) {
-				alert("That page doesn't exist -> " + page);
+				// Shake Animation
 			} else {
 				
 				// HGP: This is going to be a challenge...
@@ -179,7 +178,7 @@ H2O.Carousel = function(options) {
 		} else if (page === currentPage) {
 			// TODO: find better way to notify this
 			// HGP: you shouldn't.
-			alert("You're already here!");
+			// Shake Animation
 		}
 		console.log(currentPage);
 	};
