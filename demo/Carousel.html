@@ -5,13 +5,13 @@
 
 	<!-- Need Asset Server to host images -->
 	<script type="text/javascript" src="movielist.js"></script>
-
 	<script type="text/javascript" src="../src/js/H2O.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.Carousel.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			test = H2O.Carousel({ id: 'Carousel', data: MOVIE_LIST, rowAmt: 2, columnAmt: 3 });
+			test = H2O.Carousel({ ID: 'Carousel', data: MOVIE_LIST, rowAmt: 2, columnAmt: 3, padding: 20 });
 			$('#MyCarousel').append(test);
+			
 		});
 	</script>
 	<style type="text/css" media="screen">
@@ -24,9 +24,7 @@
 
 <body>
 
-<div id="MyCarousel">
-
-</div>
+<div id="MyCarousel"></div>
 <button type="button" onClick="test.prevPage()">Prev</button>
 <button type="button" onClick="test.nextPage()">Next</button>
 

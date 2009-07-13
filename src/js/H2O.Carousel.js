@@ -5,18 +5,57 @@ H2O.Carousel = function(options) {
 	var currentPage = 1; // Current Carousel State
 	
 	(function() { // constructor
-
+				
+		// OPTIONS Checking
+		// 
+		// Checks for undefined parameters and sets default values
+		// Default ID: "Carousel"
+		// Default data: 
+		// Default rowAmt: 1
+		// Default columnAmt: 1
+		// Default Padding: 10px 
+		if (options.data === undefined) {
+			// FIXME: Throw some kind of error?
+		}
+		if (options.ID === undefined) {
+			options.ID = "Carousel"; 
+		}
+		if (options.rowAmt === undefined) {
+			options.rowAmt = 1;
+		}
+		if (options.columnAmt === undefined) {
+			options.columnAmt = 1;
+		}
+		if (options.padding === undefined) {
+			options.padding = 20; // TODO: Figure out whether to use exact pixels or percentage
+		}
+		
 		data = options.data // TODO: check data first and handle necessary stuff
 		
-		size = 0;
-		for (i in data) {
-			size = size + 1;
+		// DATA Checking
+		//
+		// Checks for undefined parameters and sets default values
+		// Default Thumbnail:  
+		// Default Title: ""
+		// Default Length: ?
+		size = 0
+		for (d in data) {
+			if (d.thumb === undefined) {
+				d.thumb = ""; // TODO: find generic image
+			}
+			if (d.title === undefined) {
+				d.title = "";
+			}
+			if (d.length === undefined) {
+				d.length = "?";
+			}
+			size = size + 1;					
 		}
 		
 		// HGP: Hmmm... which one of these two should really be _self_?
 		
 		self = document.createElement('div');
-		self.setAttribute('id', options.id);
+		self.setAttribute('id', options.ID);
 		//self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel' 
 		self.setAttribute('style','\
 			width: 100%;\
@@ -155,9 +194,12 @@ H2O.Carousel = function(options) {
 		// Where do you think we can use margin/padding appropriately without breaking other things?
 		// Good branch later.
 		/* Padding */
-		iconWidth = iconWidth * (1 - 0.25);
-		iconHeight = iconHeight * (1 - 0.25);
-
+		// iconWidth = iconWidth * (1 - 0.25);
+		// iconHeight = iconHeight * (1 - 0.25);
+		
+		iconWidth = iconWidth - (2 * options.padding);
+		iconHeight = iconHeight - (2 * options.padding);
+		
 		/* Centering */
 		iconList = document.getElementsByClassName('icon');
 		for (i = 0; i < iconList.length; i = i + 1) {
