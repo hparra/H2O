@@ -56,7 +56,14 @@ H2O.Carousel = function(options) {
             /* box */
             box = document.createElement('div');
             box.setAttribute('class', 'box');  // HGP: don't use external CSS, at least not yet. See note.
-
+			box.setAttribute('style','\
+				position: static;\
+				clear: none;\
+				float: left;\
+				overflow: hidden;\
+				display: block;\
+			');
+			
 			// HGP: I would disregard the Frescolita business
 			// this needs to check if a HREF exists in data
 			// we may also have an onclick value in the data
@@ -66,11 +73,22 @@ H2O.Carousel = function(options) {
 			// 	
 			// // TODO: Make this grab the link and load video and/or do some cool effect
 			// //a.setAttribute('onclick', "Frescolita.StateManager.states['HOME'].startWidget('" + href + "')");
-
+			// a.setAttribute('style', '\
+			// 				position: static;\
+			// 				width: 100%;\
+			// 				height: 100%;\
+			// 				display: block;\
+			// 				border: none;\
+			// 			');
+			
             /* icon */
             icon = document.createElement('div');
             icon.setAttribute('class', 'icon'); // HGP: see above comment.
-
+			icon.setAttribute('style', '\
+				position: relative;\
+				top: 50%;\
+				left: 50%;\
+			');
 			// HGP: they may not be images in the future.
 			// they maybe canvases or iframes
 
@@ -78,7 +96,13 @@ H2O.Carousel = function(options) {
             img = document.createElement('img');
             img.setAttribute('alt', data[i].title + " " + data[i].length); 
             img.setAttribute('src', data[i].thumb); 
-
+			img.setAttribute('style', '\
+				position: static;\
+				border: none;\
+				width: 100%;\
+				height: 100%;\
+			');			
+			
             icon.appendChild(img);
             //a.appendChild(icon);
             //box.appendChild(a);
@@ -111,8 +135,8 @@ H2O.Carousel = function(options) {
         boxHeight = self.parentNode.offsetHeight * box_height_ratio;
 		boxList = document.getElementsByClassName('box');
 		for (b = 0; b < boxList.length; b = b + 1) {
-			boxList[b].style.width = boxWidth;
-			boxList[b].style.height = boxHeight;
+			boxList[b].style.width = boxWidth + "px";
+			boxList[b].style.height = boxHeight + "px";
 		};
 
 		iconWidth = 0;
