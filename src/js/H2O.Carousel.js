@@ -5,8 +5,7 @@ H2O.Carousel = function(options) {
 	var currentPage = 1; // Current Carousel State
 	
 	(function() { // constructor
-		
-		// HGP: Better
+
 		data = options.data // TODO: check data first and handle necessary stuff
 		
 		size = 0;
@@ -138,21 +137,21 @@ H2O.Carousel = function(options) {
 		/* Centering */
 		iconList = document.getElementsByClassName('icon');
 		for (i = 0; i < iconList.length; i = i + 1) {
-			iconList[i].style.width = iconWidth;
-			iconList[i].style.height = iconHeight;
-			iconList[i].style.marginLeft = -iconWidth / 2;
-			iconList[i].style.marginTop = -iconHeight / 2;
+			iconList[i].style.width = iconWidth + "px";
+			iconList[i].style.height = iconHeight + "px";
+			iconList[i].style.marginLeft = -iconWidth / 2 + "px";
+			iconList[i].style.marginTop = -iconHeight / 2 + "px";
 		};
 
 		/* Reset each page size */
 		for (p in pages) {
-			pages[p].style.width = self.parentNode.offsetWidth;
-			pages[p].style.height = self.parentNode.offsetHeight;
+			pages[p].style.width = self.parentNode.offsetWidth + "px";
+			pages[p].style.height = self.parentNode.offsetHeight + "px";
 		};
 		
 		/* Reset Holder width */
-		holder.style.width = self.parentNode.offsetWidth * self.numOfPages;
-		holder.style.marginLeft = (self.currentPage - 1) * -self.parentNode.offsetWidth;
+		holder.style.width = self.parentNode.offsetWidth * self.numOfPages + "px";
+		holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
 	};
 	
 	self.jumpToPage = function(page) {
@@ -172,12 +171,10 @@ H2O.Carousel = function(options) {
 				// 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				// 				}, 800);
 
-				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth)+"px";
+				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth) + "px";
 				currentPage = page; // Change Page "State"
 			};
 		} else if (page === currentPage) {
-			// TODO: find better way to notify this
-			// HGP: you shouldn't.
 			// Shake Animation
 		}
 		console.log(currentPage);
