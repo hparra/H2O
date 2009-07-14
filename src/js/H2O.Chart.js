@@ -158,7 +158,7 @@ H2O.Chart = function(options){
 		ctx.fillRect(0, 0, sizeXPixel, sizeYPixel); // This line re-draws the background
 		ctx.lineWidth = 1;
 		ctx.strokeStyle = '#CCCCCC'; // white
-		var i = 0;
+		var i = sizeYPixel;
 		var k = 0;
 		var numberOfLines = Math.round(sizeYPixel / yInterval) - 1;
 		while (k <= sizeYPixel) {
@@ -168,14 +168,13 @@ H2O.Chart = function(options){
 			percent = (Math.round(graphCel / numberOfLines) * k) / graphCel;
 			percent = sizeYPixel * percent;
 			percent = sizeYPixel - percent;
-			// HGP: This is too new. An option perhaps?
-			//ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent);
-
+			// HGP: This is too new. An option perhaps? 
+			//ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent); //TO DO Add option to draw text
 			k++;
 			ctx.fillStyle = lineargradient;
 			ctx.lineTo(sizeXPixel, i);
 			ctx.stroke();
-			i += yInterval;
+			i -= yInterval;
 		}
 		ctx.lineWidth = 3;
 		ctx.strokeStyle = '#fff'; // white
@@ -238,11 +237,12 @@ H2O.Chart = function(options){
 	self.getMinReading = function(){return minReading;};
 	
 	// HGP: In ms? This can't be trusted due to one-threaded nature of JS
+	// JJ: Perhapse using time stamp based on client current time?
 	// Returns the total time since first reading
 	self.getTotalTime = function(){return totalTime;};
 	
 	// Returns the total inputs read
-	self.getTotalReads = function(){return totalReading;};
+	self.getTotalReading = function(){return totalReading;};
 	
 	/// This clears the graph ///
 	self.clear = function(){
