@@ -42,6 +42,7 @@ H2O.Chart = function(options){
 	var buffer = []; // Array that keeps track of buffer
 	var resize = true;
 	var dotPlot = false;
+	var showLineNumber = false;
 	var screenBuffer = []; // buffer that only has information about what is currently on the screen. Will be removed once clear() is called
 
     /////********************** I IS PRIVATE FUNCTION ******************////////
@@ -71,6 +72,9 @@ H2O.Chart = function(options){
 		}
 		if( typeof options.scale_graph != undefined){
 			resize = options.scale_graph;
+		}
+		if( typeof options.show_line_number != undefined){
+			showLineNumber = options.show_line_number;
 		}
 		onGraphY = sizeYPixel;
 		graphCel = options.graphCeil;
@@ -169,7 +173,9 @@ H2O.Chart = function(options){
 			percent = sizeYPixel * percent;
 			percent = sizeYPixel - percent;
 			// HGP: This is too new. An option perhaps? 
-			//ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent); //TO DO Add option to draw text
+			if (showLineNumber){
+				ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent); //TO DO Add option to draw text
+			}
 			k++;
 			ctx.fillStyle = lineargradient;
 			ctx.lineTo(sizeXPixel, i);
