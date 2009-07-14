@@ -1,29 +1,67 @@
 H2O.Carousel = function(options) {
-	var self = null; // HGP: comment these variables
-	var pages = null;
-	var data = null;
-	var currentPage = 1;
+	var self = null; // H2O.Carousel Object
+	var pages = null; // Array storing each "page" of the carousel
+	var data = null; // JSON data
+	var currentPage = 1; // Current Carousel State
 	
 	(function() { // constructor
+				
+		// OPTIONS Checking
+		// 
+		// Checks for undefined parameters and sets default values
+		// Default ID: "Carousel"
+		// Default data: 
+		// Default rowAmt: 1
+		// Default columnAmt: 1
+		// Default Padding: 10px 
+		if (options.data === undefined) {
+			// FIXME: Throw some kind of error?
+		}
+		if (options.ID === undefined) {
+			options.ID = "Carousel"; 
+		}
+		if (options.rowAmt === undefined) {
+			options.rowAmt = 1;
+		}
+		if (options.columnAmt === undefined) {
+			options.columnAmt = 1;
+		}
+		if (options.padding === undefined) {
+			options.padding = 20; // TODO: Figure out whether to use exact pixels or percentage
+		}
 		
-		// HGP: Better
-		data = options.JSON // TODO: check data first and handle necessary stuff
+		data = options.data // TODO: check data first and handle necessary stuff
 		
-		size = 0;
-		for (i in data) {
-			size = size + 1;
+		// DATA Checking
+		//
+		// Checks for undefined parameters and sets default values
+		// Default Thumbnail:  
+		// Default Title: ""
+		// Default Length: ?
+		size = 0
+		for (d in data) {
+			if (d.thumb === undefined) {
+				d.thumb = ""; // TODO: find generic image
+			}
+			if (d.title === undefined) {
+				d.title = "";
+			}
+			if (d.length === undefined) {
+				d.length = "?";
+			}
+			size = size + 1;					
 		}
 		
 		// HGP: Hmmm... which one of these two should really be _self_?
 		
 		self = document.createElement('div');
-		self.setAttribute('id', options.id);
-		self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel'
+		self.setAttribute('id', options.ID);
+		//self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel' 
 		self.setAttribute('style','\
 			width: 100%;\
-			height: 95%;\
+			height: 100%;\
 			overflow: hidden;\
-		');	 // HGP: why is height 95%?
+		');	
 		
 		holder = document.createElement('div');
 		holder.setAttribute('id', 'holder');
@@ -31,18 +69,17 @@ H2O.Carousel = function(options) {
 			height: 100%;\
 			left: 0px;\
 		');
-		// HGP: Isn't this implied by pages.length? 
+		// HGP: Isn't this implied by pages.length?
+		// ALLEN: The array 'pages' doesn't know how long it should be without calculating based on the formula below. It's initialized as null. 
 		self.numOfPages = Math.ceil(size / (options.rowAmt * options.columnAmt)); // TODO: Make this private?
 
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
-			// HGP: x is unnecessary. do pages[p] = doc...
 			// pages.push() should work
-			x = document.createElement('div');
-			x.setAttribute('id', 'page' + p);
-			x.setAttribute('class', 'page'); 
-			x.setAttribute('style','float: left;');
-			pages[p] = x;
+			pages[p] = document.createElement('div');
+			pages[p].setAttribute('id', 'page' + p);
+			pages[p].setAttribute('class', 'page'); 
+			pages[p].setAttribute('style','float: left;');
 			holder.appendChild(pages[p]);
 		};
 		
@@ -58,7 +95,14 @@ H2O.Carousel = function(options) {
             /* box */
             box = document.createElement('div');
             box.setAttribute('class', 'box');  // HGP: don't use external CSS, at least not yet. See note.
-
+			box.setAttribute('style','\
+				position: static;\
+				clear: none;\
+				float: left;\
+				overflow: hidden;\
+				display: block;\
+			');
+			
 			// HGP: I would disregard the Frescolita business
 			// this needs to check if a HREF exists in data
 			// we may also have an onclick value in the data
@@ -68,11 +112,22 @@ H2O.Carousel = function(options) {
 			// 	
 			// // TODO: Make this grab the link and load video and/or do some cool effect
 			// //a.setAttribute('onclick', "Frescolita.StateManager.states['HOME'].startWidget('" + href + "')");
-
+			// a.setAttribute('style', '\
+			// 				position: static;\
+			// 				width: 100%;\
+			// 				height: 100%;\
+			// 				display: block;\
+			// 				border: none;\
+			// 			');
+			
             /* icon */
             icon = document.createElement('div');
             icon.setAttribute('class', 'icon'); // HGP: see above comment.
-
+			icon.setAttribute('style', '\
+				position: relative;\
+				top: 50%;\
+				left: 50%;\
+			');
 			// HGP: they may not be images in the future.
 			// they maybe canvases or iframes
 
@@ -80,7 +135,13 @@ H2O.Carousel = function(options) {
             img = document.createElement('img');
             img.setAttribute('alt', data[i].title + " " + data[i].length); 
             img.setAttribute('src', data[i].thumb); 
-
+			img.setAttribute('style', '\
+				position: static;\
+				border: none;\
+				width: 100%;\
+				height: 100%;\
+			');			
+			
             icon.appendChild(img);
             //a.appendChild(icon);
             //box.appendChild(a);
@@ -113,8 +174,8 @@ H2O.Carousel = function(options) {
         boxHeight = self.parentNode.offsetHeight * box_height_ratio;
 		boxList = document.getElementsByClassName('box');
 		for (b = 0; b < boxList.length; b = b + 1) {
-			boxList[b].style.width = boxWidth;
-			boxList[b].style.height = boxHeight;
+			boxList[b].style.width = boxWidth + "px";
+			boxList[b].style.height = boxHeight + "px";
 		};
 
 		iconWidth = 0;
@@ -133,36 +194,39 @@ H2O.Carousel = function(options) {
 		// Where do you think we can use margin/padding appropriately without breaking other things?
 		// Good branch later.
 		/* Padding */
-		iconWidth = iconWidth * (1 - 0.25);
-		iconHeight = iconHeight * (1 - 0.25);
-
+		// iconWidth = iconWidth * (1 - 0.25);
+		// iconHeight = iconHeight * (1 - 0.25);
+		
+		iconWidth = iconWidth - (2 * options.padding);
+		iconHeight = iconHeight - (2 * options.padding);
+		
 		/* Centering */
 		iconList = document.getElementsByClassName('icon');
 		for (i = 0; i < iconList.length; i = i + 1) {
-			iconList[i].style.width = iconWidth;
-			iconList[i].style.height = iconHeight;
-			iconList[i].style.marginLeft = -iconWidth / 2;
-			iconList[i].style.marginTop = -iconHeight / 2;
+			iconList[i].style.width = iconWidth + "px";
+			iconList[i].style.height = iconHeight + "px";
+			iconList[i].style.marginLeft = -iconWidth / 2 + "px";
+			iconList[i].style.marginTop = -iconHeight / 2 + "px";
 		};
 
 		/* Reset each page size */
 		for (p in pages) {
-			pages[p].style.width = self.parentNode.offsetWidth;
-			pages[p].style.height = self.parentNode.offsetHeight;
+			pages[p].style.width = self.parentNode.offsetWidth + "px";
+			pages[p].style.height = self.parentNode.offsetHeight + "px";
 		};
 		
 		/* Reset Holder width */
-		holder.style.width = self.parentNode.offsetWidth * self.numOfPages;
-		holder.style.marginLeft = (self.currentPage - 1) * -self.parentNode.offsetWidth;
+		holder.style.width = self.parentNode.offsetWidth * self.numOfPages + "px";
+		holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
 	};
 	
 	self.jumpToPage = function(page) {
 		// HGP: alerts are very bad! Take out.
 		if (page != currentPage) {
 			if (page < 1) {
-				alert("That page doesn't exist -> " + page);
+				// Shake Animation
 			} else if (page > self.numOfPages) {
-				alert("That page doesn't exist -> " + page);
+				// Shake Animation
 			} else {
 				
 				// HGP: This is going to be a challenge...
@@ -173,13 +237,11 @@ H2O.Carousel = function(options) {
 				// 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				// 				}, 800);
 
-				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth)+"px";
+				holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth) + "px";
 				currentPage = page; // Change Page "State"
 			};
 		} else if (page === currentPage) {
-			// TODO: find better way to notify this
-			// HGP: you shouldn't.
-			alert("You're already here!");
+			// Shake Animation
 		}
 		console.log(currentPage);
 	};
