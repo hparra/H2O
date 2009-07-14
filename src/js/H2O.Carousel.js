@@ -130,29 +130,32 @@ H2O.Carousel = function(options) {
 			// 				border: none;\
 			// 			');
 			
-            /* icon */
-            icon = document.createElement('div');
-            icon.setAttribute('class', 'icon'); // HGP: see above comment.
-			icon.setAttribute('style', '\
-				position: relative;\
-				top: 50%;\
-				left: 50%;\
-			');
-			// HGP: they may not be images in the future.
-			// they maybe canvases or iframes
-
-            /* this loads slowly the first time. should preload. */
-            img = document.createElement('img');
-            img.setAttribute('alt', data[i].title + " " + data[i].length); 
-            img.setAttribute('src', data[i].thumb); 
-			img.setAttribute('style', '\
-				position: static;\
-				border: none;\
-				width: 100%;\
-				height: 100%;\
-			');			
+			//             /* icon */
+			//             icon = document.createElement('div');
+			//             icon.setAttribute('class', 'icon'); // HGP: see above comment.
+			// icon.setAttribute('style', '\
+			// 	position: relative;\
+			// 	top: 50%;\
+			// 	left: 50%;\
+			// ');
+			// // HGP: they may not be images in the future.
+			// // they maybe canvases or iframes
+			// 
+			//             /* this loads slowly the first time. should preload. */
+			//             img = document.createElement('img');
+			//             img.setAttribute('alt', data[i].title + " " + data[i].length); 
+			//             img.setAttribute('src', data[i].thumb); 
+			// img.setAttribute('style', '\
+			// 	position: static;\
+			// 	border: none;\
+			// 	width: 100%;\
+			// 	height: 100%;\
+			// ');			
+			// 
+			//             icon.appendChild(img);
 			
-            icon.appendChild(img);
+			icon = H2O.Image({ ID: "icon", src: data[i].thumb, alt: data[i].title + " " + data[i].length, padding: options.padding});
+
             //a.appendChild(icon);
             //box.appendChild(a);
 			box.appendChild(icon);
@@ -188,36 +191,36 @@ H2O.Carousel = function(options) {
 			boxList[b].style.height = boxHeight + "px";
 		};
 
-		iconWidth = 0;
-		iconHeight = 0;
-		if (boxWidth >= boxHeight) {
-		    /* Landscape */
-		    iconWidth = boxHeight;
-		    iconHeight = boxHeight;
-		} else {
-		    /* Portrait */
-		    iconWidth = boxWidth;
-		    iconHeight = boxWidth;
-		};
-		
-		// HGP: we should make this an option of some kind. I'm not yet sure how I feel about it.
-		// Where do you think we can use margin/padding appropriately without breaking other things?
-		// Good branch later.
-		/* Padding */
-		// iconWidth = iconWidth * (1 - 0.25);
-		// iconHeight = iconHeight * (1 - 0.25);
-		
-		iconWidth = iconWidth - (2 * options.padding);
-		iconHeight = iconHeight - (2 * options.padding);
-		
-		/* Centering */
-		iconList = document.getElementsByClassName('icon');
-		for (i = 0; i < iconList.length; i = i + 1) {
-			iconList[i].style.width = iconWidth + "px";
-			iconList[i].style.height = iconHeight + "px";
-			iconList[i].style.marginLeft = -iconWidth / 2 + "px";
-			iconList[i].style.marginTop = -iconHeight / 2 + "px";
-		};
+		// iconWidth = 0;
+		// iconHeight = 0;
+		// if (boxWidth >= boxHeight) {
+		//     /* Landscape */
+		//     iconWidth = boxHeight;
+		//     iconHeight = boxHeight;
+		// } else {
+		//     /* Portrait */
+		//     iconWidth = boxWidth;
+		//     iconHeight = boxWidth;
+		// };
+		// 
+		// // HGP: we should make this an option of some kind. I'm not yet sure how I feel about it.
+		// // Where do you think we can use margin/padding appropriately without breaking other things?
+		// // Good branch later.
+		// /* Padding */
+		// // iconWidth = iconWidth * (1 - 0.25);
+		// // iconHeight = iconHeight * (1 - 0.25);
+		// 
+		// iconWidth = iconWidth - (2 * options.padding);
+		// iconHeight = iconHeight - (2 * options.padding);
+		// 
+		// /* Centering */
+		// iconList = document.getElementsByClassName('icon');
+		// for (i = 0; i < iconList.length; i = i + 1) {
+		// 	iconList[i].style.width = iconWidth + "px";
+		// 	iconList[i].style.height = iconHeight + "px";
+		// 	iconList[i].style.marginLeft = -iconWidth / 2 + "px";
+		// 	iconList[i].style.marginTop = -iconHeight / 2 + "px";
+		// };
 
 		/* Reset each page size */
 		for (p in pages) {
