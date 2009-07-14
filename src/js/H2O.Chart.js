@@ -45,14 +45,7 @@ H2O.Chart = function(options){
 	var screenBuffer = []; // buffer that only has information about what is currently on the screen. Will be removed once clear() is called
 
     /////********************** I IS PRIVATE FUNCTION ******************////////
-	
-	
-	// HGP: This should be in your demo HTML. See related comment in drawGraph()
-	getNumber = function(){
-		// Returns a number to be graphed
-		var temp = Math.ceil(Math.random()*100);
-		return temp;
-	};
+
 
 
 	(function() {  //constructor

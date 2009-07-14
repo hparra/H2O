@@ -22,9 +22,7 @@
 				addDot: false,
 				scale_graph: false });
 			$('#some_graph').append(testChart);
-			testChart.feedData(35);
-			testChart.feedData(15);
-			testChart.feedData(90);
+			setInterval('testChart.feedData(Math.ceil(Math.random()*100))',100)
 		});
 
 
@@ -49,7 +47,7 @@
 </head>
 <body>
 <!--canvas id="graph_canvas" width = 700 height = 400></canvas-->
-<div id="some_graph" style="width:100%; height:100%">
+<div id="some_graph" style="width:70%; height:70%">
 	<!-- HGP: Canvas should be added dynamically -->
 	
 </div>
