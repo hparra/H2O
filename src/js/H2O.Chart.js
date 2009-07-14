@@ -1,9 +1,12 @@
 // H2O.Chart.js
 // Written by Jakkree Janchoi
 // UC Irvine
+// WENDI, teliOS project
 // 2009-07-02 YMD
 
 // HGP: My comments...
+// JJ: Jakkree's comments
+
 H2O.Chart = function(options){
 	var self = null;
 	var xCoordinate = 25; // Time on graph
@@ -17,8 +20,9 @@ H2O.Chart = function(options){
 	var sizePercent = .7;//option**
 	var minReading = 99999999; //Change to integer max value
 	var totalReading = 0;
-	
-	// HGP: What is this?
+
+	// HGP: What is this? 
+	// JJ: Total time since the graph started
 	var totalTime = 0; // Needs to be incremented
 
 	var onGraphY = 0;
@@ -27,8 +31,8 @@ H2O.Chart = function(options){
 	var theName = ""; //option** REQUIRED TO BE INITALIZED BY USER/DEV (pass name reference)
 
 	// HGP: No.
-	var sizeXPixel = 700; //option**
-	var sizeYPixel = 300; //option**
+	var sizeXPixel = 100; //option**
+	var sizeYPixel = 100; //option**
 
 	var lineColor = "#fff";
 	var graphCel = 100; //option**
@@ -47,7 +51,6 @@ H2O.Chart = function(options){
 	getNumber = function(){
 		// Returns a number to be graphed
 		var temp = Math.ceil(Math.random()*100);
-		screenBuffer.push(temp);
 		return temp;
 	};
 
@@ -65,16 +68,7 @@ H2O.Chart = function(options){
 		self.setAttribute('class', 'H2O_Chart');
 
 		theName = options.id; // HGP: Redundant now. Use self.id
-
 		
-		/*
-		if (typeof options.sizeX != undefined) {
-			sizeXPixel = options.sizeX;
-		}
-		if (typeof options.sizeY != undefined) {
-			sizeYPixel = options.sizeY;
-		}
-		*/
 	
 		if (typeof options.scale_percent != undefined) {
 			sizePercent = options.scale_percent / 100;
@@ -100,7 +94,7 @@ H2O.Chart = function(options){
 		//paintBG();	
 	
 		self.addEventListener("DOMNodeInserted", function(e) {
-			console.log(self.parentNode);
+			//console.log(self.parentNode);
 			if ((self.parentNode.id) === undefined) {
 				// the hell? it fires twice and the first time is no good.
 				// it's a DocumentFragment, from I don't know where
@@ -108,10 +102,8 @@ H2O.Chart = function(options){
 				e.stopPropagation(); // cancel bubble
 				resize();
 				window.addEventListener("resize", resize, false);
-			
 				// HGP: We start it once it's in the document
 				// we may even wait for the user/ui to start it
-				start();
 			}
 		}, false);
 	
@@ -122,8 +114,9 @@ H2O.Chart = function(options){
 
 	// HGP: Not true. Part or all of this should be a public function
 	// We want to call draw from the outside, e.g. my_chart.draw(1337);
-	drawGraph = function(){
+	drawGraph = function(input){
 		// This function draws the graph on to the canvas. Users will not needs to call this function.
+		screenBuffer.push(input);
 		++totalReading;
 		if (input < minReading) {
 			minReading = input;
@@ -145,7 +138,6 @@ H2O.Chart = function(options){
 		// Painting and passing this data asynchronously is the tricky part!
 		// We need to differentiate between a chart that is always painting
 		// and one that paints only when it receives data.
-		input = getNumber(); // input read in here
 
 		percentOnGraph = input / graphCel;
 		onGraphY = Math.round(sizeYPixel * percentOnGraph);
@@ -157,7 +149,13 @@ H2O.Chart = function(options){
 		ctx.stroke();
 	};
 	/// End of drawgraph ///
-
+	
+	// Data is feed into here//
+	self.feedData = function( newInput ){
+		drawGraph(newInput);
+	};
+	//*****************//
+	
 	paintBG = function(){
 		//This function will re-draw the background along with the lines
 		lineargradient = ctx.createLinearGradient(0, 0, 0, sizeYPixel);
@@ -177,7 +175,6 @@ H2O.Chart = function(options){
 			percent = (Math.round(graphCel / numberOfLines) * k) / graphCel;
 			percent = sizeYPixel * percent;
 			percent = sizeYPixel - percent;
-
 			// HGP: This is too new. An option perhaps?
 			//ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent);
 
@@ -197,6 +194,7 @@ H2O.Chart = function(options){
 		return setInterval(drawGraph, 100);
 	};	
 	
+	
 	// HGP: we should have a self.stop too
 	
 	// HGP: Closure DOES allow resize to be a private function
@@ -204,22 +202,10 @@ H2O.Chart = function(options){
 	// I don't know why it wasn't working before!
 	resize = function(){
 		if (resize) {
-			// HGP: It should use the size of the parent
-			//var w = window.innerWidth;
-			//var h = window.innerHeight;
 			var w = self.parentNode.offsetWidth;
 			var h = self.parentNode.offsetHeight;
-			
-			// HGP: Don't abstract this, use the value directly from the dom
-			//sizeXPixel = Math.ceil(w * sizePercent);
-			//sizeYPixel = Math.ceil(h * sizePercent);
 			sizeXPixel = Math.ceil(w);
 			sizeYPixel = Math.ceil(h);
-
-			// HGP: You already have access to the canvas
-			//var c = document.getElementById(theName);
-			//c.height = sizeYPixel;
-			//c.width = sizeXPixel;
 			self.height = sizeYPixel;
 			self.width = sizeXPixel;
 
@@ -231,8 +217,8 @@ H2O.Chart = function(options){
 			// HGP: We may want to abstact this out
 			percentOnGraph = startPoint / graphCel;
 			onGraphY = Math.ceil(sizeYPixel * percentOnGraph);
-			onGraphY = sizeYPixel - onGraphY;
-			ctx.strokeStyle = '#fff'; // white
+			onGraphY = sizeYPixel - onGraphY; // Reverses the axis. Since graphic coordinates != cartisian coordinates (Direction-wise)
+			ctx.strokeStyle = '#fff';
 			ctx.lineCap = 'round';
 			ctx.beginPath();
 			ctx.moveTo(startPoint, onGraphY);
@@ -276,3 +262,5 @@ H2O.Chart = function(options){
 
 	return self;
 }; // HGP: Great work!
+
+
