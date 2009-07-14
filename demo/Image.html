@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>FCarousel</title>
+	<script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="../src/js/H2O.js"></script>
+	<script type="text/javascript" src="../src/js/H2O.Image.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function () {
+			test = H2O.Image({ ID: 'image-holder',src: 'https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/1.png', altText: 'hi!', padding: 10 });
+			$('#MyImage').append(test);
+		});
+	</script>
+	<style type="text/css" media="screen">
+		#MyImage {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+<div id="MyImage"></div>
+
+</body>
+</html>

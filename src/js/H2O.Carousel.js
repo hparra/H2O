@@ -41,7 +41,7 @@ H2O.Carousel = function(options) {
 		size = 0
 		for (d in data) {
 			if (d.thumb === undefined) {
-				d.thumb = ""; // TODO: find generic image
+				d.thumb = "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/8.png"; // TODO: find generic image
 			}
 			if (d.title === undefined) {
 				d.title = "";
@@ -56,7 +56,6 @@ H2O.Carousel = function(options) {
 		
 		self = document.createElement('div');
 		self.setAttribute('id', options.ID);
-		//self.setAttribute('class', 'page'); // HGP: if anything, this should be 'H2O_Carousel' 
 		self.setAttribute('style','\
 			width: 100%;\
 			height: 100%;\
@@ -73,28 +72,39 @@ H2O.Carousel = function(options) {
 		// ALLEN: The array 'pages' doesn't know how long it should be without calculating based on the formula below. It's initialized as null. 
 		self.numOfPages = Math.ceil(size / (options.rowAmt * options.columnAmt)); // TODO: Make this private?
 
+		// pages = []; // pages array
+		// for (p = 1; p <= self.numOfPages; p = p + 1) {
+		// 	// pages.push() should work
+		// 	pages[p] = document.createElement('div');
+		// 	pages[p].setAttribute('id', 'page' + p);
+		// 	pages[p].setAttribute('class', 'page'); 
+		// 	pages[p].setAttribute('style','float: left;');
+		// 	holder.appendChild(pages[p]);
+		// };
+		
+		// Not sure if this is how you wanted me to use the stack feature
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
-			// pages.push() should work
-			pages[p] = document.createElement('div');
-			pages[p].setAttribute('id', 'page' + p);
-			pages[p].setAttribute('class', 'page'); 
-			pages[p].setAttribute('style','float: left;');
-			holder.appendChild(pages[p]);
+			x = document.createElement('div');
+			x.setAttribute('id', 'page' + p);
+			x.setAttribute('class', 'page'); 
+			x.setAttribute('style','float: left;');
+			pages.push(x);
+			holder.appendChild(pages[p-1]);
 		};
-		
+
 		self.appendChild(holder);
 		
-		pageNum = 1;
-		
+		pageNum = 0;
+				
 		for (i in data) {
-			if (i >= (options.rowAmt * options.columnAmt * pageNum)) {
+			if (i >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
 				pageNum = pageNum + 1;
 			};
 		
             /* box */
             box = document.createElement('div');
-            box.setAttribute('class', 'box');  // HGP: don't use external CSS, at least not yet. See note.
+            box.setAttribute('class', 'box');
 			box.setAttribute('style','\
 				position: static;\
 				clear: none;\
@@ -150,7 +160,7 @@ H2O.Carousel = function(options) {
 		}
 	
 		self.addEventListener("DOMNodeInserted", function(e) {
-			console.log(self.parentNode);
+			//console.log(self.parentNode);
 			if ((self.parentNode.id) === undefined) {
 				// the hell? it fires twice and the first time is no good.
 				// it's a DocumentFragment, from I don't know where
@@ -221,7 +231,6 @@ H2O.Carousel = function(options) {
 	};
 	
 	self.jumpToPage = function(page) {
-		// HGP: alerts are very bad! Take out.
 		if (page != currentPage) {
 			if (page < 1) {
 				// Shake Animation
