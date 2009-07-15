@@ -10,21 +10,31 @@
 <script type="text/javascript" src="../src/js/H2O.js"></script>
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
 <script type="text/javascript">
-	
+		var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
 		$(document).ready(function () {
 			testChart = H2O.Chart({
 				id: 'graph_canvas', // HGP: should be optional
 				//sizeX: 700,
 				//sizeY: 400,
-				graphCeil: 100,
+				graphCeil: 300,
 				intervalY: 25,
 				//scale_percent: 70,
 				addDot: false,
 				show_line_number: true, //show line number requires Firefox 3.5 or higher. Safari 4
 				scale_graph: false });
 			$('#some_graph').append(testChart);
-			setInterval('testChart.feedData(Math.ceil(Math.random()*100))',100)
+			//setInterval('testChart.feedData(Math.ceil(Math.random()*100))',100)
+			infinitePollP();
 		});
+		function infinitePollP() {
+        $.getJSON(DOMAIN + "/devices/accelerometer?format=jsonp&callback=?",
+          function(data){
+		  	testChart.feedData(data.data);
+         //   $('#data').html(data.data);
+            infinitePollP();
+          }
+        );
+      }
 
 
 </script>
@@ -48,7 +58,7 @@
 </head>
 <body>
 <!--canvas id="graph_canvas" width = 700 height = 400></canvas-->
-<div id="some_graph" style="width:70%; height:70%">
+<div id="some_graph" style="width:100%; height:100%">
 	<!-- HGP: Canvas should be added dynamically -->
 	
 </div>

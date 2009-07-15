@@ -17,10 +17,10 @@ H2O.Chart = function(options){
 	var ctx; // HGP: Not necessary.
 	var maxSize;
 	var maxReading = 0;
-	var sizePercent = .7;//option**
+	var sizePercent = 1;//option**
 	var minReading = 99999999; //Change to integer max value
 	var totalReading = 0;
-
+	var currentReading = 0;
 	// HGP: What is this? 
 	// JJ: Total time since the graph started
 	var totalTime = 0; // Needs to be incremented
@@ -149,6 +149,7 @@ H2O.Chart = function(options){
 	
 	// Data is feed into here//
 	self.feedData = function( newInput ){
+		currentReading = newInput;
 		drawGraph(newInput);
 	};
 	//*****************//
@@ -249,6 +250,9 @@ H2O.Chart = function(options){
 	
 	// Returns the total inputs read
 	self.getTotalReading = function(){return totalReading;};
+	
+	// Returns the current input
+	self.getCurrentReading = function(){return currentReading;};
 	
 	/// This clears the graph ///
 	self.clear = function(){
