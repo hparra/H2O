@@ -31,7 +31,7 @@ H2O.Image = function(options) {
 			if ((self.parentNode.id) !== undefined) {
 				e.stopPropagation(); // cancel bubble
 				self.resize();
-				window.addEventListener("resize", self.resize, false);
+				window.addEventListener("H2OImageresize", self.resize, false);
 			}
 		}, false);
 	})();
