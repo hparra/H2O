@@ -31,7 +31,7 @@ H2O.Image = function(options) {
 			if ((self.parentNode.id) !== undefined) {
 				e.stopPropagation(); // cancel bubble
 				self.resize();
-				window.addEventListener("H2OImageresize", self.resize, false);
+				window.addEventListener("resize", self.resize, false);
 			}
 		}, false);
 	})();
@@ -55,8 +55,8 @@ H2O.Image = function(options) {
 		/* Centering */
 		self.style.width = width + "px";
 		self.style.height = height + "px";
-		self.style.marginLeft = -width / 2 + "px";
-		self.style.marginTop = -height / 2 + "px";
+		self.style.marginLeft = (-1 * width) / 2 + "px";
+		self.style.marginTop = (-1 * height) / 2 + "px";
 	};
 	
 	return self;

@@ -15,12 +15,23 @@
 	</script>
 	<style type="text/css" media="screen">
 		#bar {
+			position: absolute;
+			top: 0px;
+			left: 0px;
 			width: 100%;
 			height: 10%;
 			background-color: black;
 			color: white;
+			text-align: center;
+		}
+		h1 {
+			font-family: garamond;
+			font-size: 60px;
 		}
 		#Frescolita {
+			position: absolute;
+			left: 0px;
+			top: 10%;
 			width: 100%;
 			height: 90%;
 		}
@@ -29,7 +40,9 @@
 
 <body>
 
-<div id="bar">Frescolita Top Bar</div>
+<div id="bar">
+	<h1>FRESCOLITA</h1>
+</div>
 <div id="Frescolita"></div>
 <button type="button" onClick="test.prevPage()">Prev</button>
 <button type="button" onClick="test.nextPage()">Next</button>
