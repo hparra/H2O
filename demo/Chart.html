@@ -14,17 +14,15 @@
 		$(document).ready(function () {
 			testChart = H2O.Chart({
 				id: 'graph_canvas', // HGP: should be optional
-				//sizeX: 700,
-				//sizeY: 400,
 				graphCeil: 300,
 				intervalY: 25,
-				//scale_percent: 70,
 				addDot: false,
 				show_line_number: true, //show line number requires Firefox 3.5 or higher. Safari 4
 				scale_graph: false });
 			$('#some_graph').append(testChart);
-			//setInterval('testChart.feedData(Math.ceil(Math.random()*100))',100)
-			infinitePollP();
+			setInterval('testChart.feedData(Math.ceil(Math.random()*100))',100);
+			//infinitePollP();
+			
 		});
 		function infinitePollP() {
         $.getJSON(DOMAIN + "/devices/accelerometer?format=jsonp&callback=?",
