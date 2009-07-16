@@ -39,15 +39,13 @@ H2O.Chart = function(options){
 	var colorBGBegin = "#330033"; //option**
 	var colorBGEnd = "#000033"; //option**
 	var lineargradient;
-	var buffer = []; // Array that keeps track of buffer
+	var buffer = []; // Array that keeps all the data read in. 
 	var resize = true;
 	var dotPlot = false;
 	var showLineNumber = false;
 	var screenBuffer = []; // buffer that only has information about what is currently on the screen. Will be removed once clear() is called
 
     /////********************** I IS PRIVATE FUNCTION ******************////////
-
-
 
 	(function() {  //constructor
 
@@ -113,7 +111,6 @@ H2O.Chart = function(options){
 	// We want to call draw from the outside, e.g. my_chart.draw(1337);
 	drawGraph = function(input){
 		// This function draws the graph on to the canvas. Users will not needs to call this function.
-		screenBuffer.push(input);
 		++totalReading;
 		if (input < minReading) {
 			minReading = input;
@@ -121,35 +118,39 @@ H2O.Chart = function(options){
 		if (input > maxReading) {
 			maxReading = input;
 		}
-		if (xCoordinate >= sizeXPixel - 5) {
+		if (xCoordinate >= sizeXPixel - 25) {
 			xCoordinate = 25;
+			startPoint = currentReading;
 			self.clear();
 		}
-		ctx.strokeStyle = '#fff'; // white
-		ctx.lineCap = 'round';
-		ctx.beginPath();
-		ctx.moveTo(xCoordinate, onGraphY);
-		xCoordinate += 15; //space between each read is 10px
-
-		// HGP: See comment above. This should be passed in.
-		// Painting and passing this data asynchronously is the tricky part!
-		// We need to differentiate between a chart that is always painting
-		// and one that paints only when it receives data.
-
-		percentOnGraph = input / graphCel;
-		onGraphY = Math.round(sizeYPixel * percentOnGraph);
-		onGraphY = sizeYPixel - onGraphY;
-		ctx.lineTo(xCoordinate, onGraphY);
-		if(dotPlot === true){
-			ctx.arc(xCoordinate, onGraphY, 2, 0, Math.PI*2, true);
+		else {
+			currentReading = input;
+			ctx.strokeStyle = '#fff'; // white
+			ctx.lineCap = 'round';
+			ctx.beginPath();
+			ctx.moveTo(xCoordinate, onGraphY);
+			xCoordinate += 15; //space between each read is 10px
+			// HGP: See comment above. This should be passed in.
+			// Painting and passing this data asynchronously is the tricky part!
+			// We need to differentiate between a chart that is always painting
+			// and one that paints only when it receives data.
+			
+			percentOnGraph = input / graphCel;
+			onGraphY = Math.round(sizeYPixel * percentOnGraph);
+			onGraphY = sizeYPixel - onGraphY;
+			ctx.lineTo(xCoordinate, onGraphY);
+			if (dotPlot === true) {
+				ctx.arc(xCoordinate, onGraphY, 2, 0, Math.PI * 2, true);
+			}
+			ctx.stroke();
 		}
-		ctx.stroke();
+		
 	};
 	/// End of drawgraph ///
 	
 	// Data is feed into here//
 	self.feedData = function( newInput ){
-		currentReading = newInput;
+		screenBuffer.push(newInput);
 		drawGraph(newInput);
 	};
 	//*****************//
@@ -214,14 +215,16 @@ H2O.Chart = function(options){
 			paintBG(); // HGP: Good.
 			
 			// HGP: We may want to abstact this out
+			
 			percentOnGraph = startPoint / graphCel;
 			onGraphY = Math.ceil(sizeYPixel * percentOnGraph);
 			onGraphY = sizeYPixel - onGraphY; // Reverses the axis. Since graphic coordinates != cartisian coordinates (Direction-wise)
 			ctx.strokeStyle = '#fff';
 			ctx.lineCap = 'round';
 			ctx.beginPath();
-			ctx.moveTo(startPoint, onGraphY);
-			ctx.stroke();
+			ctx.moveTo(xCoordinate, onGraphY);
+			ctx.stroke();		
+			
 			for (var i = 0; i < screenBuffer.length; ++i) {
 				ctx.strokeStyle = '#fff'; // white
 				ctx.lineCap = 'round';
@@ -257,7 +260,6 @@ H2O.Chart = function(options){
 	/// This clears the graph ///
 	self.clear = function(){
 		screenBuffer = [];
-		startPoint = input;
 		ctx.clearRect(0, 0, sizeXPixel, sizeYPixel);
 		paintBG();// This line re-draws the background
 	};
