@@ -18,8 +18,6 @@ H2O.Button = function(options) {
 			border: none;\
 		');
 		
-		
-		
 		self.addEventListener("DOMNodeInserted", function(e) { // NOTE: Not supported in IE
 			//console.log(self.parentNode);
 			// the hell? it fires twice and the first time is no good.

@@ -10,6 +10,7 @@ H2O.Carousel = function(options) {
 	// options.rowAmt: number of rows
 	// options.columnAmt: number of columns
 	// options.padding: amount of padding in percent
+	// options.animSpeed: how fast to slide carousel
 	
 	(function() { // constructor
 				
@@ -21,6 +22,7 @@ H2O.Carousel = function(options) {
 		// Default rowAmt: 1
 		// Default columnAmt: 1
 		// Default Padding: 5% 
+		// Default animSpeed: 500 ms
 		if (options.data === undefined) {
 			// FIXME: Throw some kind of error?
 		}
@@ -35,6 +37,9 @@ H2O.Carousel = function(options) {
 		}
 		if (options.padding === undefined) {
 			options.padding = 20; // TODO: Figure out whether to use exact pixels or percentage
+		}
+		if (options.animSpeed === undefined) {
+			options.animSpeed = 500;
 		}
 		
 		data = options.data // TODO: check data first and handle necessary stuff
@@ -251,7 +256,7 @@ H2O.Carousel = function(options) {
 				// 
 				$('#holder').animate({
 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
-				}, 800);
+				}, options.animSpeed);
 
 				//holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth) + "px";
 				currentPage = page; // Change Page "State"
