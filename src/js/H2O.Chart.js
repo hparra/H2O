@@ -1,12 +1,28 @@
-// H2O.Chart.js
-// Written by Jakkree Janchoi
-// UC Irvine
-// WENDI, teliOS project
-// 2009-07-02 YMD
+/** 
+* @projectDescription 	H2O.Chart is a part of the H2O Library developed in part of the telios project.
+* @author	Jakkree Janchoi jjanchoi@uci.edu
+* @version	1.1 
+*/
+
 
 // HGP: My comments...
 // JJ: Jakkree's comments
 
+/**
+* Create a new instance of H2O.Chart.
+* Example: myChart = H2O.Chart({id: "idName" , resize: true, ....});
+* To call function USE myChart.clear(); DO NOT USE myChart.self.clear();
+* All parameters passed to the contructor are optional. Except for id, id is required to be defined.
+* @classDescription	This class creates a Chart.
+* @param {boolean} [scale_graph] Enable or disable scaling feature. Default set to enable.
+* @param {boolean} [dotPlot] Enable or disable the rounded dot at each plot point. Default set to disable.
+* @param {boolean} [show_line_number] Enable or disable the display of line numbers. Default is set to enable.
+* @param {String} id sets the id of the Chart canvas. **REQUIRED OPTION**
+* @param {HEX} [bgGradientStart] sets the beginning color of the background gradient. Default set to #330033.
+* @param {HEX} [bgGradientEnd] sets the ending color of the background gradient. Default set to #000033.
+* @return {canvas}	Returns a new Chart.
+* @constructor	
+*/
 H2O.Chart = function(options){
 	var self = null;
 	var xCoordinate = 25; // Time on graph
@@ -47,7 +63,9 @@ H2O.Chart = function(options){
 
     /////********************** I IS PRIVATE FUNCTION ******************////////
 
-	(function() {  //constructor
+
+
+(function() {
 
 		// Passing an ID is required for this object build properly.
 
@@ -73,6 +91,12 @@ H2O.Chart = function(options){
 		}
 		if( typeof options.show_line_number != undefined){
 			showLineNumber = options.show_line_number;
+		}
+		if( typeof options.bgGradientStart != undefined ){
+			colorBGBegin = options.bgGradientStart;
+		}
+		if( typeof options.bgGradientEnd != undefined ){
+			colorBGEnd = options.bgGradientEnd;
 		}
 		onGraphY = sizeYPixel;
 		graphCel = options.graphCeil;
@@ -146,15 +170,18 @@ H2O.Chart = function(options){
 		}
 		
 	};
-	/// End of drawgraph ///
-	
-	// Data is feed into here//
+
+/**
+ *  This function takes in plot points that will be drawn on to the Chart. 
+ *  Example: myChart.feedData(100);
+ * 	@method feedData
+	@param {int} input data will be drawn on the chart.
+*/
 	self.feedData = function( newInput ){
 		screenBuffer.push(newInput);
 		drawGraph(newInput);
 	};
-	//*****************//
-	
+
 	paintBG = function(){
 		//This function will re-draw the background along with the lines
 		lineargradient = ctx.createLinearGradient(0, 0, 0, sizeYPixel);
@@ -190,6 +217,7 @@ H2O.Chart = function(options){
 
 
 	// HGP: we may actually want this to be public
+	
 	start = function() {
 		return setInterval(drawGraph, 100);
 	};	
@@ -240,10 +268,19 @@ H2O.Chart = function(options){
 		}
 	};
 	
-	// Returns the max reading
+
+/**
+ *  getMaxReading returns the max value that has been feed into the Chart
+	@method getMaxReading
+	@return {int} returns the max reading
+*/
 	self.getMaxReading = function(){return maxReading;};
 	
-	// Returns the min reading
+/**
+ *  getMinReading returns the min value that has been feed into the Chart
+	@method getMinReading
+	@return {int} returns the min reading
+*/
 	self.getMinReading = function(){return minReading;};
 	
 	// HGP: In ms? This can't be trusted due to one-threaded nature of JS
@@ -251,13 +288,25 @@ H2O.Chart = function(options){
 	// Returns the total time since first reading
 	self.getTotalTime = function(){return totalTime;};
 	
-	// Returns the total inputs read
+/**
+ *  getTotalReading returns the number of inputs fed into the Chart
+	@method getTotolReading
+	@return {int} returns the total readings
+*/
 	self.getTotalReading = function(){return totalReading;};
 	
-	// Returns the current input
+
+/**
+ *  getCurrentReading returns the current input value
+	@method getCurrentReading
+	@return {int} returns the current input value
+*/
 	self.getCurrentReading = function(){return currentReading;};
 	
-	/// This clears the graph ///
+/**
+ *  Clears the graph of any plotted data and automatically redraws the background
+	@method clear
+*/
 	self.clear = function(){
 		screenBuffer = [];
 		ctx.clearRect(0, 0, sizeXPixel, sizeYPixel);

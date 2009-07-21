@@ -10,7 +10,8 @@
 <script type="text/javascript" src="../src/js/H2O.js"></script>
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
 <script type="text/javascript">
-		var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
+		//var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
+		var DOMAIN = "http://localhost:5000";
 		$(document).ready(function () {
 			testChart = H2O.Chart({
 				id: 'graph_canvas', // HGP: should be optional
@@ -28,7 +29,6 @@
         $.getJSON(DOMAIN + "/devices/accelerometer?format=jsonp&callback=?",
           function(data){
 		  	testChart.feedData(data.data);
-         //   $('#data').html(data.data);
             infinitePollP();
           }
         );
@@ -45,13 +45,6 @@
 
 	/* HGP: don't decorate the canvas, decorate the parent */
 	/* unfortunately, the box model makes sizing incorrect */
-  #some_graph {
-  			/*
-			-moz-border-radius: 5px;
-			-webkit-border-radius: 5px; 
-			border: 7px solid #000033;
-			*/
-		 }
 </style>
 </head>
 <body>

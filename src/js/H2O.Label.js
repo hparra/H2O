@@ -8,9 +8,8 @@ H2O.Label = function(options) {
 	(function() { // constructor
 		
 		// check for options, if not create defaults
-		options.id = options.id || "testID"; // FIXME: Should be random number
+	//options.id = options.id || "testID"; // FIXME: Should be random number
 		//options.text ||= "testTEXT";
-
 		self = document.createElement('span'); // TODO: should we use P or H2 instead for accessibility?
 		self.setAttribute('id', options.id);
 		self.setAttribute('class', 'H2O_Label');
@@ -56,6 +55,7 @@ H2O.Label = function(options) {
 		// todo: remove element
 		self = null;
 	};
+	
 	
 	return self;
 };
