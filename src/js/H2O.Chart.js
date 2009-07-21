@@ -80,22 +80,22 @@ H2O.Chart = function(options){
 		theName = options.id; // HGP: Redundant now. Use self.id
 		
 	
-		if (typeof options.scale_percent != undefined) {
+		if (!(options.scale_percent != undefined)) {
 			sizePercent = options.scale_percent / 100;
 		}
-		if( typeof options.dotPlot != undefined){
+		if( !(options.dotPlot != undefined)){
 			dotPlot = options.addDot; 	
 		}
-		if( typeof options.scale_graph != undefined){
+		if( !(options.scale_graph === undefined)){
 			resize = options.scale_graph;
 		}
-		if( typeof options.show_line_number != undefined){
+		if( !(options.show_line_number === undefined)){
 			showLineNumber = options.show_line_number;
 		}
-		if( typeof options.bgGradientStart != undefined ){
+		if( !(options.bgGradientStart === undefined) ){
 			colorBGBegin = options.bgGradientStart;
 		}
-		if( typeof options.bgGradientEnd != undefined ){
+		if( !(options.bgGradientEnd === undefined) ){
 			colorBGEnd = options.bgGradientEnd;
 		}
 		onGraphY = sizeYPixel;
