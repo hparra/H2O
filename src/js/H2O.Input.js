@@ -3,35 +3,24 @@ H2O.Input = function(options) {
 	
 	(function() {
 		
-        self = document.createElement('div');
+        self = document.createElement('form');
         self.setAttribute('id', options.ID);
 		self.setAttribute('style', '\
-			position: relative;\
-			top: 50%;\
-			left: 50%;\
-			background-color: blue;\
+			width: 100%;\
+			height: 100%;\
 		');
-		
-		// form = document.createElement('form');
-		// form.setAttribute('style', '\
-		// 	position: relative;\
-		// 	width: 100%;\
-		// 	height: 100%;\
-		// 	background-color: red;\
-		// ');
 		
 		input = document.createElement('input');
 		input.setAttribute('type', 'input');
 		input.setAttribute('name', options.name);
 		input.setAttribute('style', '\
 			position: relative;\
+			font-family: arial;\
 			width: 100%;\
 			height: 100%;\
-			background-color: green;\
 		');
 		
-		form.appendChild(input);
-		self.appendChild(form);
+		self.appendChild(input);
 		
 		self.addEventListener("DOMNodeInserted", function(e) { // NOTE: Not supported in IE
 			//console.log(self.parentNode);

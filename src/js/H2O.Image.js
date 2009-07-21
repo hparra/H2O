@@ -1,6 +1,14 @@
 H2O.Image = function(options) {
+	/**
+	* self is the H2O.Image object
+	* @private
+	*/
 	var self = null;
 	
+	/**
+	* Power constructor for H2O.Image
+	* @constructor
+	*/
 	(function() {
 		/* frame */
         self = document.createElement('div');
