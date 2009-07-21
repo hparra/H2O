@@ -8,8 +8,33 @@ H2O.Button = function(options) {
 	// options.click: set the onclick attribute for the link
 	(function() {
 		
+		// OPTIONS Checking
+		// 
+		// Checks for undefined parameters and sets default values
+		// Default ID: TODO
+		// Default type: ERROR
+		// Default text: click me
+		// Default href: #
+		// Default click: "" 
+
+		if (options.ID === undefined) {
+			options.ID = "testbutton"; // FIXME: Something random/sequential?
+		}
+		if (options.type === undefined) {
+			// Throw Error
+		}
+		if (options.text === undefined) {
+			options.text = 'click me';
+		}
+		if (options.href === undefined) {
+			options.href = '#';
+		}
+		if (options.click === undefined) {
+			options.click = '';
+		}
+		
 		self = document.createElement('div');
-        self.setAttribute('id', options.ID);
+        //self.setAttribute('id', options.ID);
 		self.setAttribute('style', '\
 			position: relative;\
 			top: 50%;\
@@ -18,8 +43,8 @@ H2O.Button = function(options) {
 		//self.innerHTML = options.text;
 		
 		a = document.createElement('a');
-		a.setAttribute('href', options.href);
-		//a.setAttribute('onClick', options.click);
+		//a.setAttribute('href', options.href);
+		a.setAttribute('onClick', options.click);
 		a.setAttribute('style', '\
 			border: none;\
 		');
