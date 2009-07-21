@@ -4,22 +4,34 @@
 	<script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.Image.js"></script>
+	<script type="text/javascript" src="../src/js/H2O.Button.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			test = H2O.Button({ ID: 'button1', text: 'clickme'});
+			test = H2O.Button({ ID: 'button1' , type: 'next'});
+			test2 = H2O.Button({ ID: 'button1' , type: 'back'});
 			$('#testbutton').append(test);
+			$('#testbutton2').append(test2);
 		});
 	</script>
 	<style type="text/css" media="screen">
 		#testbutton {
-
+			float: left;
+			width: 50%;
+			height: 100%;
 		}
+		#testbutton2 {
+			float: left;
+			width: 50%;
+			height: 100%;
+		}
+		
 	</style>
 </head>
 
 <body>
 
 <div id="testbutton"></div>
+<div id="testbutton2"></div>
 
 </body>
 </html>

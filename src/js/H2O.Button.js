@@ -2,6 +2,7 @@ H2O.Button = function(options) {
 	var self = null;
 	// H2O Button Options:
 	// options.ID: id of the button
+	// options.type: type of the button
 	// options.text: text of the button
 	// options.href: where the button links to
 	// options.click: set the onclick attribute for the link
@@ -9,14 +10,44 @@ H2O.Button = function(options) {
 		
 		self = document.createElement('div');
         self.setAttribute('id', options.ID);
-		self.innerHTML = options.text;
+		self.setAttribute('style', '\
+			position: relative;\
+			top: 50%;\
+			left: 50%;\
+		');
+		//self.innerHTML = options.text;
 		
 		a = document.createElement('a');
 		a.setAttribute('href', options.href);
-		a.setAttribute('onClick', options.click);
+		//a.setAttribute('onClick', options.click);
 		a.setAttribute('style', '\
 			border: none;\
 		');
+		
+		
+		if (options.type === 'other') {
+			// TODO: Build this
+		} else if (options.type === 'next') {
+			// button = document.createElement('img');
+			// button.setAttribute('src', '../../images/H2OButtonNext.png');
+			button = H2O.Image({ ID: 'nextbutton', alt: 'Next', src: '../../images/H2OButtonNext.png'});
+		} else if (options.type === 'back') {
+			// button = document.createElement('img');
+			// button.setAttribute('src', '../../images/H2OButtonBack.png');
+			button = H2O.Image({ ID: 'backbutton', alt: 'Back', src: '../../images/H2OButtonBack.png'});
+		} else {
+			// Throw Error
+		}
+			
+		button.setAttribute('alt', 'Back');
+		button.setAttribute('style', '\
+			border: none;\
+			width: 100%;\
+			height: 100%;\
+		');
+		
+		a.appendChild(button);
+		self.appendChild(a);
 		
 		self.addEventListener("DOMNodeInserted", function(e) { // NOTE: Not supported in IE
 			//console.log(self.parentNode);
