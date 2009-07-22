@@ -1,17 +1,27 @@
+/**
+* @param options
+* H2O Carousel Options:
+* options.ID: id for the carousel
+* options.data: JSON data
+* options.rowAmt: number of rows
+* options.columnAmt: number of columns
+* options.padding: amount of padding in percent
+* options.animSpeed: how fast to slide carousel
+*/
 H2O.Carousel = function(options) {
-	var self = null; // H2O.Carousel Object
-	var pages = null; // Array storing each "page" of the carousel
-	var data = null; // JSON data
-	var currentPage = 1; // Current Carousel State
+	/** @private H2O.Carousel Object */
+	var self = null;
+	/** @private {Array} Array storing each "page" of the carousel */
+	var pages = null;
+	/** @private JSON data */
+	var data = null;
+	/** @private {Number} Current carousel page */
+	var currentPage = 1;
 	
-	// H2O Carousel Options:
-	// options.ID: id for the carousel
-	// options.data: JSON data
-	// options.rowAmt: number of rows
-	// options.columnAmt: number of columns
-	// options.padding: amount of padding in percent
-	// options.animSpeed: how fast to slide carousel
-	
+	/**
+	* Power constructor for H2O.Carousel
+	* @constructor
+	*/
 	(function() { // constructor
 				
 		// OPTIONS Checking
@@ -184,10 +194,19 @@ H2O.Carousel = function(options) {
 		}, false);
 	})();
 
+	/**
+	* grab current page number
+	* @function
+	* @returns {Number} current page number
+	*/
 	self.getCurrentPage = function() {
 		return currentPage;
 	};
 	
+	/**
+	* resizes the image on window resize event
+	* @function
+	*/
 	self.resize = function() {
 		box_width_ratio = 1 / options.columnAmt; // Width / # of Columns = Box Width
 		box_height_ratio = 1 / options.rowAmt; // Height / # of Rows = Box Height
@@ -242,6 +261,11 @@ H2O.Carousel = function(options) {
 		holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
 	};
 	
+	/**
+	* Jump to specified page number
+	* @function
+	* @param {Number} page The desired page to jump to
+	*/
 	self.jumpToPage = function(page) {
 		if (page != currentPage) {
 			if (page < 1) {
@@ -264,9 +288,14 @@ H2O.Carousel = function(options) {
 		} else if (page === currentPage) {
 			// Shake Animation
 		}
-		console.log(currentPage);
+		//console.log(currentPage);
 	};
 	
+	/**
+	* go forward a number of pages
+	* @function
+	* @param {Number} interval The number of pages to jump forward
+	*/
 	self.nextPage = function(interval) { // Go forward interval number of pages
 		console.log(interval);
 		if (interval === undefined) {
@@ -275,6 +304,11 @@ H2O.Carousel = function(options) {
 		self.jumpToPage(currentPage + interval);
 	};
 	
+	/**
+	* go backward a number of pages
+	* @function
+	* @param {Number} interval The number of pages to jump backward
+	*/
 	self.prevPage = function(interval) { // Go backward interval number of pages
 		console.log(interval);
 		if (interval === undefined) {

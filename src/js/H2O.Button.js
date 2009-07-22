@@ -1,11 +1,20 @@
+/**
+* @param options {Object}
+* H2O Button Options:
+* options.ID: id of the button
+* options.type: type of the button
+* options.text: text of the button
+* options.href: where the button links to
+* options.click: set the onclick attribute for the link
+*/
 H2O.Button = function(options) {
+	/** @private H2O.Button Object*/
 	var self = null;
-	// H2O Button Options:
-	// options.ID: id of the button
-	// options.type: type of the button
-	// options.text: text of the button
-	// options.href: where the button links to
-	// options.click: set the onclick attribute for the link
+
+	/**
+	* Power constructor for H2O.Button
+	* @constructor
+	*/
 	(function() {
 		
 		// OPTIONS Checking
@@ -86,6 +95,10 @@ H2O.Button = function(options) {
 		}, false);
 	})();
 	
+	/**
+	* @function
+	* resizes the image on window resize event
+	*/
 	self.resize = function() {
 		width = 0;
 		height = 0;

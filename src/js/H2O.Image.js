@@ -1,8 +1,5 @@
 H2O.Image = function(options) {
-	/**
-	* self is the H2O.Image object
-	* @private
-	*/
+	/** @private H2O.Image Object */
 	var self = null;
 	
 	/**
@@ -10,7 +7,7 @@ H2O.Image = function(options) {
 	* @constructor
 	*/
 	(function() {
-		/* frame */
+		
         self = document.createElement('div');
         self.setAttribute('id', options.ID);
 		self.setAttribute('style', '\
@@ -19,7 +16,6 @@ H2O.Image = function(options) {
 			left: 50%;\
 		');
 
-        /* image */
         img = document.createElement('img');
         img.setAttribute('alt', options.altText);
 		img.setAttribute('src', options.src);
@@ -44,7 +40,13 @@ H2O.Image = function(options) {
 		}, false);
 	})();
 	
-	self.resize = function() {
+	
+	
+	/**
+	* @function
+	* resizes the image on window resize event
+	*/
+	self.resize = function() { // TODO: This only works for SQUARE IMAGES right now.
 		width = 0;
 		height = 0;
 		if (self.parentNode.offsetWidth >= self.parentNode.offsetHeight) {
