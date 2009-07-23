@@ -6,7 +6,27 @@
 	<script type="text/javascript" src="../src/js/H2O.Input.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			test = H2O.Input({ ID: 'input1' , name: 'thing' });
+			stuff = {
+				0: {
+					name: 'thing0'
+				},
+				1: {
+					name: 'thing1'
+				},
+				2: {
+					name: 'thing2'
+				},
+				3: {
+					name: 'thing3'
+				},
+				4: {
+					name: 'thing4'
+				},
+				5: {
+					name: 'thing5'
+				}
+			};
+			test = H2O.Input({ ID: 'input1', data: stuff, padding: 5 });
 			$('#testinput').append(test);
 		});
 	</script>
@@ -22,7 +42,7 @@
 
 <body>
 
-<div id="testinput"></div>
+<form id="testinput"></form>
 
 </body>
 </html>
