@@ -1,3 +1,9 @@
+/**
+* @param options 
+* options.ID: ID of the image
+* options.altText: alt text
+* options.src: src address
+*/
 H2O.Image = function(options) {
 	/** @private H2O.Image Object */
 	var self = null;
@@ -7,6 +13,16 @@ H2O.Image = function(options) {
 	* @constructor
 	*/
 	(function() {
+		
+		if (options.ID === undefined) {
+			options.ID = '';
+		}
+		if (options.altText === undefined) {
+			options.ID = '';
+		}
+		if (options.src === undefined) {
+			options.ID = ''; // FIXME: Make this default missing src image
+		}
 		
         self = document.createElement('div');
         self.setAttribute('id', options.ID);
@@ -18,13 +34,7 @@ H2O.Image = function(options) {
 
         img = document.createElement('img');
         img.setAttribute('alt', options.altText);
-		img.setAttribute('src', options.src);
-		img.setAttribute('style', '\
-			position: static;\
-			border: none;\
-			width: 100%;\
-			height: 100%;\
-		');			
+		img.setAttribute('src', options.src);	
 		
         self.appendChild(img);
 
@@ -39,14 +49,12 @@ H2O.Image = function(options) {
 			}
 		}, false);
 	})();
-	
-	
-	
+		
 	/**
 	* @function
 	* resizes the image on window resize event
 	*/
-	self.resize = function() { // TODO: This only works for SQUARE IMAGES right now.
+	self.resize = function() {
 		width = 0;
 		height = 0;
 		if (self.parentNode.offsetWidth >= self.parentNode.offsetHeight) {
@@ -67,6 +75,25 @@ H2O.Image = function(options) {
 		self.style.height = height + "px";
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
+		
+		
+		if (img.width > img.height) { /* Horizontal Rectangular Image */
+			img.setAttribute('style', '\
+				position: relative;\
+				border: none;\
+				width: 100%;\
+				top: 50%;\
+			');
+			img.style.marginTop = (-1 * img.height) / 2 + "px";
+		} else { /* Vertical Rectangular or Square Image */
+			img.setAttribute('style', '\
+				position: relative;\
+				border: none;\
+				left: 50%;\
+				height: 100%;\
+			');
+			img.style.marginLeft = (-1 * img.width) / 2 + "px";
+		}
 	};
 	
 	return self;

@@ -61,6 +61,7 @@ H2O.Button = function(options) {
 		
 		if (options.type === 'other') {
 			// TODO: Build this
+			//text = H2O.Label({ text: options.text });	
 		} else if (options.type === 'next') {
 			// button = document.createElement('img');
 			// button.setAttribute('src', '../../images/H2OButtonNext.png');
