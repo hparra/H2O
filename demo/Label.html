@@ -7,15 +7,20 @@
 		<script type="text/javascript" src="../src/js/H2O.js"></script>
 		<script type="text/javascript" src="../src/js/H2O.Label.js"></script>
 	</head>
-	<body style="margin:0px; padding:0px; ">
+	<body style="position:absolute;width:100%;height:100%;margin:0px; padding:0px;overflow: hidden">
 		<!-- NOTE: Parent needs to specify text-align property -->
-		<div id="box1" style="position:absolute;width:100%;height:100%;text-align:center;">
+		<div id="box1" style="width:100%;height:50%;text-align:center;background-color:blue">
+		</div>
+		<div id="box2" style="width:100%;height:50%;text-align:center;background-color:green">
 		</div>
 	</body>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			hello_label = H2O.Label({ text: "Hello!" });
+			hello_label = H2O.Label({ text: "Hello!", id: "hello_label" });
 			$("#box1").append(hello_label);
+			
+			goodbye_label = H2O.Label({ text: "Goodbye!", id: "goodbye_label"  });
+			$("#box2").append(goodbye_label);
 		});
 	</script>
 </html>

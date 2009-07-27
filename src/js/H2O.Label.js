@@ -27,8 +27,11 @@ H2O.Label = function(options) {
 			// it's a DocumentFragment, from I don't know where
 			if ((self.parentNode.id) !== undefined) {
 				e.stopPropagation(); // cancel bubble
-				resize();
 				window.addEventListener("resize", resize, false);
+
+				// FIXME: HACK. Don't know why this is the case.
+				setTimeout(resize, 100);
+				//resize();
 			}
 		}, false);
 	})();
