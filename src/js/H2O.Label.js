@@ -26,7 +26,7 @@ H2O.Label = function(options) {
 			// the hell? it fires twice and the first time is no good.
 			// it's a DocumentFragment, from I don't know where
 			if ((self.parentNode.id) !== undefined) {
-				console.debug(self.id + " DOMNodeInserted");
+				//console.debug(self.id + " DOMNodeInserted");
 				e.stopPropagation(); // cancel bubble
 				window.addEventListener("resize", self.resize, false);
 
@@ -40,7 +40,7 @@ H2O.Label = function(options) {
 	self.resize = function() {
 		
 		//if (typeof self.parentNode !== undefined) {
-			console.debug(self.id + " Resize");
+			//console.debug(self.id + " Resize");
 
 			self.style.width = self.parentNode.offsetWidth;
 			self.style.height = self.parentNode.offsetHeight;
