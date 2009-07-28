@@ -8,6 +8,7 @@
 * options.padding: amount of padding in percent
 * options.animSpeed: how fast to slide carousel
 * options.autoScroll: on or off
+* options.scrollDelay: how long between scrolls
 */
 H2O.Carousel = function(options) {
 	/** @private H2O.Carousel Object */
@@ -54,6 +55,9 @@ H2O.Carousel = function(options) {
 		}
 		if (options.autoScroll === undefined) {
 			options.autoScroll = false;
+		}
+		if (options.scrollDelay === undefined) {
+			options.scrollDelay = 5000;
 		}
 		
 		data = options.data // TODO: check data first and handle necessary stuff
@@ -192,7 +196,7 @@ H2O.Carousel = function(options) {
 				// it's a DocumentFragment, from I don't know where
 			} else {
 				e.stopPropagation(); // cancel bubble
-				setTimeout(self.resize, 1);
+				self.resize();
 				window.addEventListener("resize", self.resize, false);
 			}
 		}, false);
@@ -276,6 +280,7 @@ H2O.Carousel = function(options) {
 				// Shake Animation
 			} else if (page > self.numOfPages) {
 				// Shake Animation
+				self.jumpToPage(1);
 			} else {
 				
 				// HGP: This is going to be a challenge...
@@ -292,7 +297,7 @@ H2O.Carousel = function(options) {
 		} else if (page === currentPage) {
 			// Shake Animation
 		}
-		//console.log(currentPage);
+		console.log(currentPage);
 	};
 	
 	/**
@@ -318,6 +323,19 @@ H2O.Carousel = function(options) {
 		}
 		self.jumpToPage(currentPage - interval);
 	};
+	/**
+	* automatically scrolls forward 1 page every options.scrollDelay number of seconds
+	* @function
+	*/
+	self.autoScroll = function() { // Go forward interval number of pages
+		console.log(currentPage);
+		self.jumpToPage(currentPage + 1);
+	};
+	
+	/**
+	* takes care of the autoscrolling
+	*/
+	setInterval(self.autoScroll, options.scrollDelay);
 		
 	return self;
 };

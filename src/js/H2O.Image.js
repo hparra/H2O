@@ -35,7 +35,7 @@ H2O.Image = function(options) {
         img = document.createElement('img');
         img.setAttribute('alt', options.altText);
 		img.setAttribute('src', options.src);
-		
+		 
 		if (img.width > img.height) {
 		    /* Horizontal Rectangular Image */
 		    img.setAttribute('style', '\
@@ -65,7 +65,7 @@ H2O.Image = function(options) {
 			// it's a DocumentFragment, from I don't know where
 			if ((self.parentNode.id) !== undefined) {
 				e.stopPropagation(); // cancel bubble
-				setTimeout(self.resize, 1); // TODO: Figure out this delay thing
+				self.resize();
 				window.addEventListener("resize", self.resize, false);
 			}
 		}, false);
@@ -96,6 +96,8 @@ H2O.Image = function(options) {
 		self.style.height = height + "px";
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
+		
+		//self.parentNode.style.overflow = 'hidden';
 	};
 	
 	return self;
