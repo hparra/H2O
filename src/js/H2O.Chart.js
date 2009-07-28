@@ -49,7 +49,6 @@ H2O.Chart = function(options){
 	// HGP: No.
 	var sizeXPixel = 100; //option**
 	var sizeYPixel = 100; //option**
-
 	var lineColor = "#fff";
 	var graphCel = 100; //option**
 	var colorBGBegin = "#330033"; //option**
@@ -193,6 +192,7 @@ H2O.Chart = function(options){
 		ctx.strokeStyle = '#CCCCCC'; // white
 		var i = sizeYPixel;
 		var k = 0;
+		//numberOfLines represents the amount of number shown on the side
 		var numberOfLines = Math.round(sizeYPixel / yInterval) - 1;
 		while (k <= sizeYPixel) {
 			ctx.beginPath();
