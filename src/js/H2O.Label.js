@@ -3,7 +3,7 @@
  */
 // USE: my_label = new H2O.Label()
 H2O.Label = function(options) {
-	var self = null;
+		var self = null;
 	
 	(function() { // constructor
 		
@@ -26,31 +26,36 @@ H2O.Label = function(options) {
 			// the hell? it fires twice and the first time is no good.
 			// it's a DocumentFragment, from I don't know where
 			if ((self.parentNode.id) !== undefined) {
+				console.debug(self.id + " DOMNodeInserted");
 				e.stopPropagation(); // cancel bubble
-				window.addEventListener("resize", resize, false);
+				window.addEventListener("resize", self.resize, false);
 
 				// FIXME: HACK. Don't know why this is the case.
-				setTimeout(resize, 100);
-				//resize();
+				//setTimeout(self.resize, 100);
+				self.resize();
 			}
 		}, false);
 	})();
 
-	resize = function() {
+	self.resize = function() {
 		
-		self.style.width = self.parentNode.offsetWidth;
-		self.style.height = self.parentNode.offsetHeight;
-		
-		width_ratio = self.parentNode.offsetWidth / self.offsetWidth;
-		fontSize = self.style.fontSize.replace(/px/, ""); // FIXME: assumes we are only using px
-		self.style.lineHeight = self.parentNode.offsetHeight + "px"; // always correct
-		self.style.fontSize = (fontSize * width_ratio) + "px";
-		
-		height_ratio = self.parentNode.offsetHeight / self.offsetHeight;
-		if (self.parentNode.offsetHeight < self.offsetHeight) {
-			fontSize = self.style.fontSize.replace(/px/, "");
-			self.style.fontSize = (fontSize * height_ratio) + "px";
-		}
+		//if (typeof self.parentNode !== undefined) {
+			console.debug(self.id + " Resize");
+
+			self.style.width = self.parentNode.offsetWidth;
+			self.style.height = self.parentNode.offsetHeight;
+
+			width_ratio = self.parentNode.offsetWidth / self.offsetWidth;
+			fontSize = self.style.fontSize.replace(/px/, ""); // FIXME: assumes we are only using px
+			self.style.lineHeight = self.parentNode.offsetHeight + "px"; // always correct
+			self.style.fontSize = (fontSize * width_ratio) + "px";
+
+			height_ratio = self.parentNode.offsetHeight / self.offsetHeight;
+			if (self.parentNode.offsetHeight < self.offsetHeight) {
+				fontSize = self.style.fontSize.replace(/px/, "");
+				self.style.fontSize = (fontSize * height_ratio) + "px";
+			}
+		//}
 	}
 
 	self.destroy = function() {
