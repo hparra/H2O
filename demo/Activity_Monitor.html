@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <!-- H2O prototype rev_1      -->
 <!-- Coded by Jakkree Janchoi -->
 <!-- UC Irvine teliOS project -->
 
-
-<html>
 <head>
 	
 <script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
@@ -11,8 +12,8 @@
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
 <script type="text/javascript" src="../src/js/H2O.Label.js"></script>
 <script type="text/javascript">
-		var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
-		//var DOMAIN = "http://localhost:5000";  //If server is running off local host
+		//var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
+		var DOMAIN = "http://localhost:5000";  //If server is running off local host
 		
 		$(document).ready(function () {
 			testChart = H2O.Chart({
@@ -24,10 +25,10 @@
 				scale_graph: false });
 			$('#graph_container').append(testChart);
 			maxbox_label = H2O.Label({ text: "Max Reading", id: "maxLabelH2O"});
-			minbox_label = H2O.Label({ text: "Min Reading",id: "minLabelH2O" });
-			currentbox_label = H2O.Label({ text: "Current Reading", id: "currentLabelH2O"});
 			$("#maxLabel").append(maxbox_label);
+			minbox_label = H2O.Label({ text: "Min Reading",id: "minLabelH2O" });
 			$("#minLabel").append(minbox_label);
+			currentbox_label = H2O.Label({ text: "Current Reading", id: "currentLabelH2O"});
 			$("#currentLabel").append(currentbox_label);
 			infinitePollP();// --------> Uncomment to start pulling data
 		});
@@ -48,12 +49,15 @@
 </script>
 <style type="text/css">
 	body {
+		position: absolute;
+		width: 100%;
+		height: 100%;
 		overflow: hidden;
 		background-color: #000;
 	}
 	#info_panel{
 		height: 29%;
-		width: 100%;
+		width: 99%;
 		background: #CCCCCC;
 		-moz-border-radius: 10px;
 		-webkit-border-radius: 10px;  
@@ -62,7 +66,7 @@
 	}	
 	#mainPanel{
 		height: 100%;
-		width: 100%;
+		width: 99%;
 	} 
 	.topBoarder{
 		width: 100%;
@@ -116,8 +120,8 @@
 	width: 100%;
 }
 #graph_container{
-	height: 70%;
-	width: 100%;
+	height: 68%;
+	width: 99%;
 	}
 	#space{
 		height:1%;
@@ -133,20 +137,24 @@
 	#maxLabel{
 		width: 100%;
 		height: 100%;
+		text-align: center;
 	}
 	#minLabel{
 		width: 100%;
 		height: 100%;
+		text-align: center;
 	}
 	#currentLabel{
 		width: 100%;
 		height: 100%;
+		text-align: center;
 	}
 	#minReadBox{
 		width: 31.3%;
 		height: 82%;
 		float: left;
 		padding: 1%;
+		text-align: center;
 		
 	}
 	#currentReadBox{
@@ -154,12 +162,14 @@
 		height: 82%;
 		float: left;
 		padding: 1%;
+		text-align: center;
 	}
 	#maxReadBox{
 		width: 31.3%;
 		height: 82%;
 		float: left;
 		padding: 1%;
+		text-align: center;
 	}
 </style>
 </head>
@@ -167,36 +177,36 @@
 
 <body>
 <div id="main_boarder">
-	<div id = "info_panel" align=center>
-		<div id = "maxReadBox" align=center >
-			<div class = "topBoarder" align=center>
-				<div id = "maxLabel" align=center>	
+	<div id="info_panel">
+		<div id="maxReadBox">
+			<div class="topBoarder">
+				<div id="maxLabel">	
 				</div>
 			</div>
-			<div id = "maxReadInput" align=center>
+			<div id = "maxReadInput">
 				No input data
 			</div>
 		</div>
-		<div id = "minReadBox" align=center >
-			<div class = "topBoarder" align=center>
-				<div id = "minLabel" align=center>
+		<div id="minReadBox">
+			<div class="topBoarder">
+				<div id="minLabel">
 				</div>
 			</div>
-			<div id = "minReadInput" align=center>
+			<div id="minReadInput">
 				No input data
 			</div>
 		</div>	
-		<div id = "currentReadBox" align=center >
-			<div class = "topBoarder" align=center>
-				<div id = "currentLabel" align=center>
+		<div id="currentReadBox">
+			<div class="topBoarder">
+				<div id="currentLabel">
 				</div>
 			</div>
-			<div id = "currentReadInput" align=center>
+			<div id="currentReadInput">
 				No input data
 			</div>
 		</div>		
 	</div>
-	<div id ="space"></div>
+	<div id="space"></div>
 	<div id="graph_container"></div>
 </div>
 </body>
