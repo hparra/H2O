@@ -34,7 +34,28 @@ H2O.Image = function(options) {
 
         img = document.createElement('img');
         img.setAttribute('alt', options.altText);
-		img.setAttribute('src', options.src);	
+		img.setAttribute('src', options.src);
+		
+		if (img.width > img.height) {
+		    /* Horizontal Rectangular Image */
+		    img.setAttribute('style', '\
+				position: static;\
+				border: none;\
+				width: 100%;\
+				top: 50%;\
+			');
+		    img.style.marginTop = ( - 1 * img.height) / 2 + "px";
+		} else {
+		    /* Vertical Rectangular or Square Image */
+		    img.setAttribute('style', '\
+				position: static;\
+				border: none;\
+				left: 50%;\
+				height: 100%;\
+			');
+		    img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
+		}
+		
 		
         self.appendChild(img);
 
@@ -44,7 +65,7 @@ H2O.Image = function(options) {
 			// it's a DocumentFragment, from I don't know where
 			if ((self.parentNode.id) !== undefined) {
 				e.stopPropagation(); // cancel bubble
-				self.resize();
+				setTimeout(self.resize, 1); // TODO: Figure out this delay thing
 				window.addEventListener("resize", self.resize, false);
 			}
 		}, false);
@@ -75,25 +96,6 @@ H2O.Image = function(options) {
 		self.style.height = height + "px";
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
-		
-		
-		if (img.width > img.height) { /* Horizontal Rectangular Image */
-			img.setAttribute('style', '\
-				position: relative;\
-				border: none;\
-				width: 100%;\
-				top: 50%;\
-			');
-			img.style.marginTop = (-1 * img.height) / 2 + "px";
-		} else { /* Vertical Rectangular or Square Image */
-			img.setAttribute('style', '\
-				position: relative;\
-				border: none;\
-				left: 50%;\
-				height: 100%;\
-			');
-			img.style.marginLeft = (-1 * img.width) / 2 + "px";
-		}
 	};
 	
 	return self;

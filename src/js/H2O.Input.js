@@ -54,6 +54,7 @@ H2O.Input = function(options) {
 		}, false);
 	})();
 	
+	// Resize unnecessary for input boxes? 
 	self.resize = function() {
 		// width = 0;
 		// height = 0;

@@ -7,6 +7,7 @@
 * options.columnAmt: number of columns
 * options.padding: amount of padding in percent
 * options.animSpeed: how fast to slide carousel
+* options.autoScroll: on or off
 */
 H2O.Carousel = function(options) {
 	/** @private H2O.Carousel Object */
@@ -50,6 +51,9 @@ H2O.Carousel = function(options) {
 		}
 		if (options.animSpeed === undefined) {
 			options.animSpeed = 500;
+		}
+		if (options.autoScroll === undefined) {
+			options.autoScroll = false;
 		}
 		
 		data = options.data // TODO: check data first and handle necessary stuff
@@ -188,7 +192,7 @@ H2O.Carousel = function(options) {
 				// it's a DocumentFragment, from I don't know where
 			} else {
 				e.stopPropagation(); // cancel bubble
-				self.resize();
+				setTimeout(self.resize, 1);
 				window.addEventListener("resize", self.resize, false);
 			}
 		}, false);
@@ -297,7 +301,6 @@ H2O.Carousel = function(options) {
 	* @param {Number} interval The number of pages to jump forward
 	*/
 	self.nextPage = function(interval) { // Go forward interval number of pages
-		console.log(interval);
 		if (interval === undefined) {
 			interval = 1;
 		}
@@ -310,13 +313,11 @@ H2O.Carousel = function(options) {
 	* @param {Number} interval The number of pages to jump backward
 	*/
 	self.prevPage = function(interval) { // Go backward interval number of pages
-		console.log(interval);
 		if (interval === undefined) {
 			interval = 1;
 		}
 		self.jumpToPage(currentPage - interval);
 	};
-	
+		
 	return self;
 };
-
