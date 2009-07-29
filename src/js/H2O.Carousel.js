@@ -93,7 +93,7 @@ H2O.Carousel = function(options) {
 		');	
 		
 		holder = document.createElement('div');
-		holder.setAttribute('id', 'holder');
+		holder.setAttribute('id', options.ID + 'holder');
 		holder.setAttribute('style','\
 			height: 100%;\
 			left: 0px;\
@@ -116,7 +116,7 @@ H2O.Carousel = function(options) {
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
 			x = document.createElement('div');
-			x.setAttribute('id', 'page' + p);
+			x.setAttribute('id', options.ID + 'page' + p);
 			x.setAttribute('class', 'page'); 
 			x.setAttribute('style','float: left;');
 			pages.push(x);
@@ -287,7 +287,7 @@ H2O.Carousel = function(options) {
 				// we may end up having to create our own transition library :P
 				// which makes sense because we can standardize them
 				// 
-				$('#holder').animate({
+				$('#' + options.ID + 'holder').animate({
 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				}, options.animSpeed);
 
@@ -335,7 +335,9 @@ H2O.Carousel = function(options) {
 	/**
 	* takes care of the autoscrolling
 	*/
-	setInterval(self.autoScroll, options.scrollDelay);
+	if (options.autoScroll === true) {
+		setInterval(self.autoScroll, options.scrollDelay);		
+	}
 		
 	return self;
 };
