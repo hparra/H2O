@@ -201,9 +201,9 @@ H2O.Chart = function(options){
 			percent = (Math.round(graphCel / numberOfLines) * k) / graphCel;
 			percent = sizeYPixel * percent;
 			percent = sizeYPixel - percent;
-			// HGP: This is too new. An option perhaps? 
-			if (showLineNumber){
-				ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent); //TO DO Add option to draw text
+			//Now checks if ctx.fillText is supported before actually using it.
+			if (showLineNumber && (ctx.fillText)){
+				ctx.fillText(Math.round(graphCel / numberOfLines) * k, 1, percent);
 			}
 			k++;
 			ctx.fillStyle = lineargradient;
