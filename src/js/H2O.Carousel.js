@@ -8,6 +8,7 @@
 * options.padding: amount of padding in percent
 * options.animSpeed: how fast to slide carousel
 * options.autoScroll: on or off
+* options.scrollDelay: how long between scrolls
 */
 H2O.Carousel = function(options) {
 	/** @private H2O.Carousel Object */
@@ -55,6 +56,9 @@ H2O.Carousel = function(options) {
 		if (options.autoScroll === undefined) {
 			options.autoScroll = false;
 		}
+		if (options.scrollDelay === undefined) {
+			options.scrollDelay = 5000;
+		}
 		
 		data = options.data // TODO: check data first and handle necessary stuff
 		
@@ -89,7 +93,7 @@ H2O.Carousel = function(options) {
 		');	
 		
 		holder = document.createElement('div');
-		holder.setAttribute('id', 'holder');
+		holder.setAttribute('id', options.ID + 'holder');
 		holder.setAttribute('style','\
 			height: 100%;\
 			left: 0px;\
@@ -112,7 +116,7 @@ H2O.Carousel = function(options) {
 		pages = []; // pages array
 		for (p = 1; p <= self.numOfPages; p = p + 1) {
 			x = document.createElement('div');
-			x.setAttribute('id', 'page' + p);
+			x.setAttribute('id', options.ID + 'page' + p);
 			x.setAttribute('class', 'page'); 
 			x.setAttribute('style','float: left;');
 			pages.push(x);
@@ -192,7 +196,7 @@ H2O.Carousel = function(options) {
 				// it's a DocumentFragment, from I don't know where
 			} else {
 				e.stopPropagation(); // cancel bubble
-				setTimeout(self.resize, 1);
+				self.resize();
 				window.addEventListener("resize", self.resize, false);
 			}
 		}, false);
@@ -276,13 +280,14 @@ H2O.Carousel = function(options) {
 				// Shake Animation
 			} else if (page > self.numOfPages) {
 				// Shake Animation
+				self.jumpToPage(1);
 			} else {
 				
 				// HGP: This is going to be a challenge...
 				// we may end up having to create our own transition library :P
 				// which makes sense because we can standardize them
 				// 
-				$('#holder').animate({
+				$('#' + options.ID + 'holder').animate({
 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				}, options.animSpeed);
 
@@ -292,7 +297,7 @@ H2O.Carousel = function(options) {
 		} else if (page === currentPage) {
 			// Shake Animation
 		}
-		//console.log(currentPage);
+		console.log(currentPage);
 	};
 	
 	/**
@@ -318,6 +323,21 @@ H2O.Carousel = function(options) {
 		}
 		self.jumpToPage(currentPage - interval);
 	};
+	/**
+	* automatically scrolls forward 1 page every options.scrollDelay number of seconds
+	* @function
+	*/
+	self.autoScroll = function() { // Go forward interval number of pages
+		console.log(currentPage);
+		self.jumpToPage(currentPage + 1);
+	};
+	
+	/**
+	* takes care of the autoscrolling
+	*/
+	if (options.autoScroll === true) {
+		setInterval(self.autoScroll, options.scrollDelay);		
+	}
 		
 	return self;
 };
