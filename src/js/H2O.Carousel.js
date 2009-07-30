@@ -73,16 +73,8 @@ H2O.Carousel = function(options) {
 			if (d.thumb === undefined) {
 				d.thumb = "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/8.png"; // TODO: find generic image
 			}
-			if (d.title === undefined) {
-				d.title = "";
-			}
-			if (d.length === undefined) {
-				d.length = "?";
-			}
 			size = size + 1;					
 		}
-		
-		// HGP: Hmmm... which one of these two should really be _self_?
 		
 		self = document.createElement('div');
 		self.setAttribute('id', options.ID);
@@ -93,48 +85,45 @@ H2O.Carousel = function(options) {
 		');	
 		
 		holder = document.createElement('div');
-		holder.setAttribute('id', options.ID + 'holder');
+		holder.setAttribute('id', self.id + '_holder');
 		holder.setAttribute('style','\
 			height: 100%;\
 			left: 0px;\
 		');
-		// HGP: Isn't this implied by pages.length?
-		// ALLEN: The array 'pages' doesn't know how long it should be without calculating based on the formula below. It's initialized as null. 
-		self.numOfPages = Math.ceil(size / (options.rowAmt * options.columnAmt)); // TODO: Make this private?
 
-		// pages = []; // pages array
-		// for (p = 1; p <= self.numOfPages; p = p + 1) {
-		// 	// pages.push() should work
-		// 	pages[p] = document.createElement('div');
-		// 	pages[p].setAttribute('id', 'page' + p);
-		// 	pages[p].setAttribute('class', 'page'); 
-		// 	pages[p].setAttribute('style','float: left;');
-		// 	holder.appendChild(pages[p]);
-		// };
+		self.numOfPages = 0;
 		
-		// Not sure if this is how you wanted me to use the stack feature
 		pages = []; // pages array
-		for (p = 1; p <= self.numOfPages; p = p + 1) {
+		
+		addpage = function() {
 			x = document.createElement('div');
-			x.setAttribute('id', options.ID + 'page' + p);
+			x.setAttribute('id', options.ID + 'page' + self.numOfPages);
 			x.setAttribute('class', 'page'); 
 			x.setAttribute('style','float: left;');
 			pages.push(x);
-			holder.appendChild(pages[p-1]);
+			holder.appendChild(pages[self.numOfPages]);
+			self.numOfPages = self.numOfPages + 1;
 		};
+		
+		addpage();
 
 		self.appendChild(holder);
 		
+		carouselLength = 0;
 		pageNum = 0;
-				
-		for (i in data) {
-			if (i >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
-				pageNum = pageNum + 1;
-			};
 		
-            /* box */
+		self.carouselAppend = function(jsonobject) {
+			console.debug(carouselLength);
+			if (carouselLength >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
+				console.debug('pageNum = ' + pageNum);
+				pageNum = pageNum + 1;
+				addpage();
+				console.debug('pageNum is now = ' + pageNum);
+			}
+			
+			/* box */
             box = document.createElement('div');
-            box.setAttribute('class', 'box');
+            box.setAttribute('class', self.id + '_box');
 			box.setAttribute('style','\
 				position: static;\
 				clear: none;\
@@ -161,7 +150,7 @@ H2O.Carousel = function(options) {
 			
             /* icon */
             icon = document.createElement('div');
-            icon.setAttribute('class', 'icon'); // HGP: see above comment.
+            icon.setAttribute('class', self.id + '_icon'); // HGP: see above comment.
 			icon.setAttribute('style', '\
 				position: relative;\
 				top: 50%;\
@@ -173,8 +162,7 @@ H2O.Carousel = function(options) {
 			
             /* this loads slowly the first time. should preload. */
             img = document.createElement('img');
-            img.setAttribute('alt', data[i].title + " " + data[i].length); 
-            img.setAttribute('src', data[i].thumb); 
+            img.setAttribute('src', jsonobject.thumb); 
 			img.setAttribute('style', '\
 				position: static;\
 				border: none;\
@@ -187,17 +175,85 @@ H2O.Carousel = function(options) {
             //box.appendChild(a);
 			box.appendChild(icon);
 			pages[pageNum].appendChild(box);
+			console.debug('page0 = ' + pages[0]);
+			console.debug('page1 = ' + pages[1]);
+			console.debug('page2 = ' + pages[2]);
+			console.debug('page3 = ' + pages[3]);
+			carouselLength = carouselLength + 1;
 		}
+		
+		for (i in data) {
+			self.carouselAppend(data[i]);
+		}
+		
+				
+		// for (i in data) {
+		// 	if (i >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
+		// 		pageNum = pageNum + 1;
+		// 	};
+		// 
+		//             /* box */
+		//             box = document.createElement('div');
+		//             box.setAttribute('class', self.id + '_box');
+		// 	box.setAttribute('style','\
+		// 		position: static;\
+		// 		clear: none;\
+		// 		float: left;\
+		// 		overflow: hidden;\
+		// 		display: block;\
+		// 	');
+		// 	
+		// 	// HGP: I would disregard the Frescolita business
+		// 	// this needs to check if a HREF exists in data
+		// 	// we may also have an onclick value in the data
+		// 
+		//             // /* a */
+		//             // a = document.createElement('a');
+		// 	// TODO: Make this grab the link and load video and/or do some cool effect
+		// 	//a.setAttribute('onclick', "Frescolita.StateManager.states['HOME'].startWidget('" + href + "')");
+		// 	// a.setAttribute('style', '\
+		// 	// 						position: static;\
+		// 	// 						width: 100%;\
+		// 	// 						height: 100%;\
+		// 	// 						display: block;\
+		// 	// 						border: none;\
+		// 	// 					');
+		// 	
+		//             /* icon */
+		//             icon = document.createElement('div');
+		//             icon.setAttribute('class', self.id + '_icon'); // HGP: see above comment.
+		// 	icon.setAttribute('style', '\
+		// 		position: relative;\
+		// 		top: 50%;\
+		// 		left: 50%;\
+		// 	');
+		// 	
+		// 	// HGP: they may not be images in the future.
+		// 	// they maybe canvases or iframes
+		// 	
+		//             /* this loads slowly the first time. should preload. */
+		//             img = document.createElement('img');
+		//             img.setAttribute('src', data[i].thumb); 
+		// 	img.setAttribute('style', '\
+		// 		position: static;\
+		// 		border: none;\
+		// 		width: 100%;\
+		// 		height: 100%;\
+		// 	');			
+		// 	
+		// 	icon.appendChild(img);
+		// 	//a.appendChild(icon);
+		//             //box.appendChild(a);
+		// 	box.appendChild(icon);
+		// 	pages[pageNum].appendChild(box);
+		// }
 	
 		self.addEventListener("DOMNodeInserted", function(e) {
-			//console.log(self.parentNode);
-			if ((self.parentNode.id) === undefined) {
-				// the hell? it fires twice and the first time is no good.
-				// it's a DocumentFragment, from I don't know where
-			} else {
+			if (self.parentNode.id !== undefined) {
+				// console.debug("DOMNodeInserted: " + self.id);
 				e.stopPropagation(); // cancel bubble
-				self.resize();
 				window.addEventListener("resize", self.resize, false);
+				self.resize();
 			}
 		}, false);
 	})();
@@ -216,12 +272,17 @@ H2O.Carousel = function(options) {
 	* @function
 	*/
 	self.resize = function() {
+		// console.debug(self.id + ".resize()");
+		
 		box_width_ratio = 1 / options.columnAmt; // Width / # of Columns = Box Width
 		box_height_ratio = 1 / options.rowAmt; // Height / # of Rows = Box Height
 
         boxWidth = self.parentNode.offsetWidth * box_width_ratio;
         boxHeight = self.parentNode.offsetHeight * box_height_ratio;
-		boxList = document.getElementsByClassName('box');
+
+		// ONLY GRAB SELF's child 'box'
+		boxList = document.getElementsByClassName(self.id + '_box');
+
 		for (b = 0; b < boxList.length; b = b + 1) {
 			boxList[b].style.width = boxWidth + "px";
 			boxList[b].style.height = boxHeight + "px";
@@ -250,7 +311,7 @@ H2O.Carousel = function(options) {
 		iconHeight = iconHeight - (1 * options.padding);
 		
 		/* Centering */
-		iconList = document.getElementsByClassName('icon');
+		iconList = document.getElementsByClassName(self.id + '_icon');
 		for (i = 0; i < iconList.length; i = i + 1) {
 			iconList[i].style.width = iconWidth + "px";
 			iconList[i].style.height = iconHeight + "px";
@@ -268,6 +329,11 @@ H2O.Carousel = function(options) {
 		holder.style.width = self.parentNode.offsetWidth * self.numOfPages + "px";
 		holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
 	};
+	
+	self.addToCarousel = function(object) {
+		self.carouselAppend(object);
+		self.resize();
+	}
 	
 	/**
 	* Jump to specified page number
@@ -287,7 +353,7 @@ H2O.Carousel = function(options) {
 				// we may end up having to create our own transition library :P
 				// which makes sense because we can standardize them
 				// 
-				$('#' + options.ID + 'holder').animate({
+				$('#' + self.id + '_holder').animate({
 					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
 				}, options.animSpeed);
 
@@ -297,7 +363,6 @@ H2O.Carousel = function(options) {
 		} else if (page === currentPage) {
 			// Shake Animation
 		}
-		console.log(currentPage);
 	};
 	
 	/**
@@ -328,7 +393,6 @@ H2O.Carousel = function(options) {
 	* @function
 	*/
 	self.autoScroll = function() { // Go forward interval number of pages
-		console.log(currentPage);
 		self.jumpToPage(currentPage + 1);
 	};
 	
