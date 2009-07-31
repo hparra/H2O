@@ -6,7 +6,6 @@
 <!-- UC Irvine teliOS project -->
 
 <head>
-	
 <script type="text/javascript" src="../vendor/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="../src/js/H2O.js"></script>
 <script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
@@ -14,7 +13,6 @@
 <script type="text/javascript">
 		//var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
 		var DOMAIN = "http://localhost:5000";  //If server is running off local host
-		
 		$(document).ready(function () {
 			testChart = H2O.Chart({
 				id: 'graph_canvas',
@@ -26,26 +24,21 @@
 			$('#graph_container').append(testChart);
 			maxbox_label = H2O.Label({ text: "Max Reading", id: "maxLabelH2O"});
 			$("#maxLabel").append(maxbox_label);
-			minbox_label = H2O.Label({ text: "Min Reading",id: "minLabelH2O" });
+			minbox_label = H2O.Label({ text: "Min Reading",id: "minLabelH2O"});
 			$("#minLabel").append(minbox_label);
 			currentbox_label = H2O.Label({ text: "Current Reading", id: "currentLabelH2O"});
 			$("#currentLabel").append(currentbox_label);
 			infinitePollP();// --------> Uncomment to start pulling data
 		});
-
 		function infinitePollP() {
-        $.getJSON(DOMAIN + "/devices/accelerometer?format=jsonp&callback=?",
-          function(data){
-		  	testChart.feedData(data.data);
-			$('#maxReadInput').html(testChart.getMaxReading());
-			$('#minReadInput').html(testChart.getMinReading());
-			$('#currentReadInput').html( testChart.getCurrentReading());
-            infinitePollP();
-          }
-        );
+				$.getJSON(DOMAIN + "/devices/accelerometer?format=jsonp&callback=?", function(data){
+				testChart.feedData(data.data);
+				$('#maxReadInput').html(testChart.getMaxReading());
+				$('#minReadInput').html(testChart.getMinReading());
+				$('#currentReadInput').html(testChart.getCurrentReading());
+				infinitePollP();
+			});
       }
-
-
 </script>
 <style type="text/css">
 	body {
@@ -59,8 +52,10 @@
 		height: 29%;
 		width: 99%;
 		background: #CCCCCC;
-		-moz-border-radius: 10px;
-		-webkit-border-radius: 10px;  
+		-moz-border-radius-topleft: 30px;
+		-moz-border-radius-bottomright: 30px;
+		-webkit-border-top-left-radius: 30px; 
+		-webkit-border-bottom-right-radius: 30px; 
 		background-image:url(grad_lin_BG.png);
 		background-repeat:repeat-x;		
 	}	
@@ -72,20 +67,16 @@
 	.topBoarder{
 		width: 100%;
 		height: 30%;
-		-moz-border-radius-topleft: 10px;
-		-moz-border-radius-topright: 10px;
-		-webkit-border-top-left-radius: 10px; 
-		-webkit-border-top-right-radius: 10px;
+		-moz-border-radius-topleft: 20px;
+		-webkit-border-top-left-radius: 20px; 
 		border: 0px solid #ffffff;
 		background: #ffffff;
 	}
 	#maxReadInput{
 		width: 100%;
 		height: 70%;
-		-moz-border-radius-bottomleft: 10px;
-		-moz-border-radius-bottomright: 10px;
-		-webkit-border-bottom-left-radius: 10px; 
-		-webkit-border-bottom-right-radius: 10px;
+		-moz-border-radius-bottomright: 20px;
+		-webkit-border-bottom-right-radius: 20px;
 		border: 0px solid #CCCCCC;
 		font-family: Verdana;
 		font-size: 48;
@@ -94,10 +85,8 @@
 	#minReadInput{
 		width: 100%;
 		height: 70%;
-		-moz-border-radius-bottomleft: 10px;
-		-moz-border-radius-bottomright: 10px;
-		-webkit-border-bottom-left-radius: 10px; 
-		-webkit-border-bottom-right-radius: 10px;
+		-moz-border-radius-bottomright: 20px;
+		-webkit-border-bottom-right-radius: 20px;
 		border: 0px solid #CCCCCC;
 		background: #CCCCCC;
 		font-family: Verdana;
@@ -106,10 +95,8 @@
 	#currentReadInput{
 		width: 100%;
 		height: 70%;
-		-moz-border-radius-bottomleft: 10px;
-		-moz-border-radius-bottomright: 10px;
-		-webkit-border-bottom-left-radius: 10px; 
-		-webkit-border-bottom-right-radius: 10px;
+		-moz-border-radius-bottomright: 20px;
+		-webkit-border-bottom-right-radius: 20px;
 		border: 0px solid #CCCCCC;
 		background: #CCCCCC;
 		font-family: Verdana;
