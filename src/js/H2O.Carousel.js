@@ -91,8 +91,7 @@ H2O.Carousel = function(options) {
 			left: 0px;\
 		');
 
-		self.numOfPages = 0;
-		
+		self.numOfPages = 0; // total number of pages initialized to 0
 		pages = []; // pages array
 		
 		addpage = function() {
@@ -106,7 +105,6 @@ H2O.Carousel = function(options) {
 		};
 		
 		addpage();
-
 		self.appendChild(holder);
 		
 		carouselLength = 0;
@@ -115,10 +113,8 @@ H2O.Carousel = function(options) {
 		self.carouselAppend = function(jsonobject) {
 			console.debug(carouselLength);
 			if (carouselLength >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
-				console.debug('pageNum = ' + pageNum);
 				pageNum = pageNum + 1;
 				addpage();
-				console.debug('pageNum is now = ' + pageNum);
 			}
 			
 			/* box */
@@ -157,11 +153,7 @@ H2O.Carousel = function(options) {
 				left: 50%;\
 			');
 			
-			// HGP: they may not be images in the future.
-			// they maybe canvases or iframes
-			
-            /* this loads slowly the first time. should preload. */
-            img = document.createElement('img');
+			img = document.createElement('img');
             img.setAttribute('src', jsonobject.thumb); 
 			img.setAttribute('style', '\
 				position: static;\
@@ -175,10 +167,6 @@ H2O.Carousel = function(options) {
             //box.appendChild(a);
 			box.appendChild(icon);
 			pages[pageNum].appendChild(box);
-			console.debug('page0 = ' + pages[0]);
-			console.debug('page1 = ' + pages[1]);
-			console.debug('page2 = ' + pages[2]);
-			console.debug('page3 = ' + pages[3]);
 			carouselLength = carouselLength + 1;
 		}
 		
