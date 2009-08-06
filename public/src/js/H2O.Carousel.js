@@ -66,8 +66,8 @@ H2O.Carousel = function(options) {
 
 		size = 0
 		for (d in data) {
-			if (d.thumb === undefined) {
-				d.thumb = "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/8.png"; // TODO: find generic image
+			if (d.imgsrc === undefined) {
+				d.imgsrc = "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/8.png"; // TODO: find generic image
 			}
 			size = size + 1;					
 		}
@@ -160,7 +160,7 @@ H2O.Carousel = function(options) {
 			// 	');
 			// } else {				
 			// 	item = document.createElement('img');
-			// 	            item.setAttribute('src', jsonobject.thumb); 
+			// 	            item.setAttribute('src', jsonobject.imgsrc); 
 			// 	item.setAttribute('style', '\
 			// 		position: static;\
 			// 		border: none;\
@@ -169,7 +169,7 @@ H2O.Carousel = function(options) {
 			// 	');			
 			// }
 			
-			if (jsonobject.thumb === undefined) { // Non-Images
+			if (jsonobject.imgsrc === undefined) { // Non-Images
 				item = jsonobject;
 				item.setAttribute('style', '\
 					position: static;\
@@ -179,7 +179,7 @@ H2O.Carousel = function(options) {
 				');
 			} else { // Images
 				item = document.createElement('img');
-				item.setAttribute('src', jsonobject.thumb); 
+				item.setAttribute('src', jsonobject.imgsrc); 
 				item.setAttribute('style', '\
 					position: static;\
 					border: none;\
@@ -248,7 +248,7 @@ H2O.Carousel = function(options) {
 		// 	
 		//             /* this loads slowly the first time. should preload. */
 		//             img = document.createElement('img');
-		//             img.setAttribute('src', data[i].thumb); 
+		//             img.setAttribute('src', data[i].imgsrc); 
 		// 	img.setAttribute('style', '\
 		// 		position: static;\
 		// 		border: none;\
