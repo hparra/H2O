@@ -37,6 +37,7 @@ H2O.Label = function(options) {
 		}, false);
 	})();
 
+
 	self.resize = function() {
 		
 		//if (typeof self.parentNode !== undefined) {
