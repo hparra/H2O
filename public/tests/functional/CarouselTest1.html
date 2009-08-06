@@ -1,11 +1,11 @@
 <!-- Functional Test for H2O.Carousel
-Test: Hidden Carousel Resize Bug -->
+Test: Multiple Carousels on one page -->
 
-<!-- Initial Verdict: Failed -->
+<!-- Initial Verdict: Passed -->
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>CarouselTest2</title>
+	<title>CarouselTest1</title>
 	<style type="text/css" media="screen">
 		body {
 			position: absolute;
@@ -26,9 +26,9 @@ Test: Hidden Carousel Resize Bug -->
 		}
 	</style>
 	<script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="../src/js/H2O.js"></script>
-	<script type="text/javascript" src="../src/js/H2O.Image.js"></script>
-	<script type="text/javascript" src="../src/js/H2O.Carousel.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.Image.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.Carousel.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var datalist = {
 			0: {
@@ -137,11 +137,6 @@ Test: Hidden Carousel Resize Bug -->
 				scrollDelay: 2000
 			});
 			$('#carousel2').append(car2);
-			$('#carousel2').hide();
-			
-			$("#reveal").click(function() {
-				$('#carousel2').show();
-			});
 		});
 	</script>
 </head>
@@ -154,7 +149,6 @@ Test: Hidden Carousel Resize Bug -->
 <div id="carousel2">
 	
 </div>
-<input type="button" id="reveal"/>
 
 </body>
 </html>
