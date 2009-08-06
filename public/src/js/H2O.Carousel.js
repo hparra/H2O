@@ -63,11 +63,7 @@ H2O.Carousel = function(options) {
 		data = options.data // TODO: check data first and handle necessary stuff
 		
 		// DATA Checking
-		//
-		// Checks for undefined parameters and sets default values
-		// Default Thumbnail:  
-		// Default Title: ""
-		// Default Length: ?
+
 		size = 0
 		for (d in data) {
 			if (d.thumb === undefined) {
@@ -153,16 +149,47 @@ H2O.Carousel = function(options) {
 				left: 50%;\
 			');
 			
-			img = document.createElement('img');
-            img.setAttribute('src', jsonobject.thumb); 
-			img.setAttribute('style', '\
-				position: static;\
-				border: none;\
-				width: 100%;\
-				height: 100%;\
-			');			
+			// if (jsonobject.nonImage !== undefined) {
+			// 	item = document.createElement('div');
+			// 	item.innerHTML = jsonobject.nonImage;
+			// 	item.setAttribute('style', '\
+			// 		position: static;\
+			// 		border: none;\
+			// 		width: 100%;\
+			// 		height: 100%;\
+			// 	');
+			// } else {				
+			// 	item = document.createElement('img');
+			// 	            item.setAttribute('src', jsonobject.thumb); 
+			// 	item.setAttribute('style', '\
+			// 		position: static;\
+			// 		border: none;\
+			// 		width: 100%;\
+			// 		height: 100%;\
+			// 	');			
+			// }
 			
-			icon.appendChild(img);
+			if (jsonobject.thumb === undefined) { // Non-Images
+				item = jsonobject;
+				item.setAttribute('style', '\
+					position: static;\
+					border: none;\
+					width: 100%;\
+					height: 100%;\
+				');
+			} else { // Images
+				item = document.createElement('img');
+				item.setAttribute('src', jsonobject.thumb); 
+				item.setAttribute('style', '\
+					position: static;\
+					border: none;\
+					width: 100%;\
+					height: 100%;\
+				');			
+			}
+			
+			
+			icon.appendChild(item);
 			//a.appendChild(icon);
             //box.appendChild(a);
 			box.appendChild(icon);
