@@ -345,6 +345,11 @@ H2O.Carousel = function(options) {
 		holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
 	};
 	
+	/**
+	* takes an object directly or through jsonobject.imgsrc
+	* @function
+	* @param {Object} Object to be held in carousel
+	*/
 	self.addToCarousel = function(object) {
 		self.carouselAppend(object);
 		self.resize();

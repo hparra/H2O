@@ -1,6 +1,7 @@
 <!-- Functional Test for H2O.Carousel
 Test: Appending Non-images -->
 
+
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -18,13 +19,27 @@ Test: Appending Non-images -->
 			width: 100%;
 			height: 75%;
 		}
+		
+		#test1 {
+			background-color: blue;
+		}
+		
+		#test2 {
+			background-color: blue;
+		}
+		
+		#test3 {
+			background-color: blue;
+		}
+		
+		#test4 {
+			background-color: blue;
+		}
 	</style>
 	<script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.Image.js"></script>
 	<script type="text/javascript" src="../src/js/H2O.Carousel.js"></script>
-	<script src="http://charts.wikinvest.com/wikinvest/wikichart/javascript/scripts.php" type="text/javascript"></script>
-	<script type="text/javascript">if (typeof(embedWikichart) != "undefined") {embedWikichart("http://charts.wikinvest.com/WikiChartMini.swf","wikichartContainer_246843EF-73D9-65D8-68E8-EDDC435409D2","100%","400",{"showAnnotations":"true","ticker":"GOOG","rollingDate":"6 months","liveQuote":"true"});}</script>
 	<script type="text/javascript" charset="utf-8">
 		
 		var datalist = {
@@ -48,7 +63,8 @@ Test: Appending Non-images -->
 			
 			car1.addToCarousel(document.getElementById('test1'));
 			car1.addToCarousel(document.getElementById('test2'));
-			
+			car1.addToCarousel(document.getElementById('test3'));
+			car1.addToCarousel(document.getElementById('test4'));
 		});
 	</script>
 </head>
@@ -62,6 +78,16 @@ Test: Appending Non-images -->
 <div id="test2">
 	<img src="http://marco.calit2.uci.edu/assets/i3/images/calit2logo.png">
 	<p>Calit2 Logo</p>
+</div>
+
+<div id="test3">
+	<script src="http://charts.wikinvest.com/wikinvest/wikichart/javascript/scripts.php" type="text/javascript"></script><div id="wikichartContainer_22BDD915-AF7D-9B08-554D-EE0D0C98C92B"><div style="width: 100%; text-align: center; vertical-align: center; margin-top: 100px;"><a href="http://get.adobe.com/flashplayer/"><img src="http://cdn.wikinvest.com/wikinvest/images/adobe_flash_logo.gif" alt="Flash" style="border-width: 0px;"/><br/>Flash Player 9 or higher is required to view the chart<br/><strong>Click here to download Flash Player now</strong></a></div></div><script type="text/javascript">if (typeof(embedWikichart) != "undefined") {embedWikichart("http://charts.wikinvest.com/WikiChartMini.swf","wikichartContainer_22BDD915-AF7D-9B08-554D-EE0D0C98C92B","100%","400",{"showAnnotations":"true","endDate":"05-08-2009","ticker":"GOOG","liveQuote":"true","startDate":"05-02-2009"});}</script><div style="font-size:9px;text-align:right;width:100%;font-family:Verdana"><a href="http://www.wikinvest.com/chart/GOOG" style="text-decoration:underline; color:#0000ee;">View the full NASDAQ:GOOG chart</a> at <a href="http://www.wikinvest.com/">Wikinvest</a></div>
+</div>
+
+<div id="test4">
+	<!-- Start of Yahoo! Finance code -->
+	<iframe allowtransparency="true" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" height="100%" width="100%" src="http://api.finance.yahoo.com/instrument/1.0/%5EIXIC,GOOG,MSFT/badge;chart=3m,,comparison;quote/HTML?AppID=5FRAd3aKZXCezqWxlgKCpZloQ1B10TL6aU6ZSpIJ&amp;sig=gWlDE1iUzY.Gk2to1rRR2V82j6k-&amp;t=1249534394234" width="300px" height="undefined"><a href="http://finance.yahoo.com">Yahoo! Finance</a><br/><a href="http://finance.yahoo.com/q?s=^IXIC">Quote for ^IXIC</a></iframe>
+	<!-- End of Yahoo! Finance code -->
 </div>
 
 <div id="carousel1">
