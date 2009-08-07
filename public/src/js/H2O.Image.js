@@ -18,10 +18,10 @@ H2O.Image = function(options) {
 			options.ID = '';
 		}
 		if (options.altText === undefined) {
-			options.ID = '';
+			options.altText = '';
 		}
 		if (options.src === undefined) {
-			options.ID = ''; // FIXME: Make this default missing src image
+			options.src = ''; // FIXME: Make this default missing src image
 		}
 		
         self = document.createElement('div');
