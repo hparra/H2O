@@ -149,26 +149,6 @@ H2O.Carousel = function(options) {
 				left: 50%;\
 			');
 			
-			// if (jsonobject.nonImage !== undefined) {
-			// 	item = document.createElement('div');
-			// 	item.innerHTML = jsonobject.nonImage;
-			// 	item.setAttribute('style', '\
-			// 		position: static;\
-			// 		border: none;\
-			// 		width: 100%;\
-			// 		height: 100%;\
-			// 	');
-			// } else {				
-			// 	item = document.createElement('img');
-			// 	            item.setAttribute('src', jsonobject.imgsrc); 
-			// 	item.setAttribute('style', '\
-			// 		position: static;\
-			// 		border: none;\
-			// 		width: 100%;\
-			// 		height: 100%;\
-			// 	');			
-			// }
-			
 			if (jsonobject.imgsrc === undefined) { // Non-Images
 				item = jsonobject;
 				item.setAttribute('style', '\
@@ -197,72 +177,12 @@ H2O.Carousel = function(options) {
 			carouselLength = carouselLength + 1;
 		}
 		
-		for (i in data) {
-			self.carouselAppend(data[i]);
+		if (data !== undefined) {
+			for (i in data) {
+				self.carouselAppend(data[i]);
+			}
 		}
 		
-				
-		// for (i in data) {
-		// 	if (i >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
-		// 		pageNum = pageNum + 1;
-		// 	};
-		// 
-		//             /* box */
-		//             box = document.createElement('div');
-		//             box.setAttribute('class', self.id + '_box');
-		// 	box.setAttribute('style','\
-		// 		position: static;\
-		// 		clear: none;\
-		// 		float: left;\
-		// 		overflow: hidden;\
-		// 		display: block;\
-		// 	');
-		// 	
-		// 	// HGP: I would disregard the Frescolita business
-		// 	// this needs to check if a HREF exists in data
-		// 	// we may also have an onclick value in the data
-		// 
-		//             // /* a */
-		//             // a = document.createElement('a');
-		// 	// TODO: Make this grab the link and load video and/or do some cool effect
-		// 	//a.setAttribute('onclick', "Frescolita.StateManager.states['HOME'].startWidget('" + href + "')");
-		// 	// a.setAttribute('style', '\
-		// 	// 						position: static;\
-		// 	// 						width: 100%;\
-		// 	// 						height: 100%;\
-		// 	// 						display: block;\
-		// 	// 						border: none;\
-		// 	// 					');
-		// 	
-		//             /* icon */
-		//             icon = document.createElement('div');
-		//             icon.setAttribute('class', self.id + '_icon'); // HGP: see above comment.
-		// 	icon.setAttribute('style', '\
-		// 		position: relative;\
-		// 		top: 50%;\
-		// 		left: 50%;\
-		// 	');
-		// 	
-		// 	// HGP: they may not be images in the future.
-		// 	// they maybe canvases or iframes
-		// 	
-		//             /* this loads slowly the first time. should preload. */
-		//             img = document.createElement('img');
-		//             img.setAttribute('src', data[i].imgsrc); 
-		// 	img.setAttribute('style', '\
-		// 		position: static;\
-		// 		border: none;\
-		// 		width: 100%;\
-		// 		height: 100%;\
-		// 	');			
-		// 	
-		// 	icon.appendChild(img);
-		// 	//a.appendChild(icon);
-		//             //box.appendChild(a);
-		// 	box.appendChild(icon);
-		// 	pages[pageNum].appendChild(box);
-		// }
-	
 		self.addEventListener("DOMNodeInserted", function(e) {
 			if (self.parentNode.id !== undefined) {
 				// console.debug("DOMNodeInserted: " + self.id);
