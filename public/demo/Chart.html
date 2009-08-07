@@ -8,7 +8,7 @@
 	
 <script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="../src/js/H2O.js"></script>
-<script type="text/javascript" src="../src/js/H2O.Chart.js"></script>
+<script type="text/javascript" src="../src/js/H2O.Chart.js"</script>
 <script type="text/javascript">
 		//var DOMAIN = "http://oakenfold.calit2.uci.edu:5000";
 		var DOMAIN = "http://localhost:5000";
@@ -17,11 +17,31 @@
 				id: 'graph_canvas', // HGP: should be optional
 				graphCeil: 300,
 				intervalY: 25,
+				expandX: false,
 				addDot: false,
 				show_line_number: true, //show line number requires Firefox 3.5 or higher. Safari 4
 				scale_graph: false });
 			$('#some_graph').append(testChart);
-			setInterval('testChart.feedData(Math.ceil(Math.random()*100))',100);
+			setInterval('testChart.feedData(Math.ceil(Math.random()*200))',100);
+			/*
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200));
+			testChart.feedData(Math.ceil(Math.random()*200)); */
+			
+			
 			//infinitePollP();
 			
 		});

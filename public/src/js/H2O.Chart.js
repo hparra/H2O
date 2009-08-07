@@ -33,6 +33,7 @@ H2O.Chart = function(options){
 	var ctx; // HGP: Not necessary.
 	var maxSize;
 	var maxReading = 0;
+	var deltaX = 15;
 	var sizePercent = 1;//option**
 	var minReading = 99999999; //Change to integer max value
 	var totalReading = 0;
@@ -57,7 +58,9 @@ H2O.Chart = function(options){
 	var buffer = []; // Array that keeps all the data read in. 
 	var resize = true;
 	var dotPlot = false;
+	var deltaXPercent = 5; // 5% of total size in X axis
 	var showLineNumber = false;
+	var expandX = false;
 	var screenBuffer = []; // buffer that only has information about what is currently on the screen. Will be removed once clear() is called
 
     /////********************** I IS PRIVATE FUNCTION ******************////////
@@ -77,18 +80,25 @@ H2O.Chart = function(options){
 		self.setAttribute('class', 'H2O_Chart');
 
 		theName = options.id; // HGP: Redundant now. Use self.id
-		
 	
 		if (!(options.scale_percent != undefined)) {
 			sizePercent = options.scale_percent / 100;
 		}
-		if( !(options.dotPlot != undefined)){
+		if(options.expandX){
+			// if expandX is true, the graph is allocate more space to plot points
+			// else it will stretch the plotted points to fit the graph
+			expandX = options.expandX;
+		}
+		if(options.deltaX){
+			deltaXPercent = option.deltaX;
+		}
+		if(options.addDot){
 			dotPlot = options.addDot; 	
 		}
 		if( !(options.scale_graph === undefined)){
 			resize = options.scale_graph;
 		}
-		if( !(options.show_line_number === undefined)){
+		if(options.show_line_number){
 			showLineNumber = options.show_line_number;
 		}
 		if( !(options.bgGradientStart === undefined) ){
@@ -133,6 +143,7 @@ H2O.Chart = function(options){
 	// HGP: Not true. Part or all of this should be a public function
 	// We want to call draw from the outside, e.g. my_chart.draw(1337);
 	drawGraph = function(input){
+
 		// This function draws the graph on to the canvas. Users will not needs to call this function.
 		++totalReading;
 		if (input < minReading) {
@@ -141,7 +152,7 @@ H2O.Chart = function(options){
 		if (input > maxReading) {
 			maxReading = input;
 		}
-		if (xCoordinate >= sizeXPixel - 25) {
+		if ((((xCoordinate)+(sizeXPixel * (deltaXPercent / 100))) >= sizeXPixel - 25) || (xCoordinate >= sizeXPixel - 25)) {
 			xCoordinate = 25;
 			startPoint = currentReading;
 			self.clear();
@@ -152,7 +163,12 @@ H2O.Chart = function(options){
 			ctx.lineCap = 'round';
 			ctx.beginPath();
 			ctx.moveTo(xCoordinate, onGraphY);
-			xCoordinate += 15; //space between each read is 10px
+			if (expandX) {
+				xCoordinate += deltaX; //space between each read is 10px
+			}else {
+				// TODO: calc percentage of X
+				xCoordinate += sizeXPixel * (deltaXPercent / 100);
+			}
 			// HGP: See comment above. This should be passed in.
 			// Painting and passing this data asynchronously is the tricky part!
 			// We need to differentiate between a chart that is always painting
@@ -177,8 +193,18 @@ H2O.Chart = function(options){
 	@param {int} input data will be drawn on the chart.
 */
 	self.feedData = function( newInput ){
-		screenBuffer.push(newInput);
-		drawGraph(newInput);
+		try {
+			if (isFinite(newInput)) {
+				screenBuffer.push(newInput);
+				drawGraph(newInput);
+			}else{
+				throw "Err1"
+			}
+		}catch(err){
+			if(err =="Err1"){
+				alert("Invalid number passed to H2O.Chart");
+			}
+		}
 	};
 
 	paintBG = function(){
@@ -258,7 +284,11 @@ H2O.Chart = function(options){
 				ctx.lineCap = 'round';
 				ctx.beginPath();
 				ctx.moveTo(xCoordinate, onGraphY);
-				xCoordinate += 15;
+				if (expandX) {
+					xCoordinate += deltaX; //space between each read is 10px
+				}else{
+					xCoordinate += sizeXPixel * (deltaXPercent / 100);
+				}
 				percentOnGraph = screenBuffer[i] / graphCel;
 				onGraphY = Math.ceil(sizeYPixel * percentOnGraph);
 				onGraphY = sizeYPixel - onGraphY;
