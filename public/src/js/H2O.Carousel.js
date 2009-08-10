@@ -107,7 +107,6 @@ H2O.Carousel = function(options) {
 		pageNum = 0;
 		
 		self.carouselAppend = function(jsonobject) {
-			console.debug(carouselLength);
 			if (carouselLength >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
 				pageNum = pageNum + 1;
 				addpage();

@@ -35,27 +35,28 @@ H2O.Image = function(options) {
         img = document.createElement('img');
         img.setAttribute('alt', options.altText);
 		img.setAttribute('src', options.src);
-		 
-		if (img.width > img.height) {
-		    /* Horizontal Rectangular Image */
-		    img.setAttribute('style', '\
-				position: static;\
-				border: none;\
-				width: 100%;\
-				top: 50%;\
-			');
-		    img.style.marginTop = ( - 1 * img.height) / 2 + "px";
-		} else {
-		    /* Vertical Rectangular or Square Image */
-		    img.setAttribute('style', '\
-				position: static;\
-				border: none;\
-				left: 50%;\
-				height: 100%;\
-			');
-		    img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
-		}
 		
+		self.imgResize = function() {
+			if (img.width > img.height) {
+			    /* Horizontal Rectangular Image */
+			    img.setAttribute('style', '\
+					position: static;\
+					border: none;\
+					width: 100%;\
+					top: 50%;\
+				');
+			    img.style.marginTop = ( - 1 * img.height) / 2 + "px";
+			} else {
+			    /* Vertical Rectangular or Square Image */
+			    img.setAttribute('style', '\
+					position: static;\
+					border: none;\
+					left: 50%;\
+					height: 100%;\
+				');
+			    img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
+			}
+		}
 		
         self.appendChild(img);
 
@@ -97,6 +98,7 @@ H2O.Image = function(options) {
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
 		
+		self.imgResize();
 		//self.parentNode.style.overflow = 'hidden';
 	};
 	
