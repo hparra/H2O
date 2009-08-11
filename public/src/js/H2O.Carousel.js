@@ -171,7 +171,6 @@ H2O.Carousel = function(options) {
 			//a.appendChild(icon);
             //box.appendChild(a);
 			box.appendChild(icon);
-			console.debug(options.ID + ' : ' +self.pageNum);
 			pages[self.pageNum].appendChild(box);
 			carouselLength = carouselLength + 1;
 		}
