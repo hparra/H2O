@@ -19,7 +19,6 @@ H2O.Carousel = function(options) {
 	var data = null;
 	/** @private {Number} Current carousel page */
 	var currentPage = 1;
-	
 	/**
 	* Power constructor for H2O.Carousel
 	* @constructor
@@ -104,11 +103,11 @@ H2O.Carousel = function(options) {
 		self.appendChild(holder);
 		
 		carouselLength = 0;
-		pageNum = 0;
-		
+	 	self.pageNum = 0;
+
 		self.carouselAppend = function(jsonobject) {
-			if (carouselLength >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
-				pageNum = pageNum + 1;
+			if (carouselLength >= (options.rowAmt * options.columnAmt * (self.pageNum + 1))) {
+				self.pageNum = self.pageNum + 1;
 				addpage();
 			}
 			
@@ -172,7 +171,8 @@ H2O.Carousel = function(options) {
 			//a.appendChild(icon);
             //box.appendChild(a);
 			box.appendChild(icon);
-			pages[pageNum].appendChild(box);
+			console.debug(options.ID + ' : ' +self.pageNum);
+			pages[self.pageNum].appendChild(box);
 			carouselLength = carouselLength + 1;
 		}
 		
@@ -200,6 +200,24 @@ H2O.Carousel = function(options) {
 	self.getCurrentPage = function() {
 		return currentPage;
 	};
+	
+	/**
+	* grab current carousel size
+	* @function
+	* @returns {Number} number of items in carousel
+	*/
+	self.getCarouselLength = function() {
+		return carouselLength;
+	};
+	
+	/**
+	* grab total number of pages
+	* @function
+	* @returns {Number} number of pages in carousel
+	*/
+	self.getNumOfPages = function() {
+		return self.pageNum;
+	}
 	
 	/**
 	* resizes the image on window resize event
