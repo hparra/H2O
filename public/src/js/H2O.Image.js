@@ -36,7 +36,7 @@ H2O.Image = function(options) {
         img.setAttribute('alt', options.altText);
 		img.setAttribute('src', options.src);
 		
-		self.imgResize = function() {
+		//self.imgResize = function() {
 			if (img.width > img.height) {
 			    /* Horizontal Rectangular Image */
 			    img.setAttribute('style', '\
@@ -56,7 +56,7 @@ H2O.Image = function(options) {
 				');
 			    img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
 			}
-		}
+		//}
 		
         self.appendChild(img);
 
