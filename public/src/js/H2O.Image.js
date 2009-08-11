@@ -98,7 +98,7 @@ H2O.Image = function(options) {
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
 		
-		self.imgResize();
+		//self.imgResize();
 		//self.parentNode.style.overflow = 'hidden';
 	};
 	
