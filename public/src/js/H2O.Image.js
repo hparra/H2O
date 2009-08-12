@@ -7,7 +7,7 @@
 H2O.Image = function(options) {
 	/** @private H2O.Image Object */
 	var self = null;
-	
+
 	/**
 	* Power constructor for H2O.Image
 	* @constructor
@@ -35,28 +35,61 @@ H2O.Image = function(options) {
         img = document.createElement('img');
         img.setAttribute('alt', options.altText);
 		img.setAttribute('src', options.src);
+		img.setAttribute('class', options.ID + 'class');
 		
-		//self.imgResize = function() {
-			if (img.width > img.height) {
-			    /* Horizontal Rectangular Image */
-			    img.setAttribute('style', '\
-					position: static;\
-					border: none;\
-					width: 100%;\
-					top: 50%;\
-				');
-			    img.style.marginTop = ( - 1 * img.height) / 2 + "px";
-			} else {
-			    /* Vertical Rectangular or Square Image */
-			    img.setAttribute('style', '\
-					position: static;\
-					border: none;\
-					left: 50%;\
-					height: 100%;\
-				');
-			    img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
-			}
-		//}
+		// img.setAttribute('style', '\
+		// 	position: static;\
+		// 	border: none;\
+		// 	width: 100%;\
+		// 	height: 100%;\
+		// ');
+		
+		if (img.width > img.height) {
+			/* Horizontal Rectangular Image */
+			img.setAttribute('style', '\
+				position: static;\
+				border: none;\
+				width: 100%;\
+				top: 50%;\
+			');
+			img.style.marginTop = ( - 1 * img.height) / 2 + "px";
+		} else {
+			/* Vertical Rectangular or Square Image */
+			img.setAttribute('style', '\
+				position: static;\
+				border: none;\
+				left: 50%;\
+				height: 100%;\
+			');
+			img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
+		}
+		
+		// if (options.span === 'width') {
+		// 	img.setAttribute('style', 'width: 100%');
+		// }
+		// 
+		// if (options.span === 'height') {
+		// 	img.setAttribute('style', 'height: 100%');
+		// }
+		// 
+		// 
+		// if (options.align === 'left') {
+		// 	img.style.left = 0 + 'px';
+		// }
+		// 
+		// if (options.align === 'right') {
+		// 	img.style.left = '100%';
+		// 	img.style.marginLeft = -img.width + 'px';
+		// }
+		// 
+		// if (options.align === 'top') {
+		// 	img.style.top = 0 + 'px';
+		// }
+		// 
+		// if (options.align === 'bottom') {
+		// 	img.style.top = '100%';
+		// 	img.style.marginTop = -img.height + 'px';
+		// }
 		
         self.appendChild(img);
 
@@ -77,6 +110,7 @@ H2O.Image = function(options) {
 	* resizes the image on window resize event
 	*/
 	self.resize = function() {
+		console.log(img.style.width);
 		width = 0;
 		height = 0;
 		if (self.parentNode.offsetWidth >= self.parentNode.offsetHeight) {
@@ -97,10 +131,8 @@ H2O.Image = function(options) {
 		self.style.height = height + "px";
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
-		
-		//self.imgResize();
-		//self.parentNode.style.overflow = 'hidden';
 	};
 	
 	return self;
 };
+

@@ -19,6 +19,8 @@ H2O.Carousel = function(options) {
 	var data = null;
 	/** @private {Number} Current carousel page */
 	var currentPage = 1;
+	/** @private {Number} Total number of items in the carousel */
+	var carouselLength = 0;
 	/**
 	* Power constructor for H2O.Carousel
 	* @constructor
@@ -102,10 +104,11 @@ H2O.Carousel = function(options) {
 		addpage();
 		self.appendChild(holder);
 		
-		carouselLength = 0;
+		//carouselLength = 0;
 	 	self.pageNum = 0;
 
 		self.carouselAppend = function(jsonobject) {
+			console.log(carouselLength);
 			if (carouselLength >= (options.rowAmt * options.columnAmt * (self.pageNum + 1))) {
 				self.pageNum = self.pageNum + 1;
 				addpage();
