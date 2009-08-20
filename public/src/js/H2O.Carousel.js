@@ -21,6 +21,14 @@ H2O.Carousel = function(options) {
 	var currentPage = 1;
 	/** @private {Number} Total number of items in the carousel */
 	var carouselLength = 0;
+	/** @private {Number} Current page */
+	var pageNum = 0;
+	/** @private {Object} */
+	var holder;
+	/** @private {Object} */
+	var box;
+	/** @private {Object} */
+	var icon;
 	/**
 	* Power constructor for H2O.Carousel
 	* @constructor
@@ -61,11 +69,11 @@ H2O.Carousel = function(options) {
 			options.scrollDelay = 5000;
 		}
 		
-		data = options.data // TODO: check data first and handle necessary stuff
+		data = options.data; // TODO: check data first and handle necessary stuff
 		
 		// DATA Checking
 
-		size = 0
+		size = 0;
 		for (d in data) {
 			if (d.imgsrc === undefined) {
 				d.imgsrc = "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/8.png"; // TODO: find generic image
@@ -91,7 +99,7 @@ H2O.Carousel = function(options) {
 		self.numOfPages = 0; // total number of pages initialized to 0
 		pages = []; // pages array
 		
-		addpage = function() {
+		self.addpage = function() {
 			x = document.createElement('div');
 			x.setAttribute('id', options.ID + 'page' + self.numOfPages);
 			x.setAttribute('class', 'page'); 
@@ -101,17 +109,16 @@ H2O.Carousel = function(options) {
 			self.numOfPages = self.numOfPages + 1;
 		};
 		
-		addpage();
+		self.addpage();
 		self.appendChild(holder);
 		
 		//carouselLength = 0;
-	 	self.pageNum = 0;
+	 	pageNum = 0;
 
 		self.carouselAppend = function(jsonobject) {
-			console.log(carouselLength);
-			if (carouselLength >= (options.rowAmt * options.columnAmt * (self.pageNum + 1))) {
-				self.pageNum = self.pageNum + 1;
-				addpage();
+			if (carouselLength >= (options.rowAmt * options.columnAmt * (pageNum + 1))) {
+				pageNum = pageNum + 1;
+				self.addpage();
 			}
 			
 			/* box */
@@ -174,7 +181,7 @@ H2O.Carousel = function(options) {
 			//a.appendChild(icon);
             //box.appendChild(a);
 			box.appendChild(icon);
-			pages[self.pageNum].appendChild(box);
+			pages[pageNum].appendChild(box);
 			carouselLength = carouselLength + 1;
 		}
 		
@@ -218,7 +225,7 @@ H2O.Carousel = function(options) {
 	* @returns {Number} number of pages in carousel
 	*/
 	self.getNumOfPages = function() {
-		return self.pageNum;
+		return pageNum;
 	}
 	
 	/**
