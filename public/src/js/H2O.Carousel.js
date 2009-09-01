@@ -29,6 +29,8 @@ H2O.Carousel = function(options) {
 	var box;
 	/** @private {Object} */
 	var icon;
+	/** @private {Object} */
+	var automaticscroll;
 	/**
 	* Power constructor for H2O.Carousel
 	* @constructor
@@ -359,12 +361,23 @@ H2O.Carousel = function(options) {
 	* @function
 	*/
 	self.autoScroll = function() { // Go forward interval number of pages
+		clearTimeout(automaticscroll);
 		self.jumpToPage(currentPage + 1);
-		restartTimer();
+		self.restartTimer();
 	};
 	
 	self.restartTimer = function() {
 		automaticscroll = setTimeout(self.autoScroll, options.scrollDelay);
+	}
+	
+	document.onmousemove = function() {
+		clearTimeout(automaticscroll);
+		self.restartTimer();
+	}
+	
+	document.onclick = function() {
+		clearTimeout(automaticscroll);
+		self.restartTimer();
 	}
 	
 	/**
