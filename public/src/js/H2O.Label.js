@@ -51,11 +51,11 @@ H2O.Label = function(options) {
 			self.style.lineHeight = self.parentNode.offsetHeight + "px"; // always correct
 			self.style.fontSize = (fontSize * width_ratio) + "px";
 
-			height_ratio = self.parentNode.offsetHeight / self.offsetHeight;
-			if (self.parentNode.offsetHeight < self.offsetHeight) {
-				fontSize = self.style.fontSize.replace(/px/, "");
-				self.style.fontSize = (fontSize * height_ratio) + "px";
-			}
+			// height_ratio = self.parentNode.offsetHeight / self.offsetHeight;
+			// if (self.parentNode.offsetHeight < self.offsetHeight) {
+			// 	fontSize = self.style.fontSize.replace(/px/, "");
+			// 	self.style.fontSize = (fontSize * height_ratio) + "px";
+			// }
 		//}
 	}
 
