@@ -360,13 +360,18 @@ H2O.Carousel = function(options) {
 	*/
 	self.autoScroll = function() { // Go forward interval number of pages
 		self.jumpToPage(currentPage + 1);
+		restartTimer();
 	};
+	
+	self.restartTimer = function() {
+		automaticscroll = setTimeout(self.autoScroll, options.scrollDelay);
+	}
 	
 	/**
 	* takes care of the autoscrolling
 	*/
 	if (options.autoScroll === true) {
-		setInterval(self.autoScroll, options.scrollDelay);		
+		self.restartTimer();	
 	}
 		
 	return self;
