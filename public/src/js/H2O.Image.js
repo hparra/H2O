@@ -6,131 +6,102 @@
 */
 H2O.Image = function(options) {
 	/** @private H2O.Image Object */
-	var self = null;
+	var self = document.createElement('img');
+		
+	if (options.id === undefined)
+		options.id = H2O.CreateRandomID();
+	if (options.alt === undefined)
+		options.alt = "";
+	if (options.src === undefined)
+		options.src = "";
 
-	/**
-	* Power constructor for H2O.Image
-	* @constructor
+	self.setAttribute('id', options.id);
+    self.setAttribute('alt', options.alt);
+	self.setAttribute('style', '\
+		position: relative;\
+		border: none;\
+		padding: none;\
+		margin: none;\
+	');
+
+	debug = function(s) {
+		return "H2O.Image('" + options.id + "'): " + s;
+	}
+
+	self.addEventListener("load", function() {
+		console.debug(debug("Loaded " + self.width + " x " + self.height));
+		self.originalWidth = self.width;
+		self.originalHeight = self.height;
+		self.originalRatio = self.width / self.height;
+	}, false);
+	
+	self.addEventListener("DOMNodeInserted", function(e) { // NOTE: Not supported in IE
+		//console.log(self.parentNode);
+		// the hell? it fires twice and the first time isb no good.
+		// it's a DocumentFragment, from I don't know where
+		if ((self.parentNode.id) !== undefined) {
+			e.stopPropagation(); // cancel bubble
+			
+			console.debug("H2O.Image(" + self.width + ", " + self.height + ") inserted.");
+			
+			self.resize();
+			window.addEventListener("resize", self.resize, false);
+		}
+	}, false);
+
+
+	/**x
+	* Loads picture by setting 'src' parameter
 	*/
-	(function() {
-		
-		if (options.ID === undefined) {
-			options.ID = '';
-		}
-		if (options.altText === undefined) {
-			options.altText = '';
-		}
-		if (options.src === undefined) {
-			options.src = ''; // FIXME: Make this default missing src image
-		}
-		
-        self = document.createElement('div');
-        self.setAttribute('id', options.ID);
-		self.setAttribute('style', '\
-			position: relative;\
-			top: 50%;\
-			left: 50%;\
-		');
-
-        img = document.createElement('img');
-        img.setAttribute('alt', options.altText);
-		img.setAttribute('src', options.src);
-		img.setAttribute('class', options.ID + 'class');
-		
-		// img.setAttribute('style', '\
-		// 	position: static;\
-		// 	border: none;\
-		// 	width: 100%;\
-		// 	height: 100%;\
-		// ');
-		
-		if (img.width > img.height) {
-			/* Horizontal Rectangular Image */
-			img.setAttribute('style', '\
-				position: static;\
-				border: none;\
-				width: 100%;\
-				top: 50%;\
-			');
-			img.style.marginTop = ( - 1 * img.height) / 2 + "px";
-		} else {
-			/* Vertical Rectangular or Square Image */
-			img.setAttribute('style', '\
-				position: static;\
-				border: none;\
-				left: 50%;\
-				height: 100%;\
-			');
-			img.style.marginLeft = ( - 1 * img.width) / 2 + "px";
-		}
-		
-		// if (options.span === 'width') {
-		// 	img.setAttribute('style', 'width: 100%');
-		// }
-		// 
-		// if (options.span === 'height') {
-		// 	img.setAttribute('style', 'height: 100%');
-		// }
-		// 
-		// 
-		// if (options.align === 'left') {
-		// 	img.style.left = 0 + 'px';
-		// }
-		// 
-		// if (options.align === 'right') {
-		// 	img.style.left = '100%';
-		// 	img.style.marginLeft = -img.width + 'px';
-		// }
-		// 
-		// if (options.align === 'top') {
-		// 	img.style.top = 0 + 'px';
-		// }
-		// 
-		// if (options.align === 'bottom') {
-		// 	img.style.top = '100%';
-		// 	img.style.marginTop = -img.height + 'px';
-		// }
-		
-        self.appendChild(img);
-
-		self.addEventListener("DOMNodeInserted", function(e) { // NOTE: Not supported in IE
-			//console.log(self.parentNode);
-			// the hell? it fires twice and the first time is no good.
-			// it's a DocumentFragment, from I don't know where
-			if ((self.parentNode.id) !== undefined) {
-				e.stopPropagation(); // cancel bubble
-				self.resize();
-				window.addEventListener("resize", self.resize, false);
-			}
-		}, false);
-	})();
-		
+	self.load = function() {
+		if (options.src)
+			self.setAttribute('src', options.src);
+		else
+			console.debug("");
+	},
+	
 	/**
 	* @function
 	* resizes the image on window resize event
 	*/
 	self.resize = function() {
-		console.log(img.style.width);
+		console.debug("Original (W, H, R): " + self.originalWidth + ", " + self.originalHeight + ", " + self.originalRatio);
+		console.debug("RESIZE: image(" + self.width + ", " + self.height + ") "
+			+ "offset(" + self.parentNode.offsetWidth + ", " + self.parentNode.offsetHeight + ")");
+		
+
+		containerWidth = self.parentNode.offsetWidth;
+		containerHeight = self.parentNode.offsetHeight;
+		containerRatio = containerWidth / containerHeight;
+		
 		width = 0;
 		height = 0;
-		if (self.parentNode.offsetWidth >= self.parentNode.offsetHeight) {
-		    /* Landscape */
-		    width = self.parentNode.offsetHeight;
-		    height = self.parentNode.offsetHeight;
-		} else {
-		    /* Portrait */
-		    width = self.parentNode.offsetWidth;
-		    height = self.parentNode.offsetWidth;
-		};
+		
+		if (self.originalRatio > containerRatio) {
+			width = containerWidth;
+			height = containerWidth / self.originalRatio;
+		}
+		else {
+			width = containerHeight * self.originalRatio;
+			height = containerHeight;
+		}
 		
 		width = width - (2 * options.padding);
 		height = height - (2 * options.padding);
-		
-		/* Centering */
+
 		self.style.width = width + "px";
 		self.style.height = height + "px";
+		
+		// TODO: "Placement" code
+		/*
+		self.style.top = "100%";
+		self.style.marginTop = -height + "px";
+		
+		self.style.top = "50%";
+		self.style.left = "50%";
 		self.style.marginLeft = (-1 * width) / 2 + "px";
 		self.style.marginTop = (-1 * height) / 2 + "px";
+		*/
 	};
 	
 	return self;
