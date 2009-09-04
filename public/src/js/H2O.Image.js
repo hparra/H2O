@@ -86,8 +86,8 @@ H2O.Image = function(options) {
 			height = containerHeight;
 		}
 		
-		width = width - (2 * options.padding);
-		height = height - (2 * options.padding);
+		// width = width - (2 * options.padding);
+		// height = height - (2 * options.padding);
 
 		self.style.width = width + "px";
 		self.style.height = height + "px";
