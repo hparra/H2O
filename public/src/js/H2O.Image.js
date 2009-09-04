@@ -86,8 +86,18 @@ H2O.Image = function(options) {
 			height = containerHeight;
 		}
 		
-		// width = width - (2 * options.padding);
-		// height = height - (2 * options.padding);
+		paddingL = parseInt(document.defaultView.getComputedStyle(self.parentNode, null)['paddingLeft'].replace(/px/, ""));
+		paddingR = parseInt(document.defaultView.getComputedStyle(self.parentNode, null)['paddingRight'].replace(/px/, ""));
+		paddingT = parseInt(document.defaultView.getComputedStyle(self.parentNode, null)['paddingTop'].replace(/px/, ""));
+		paddingB = parseInt(document.defaultView.getComputedStyle(self.parentNode, null)['paddingBottom'].replace(/px/, ""));
+		
+		console.log(paddingL);
+		console.log(paddingR);
+		console.log(paddingT);
+		console.log(paddingB);
+		
+		width = width - (paddingL + paddingR);
+		height = height - (paddingT + paddingB);
 
 		self.style.width = width + "px";
 		self.style.height = height + "px";

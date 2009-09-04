@@ -8,23 +8,17 @@
 	<script type="text/javascript" src="../../src/js/H2O.Image.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			test = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'top'});
+			test = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'middle'});
 			test.addEventListener("load", function() {
 				$('#MyImage').append(test);
 			}, false);
 			test.load();
 			
-			test2 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'top'});
+			test2 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'middle'});
 			test2.addEventListener("load", function() {
 				$('#MyImage2').append(test2);
 			}, false);
 			test2.load();
-			
-			test3 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'top'});
-			test3.addEventListener("load", function() {
-				$('#MyImage3').append(test3);
-			}, false);
-			test3.load();
 		});
 	</script>
 	<style type="text/css" media="screen">
@@ -39,31 +33,16 @@
 		
 		/* Column 1 */
 		#MyImage {
-			position: absolute;
 			background-color: yellow;
-			left: 0;
 			width: 100%;
-			height: 33%;
-			overflow: hidden;
+			height: 40%;
+			padding: 0px;
 		}
 		#MyImage2 {
-			position: absolute;
 			background-color: orange;
-			left: 0;
-			top: 33%;
 			width: 100%;
-			height: 33%;
-			overflow: hidden;
+			height: 40%;
 			padding: 20px;
-		}
-		#MyImage3 {
-			position: absolute;
-			background-color: yellow;
-			left: 0;
-			top: 66%;
-			width: 100%;
-			height: 33%;
-			overflow: hidden;
 		}
 	</style>
 </head>
@@ -72,7 +51,7 @@
 
 <div id="MyImage"></div>
 <div id="MyImage2"></div>
-<div id="MyImage3"></div>
+
 
 </body>
 </html>
