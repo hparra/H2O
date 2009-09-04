@@ -1,24 +1,26 @@
+
+
 <html>
 <head>
 	<title>H2O Image</title>
 	<script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="../src/js/H2O.js"></script>
-	<script type="text/javascript" src="../src/js/H2O.Image.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.Image.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			test = H2O.Image({ ID: 'image-holder1', src: 'https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/1.png', altText: 'hi!', padding: 10 });
+			test = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'top'});
 			test.addEventListener("load", function() {
 				$('#MyImage').append(test);
 			}, false);
 			test.load();
 			
-			test2 = H2O.Image({ ID: 'image-holder2', src: 'https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/1.png', altText: 'hi!', padding: 10 });
+			test2 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'top'});
 			test2.addEventListener("load", function() {
 				$('#MyImage2').append(test2);
 			}, false);
 			test2.load();
 			
-			test3 = H2O.Image({ ID: 'image-holder3', src: 'https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/1.png', altText: 'hi!', padding: 10 });
+			test3 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'top'});
 			test3.addEventListener("load", function() {
 				$('#MyImage3').append(test3);
 			}, false);
@@ -34,20 +36,31 @@
 			width: 100%;
 			height: 100%;
 		}
+		
+		/* Column 1 */
 		#MyImage {
-			background-color: blue;
+			position: absolute;
+			background-color: yellow;
+			left: 0;
 			width: 100%;
 			height: 33%;
 			overflow: hidden;
 		}
 		#MyImage2 {
-			background-color: red;
+			position: absolute;
+			background-color: orange;
+			left: 0;
+			top: 33%;
 			width: 100%;
 			height: 33%;
 			overflow: hidden;
+			padding: 20px;
 		}
 		#MyImage3 {
+			position: absolute;
 			background-color: yellow;
+			left: 0;
+			top: 66%;
 			width: 100%;
 			height: 33%;
 			overflow: hidden;

@@ -1,7 +1,7 @@
 /**
 * @param options 
-* options.ID: ID of the image
-* options.altText: alt text
+* options.id: ID of the image
+* options.alt: alt text
 * options.src: src address
 */
 H2O.Image = function(options) {
@@ -92,16 +92,26 @@ H2O.Image = function(options) {
 		self.style.width = width + "px";
 		self.style.height = height + "px";
 		
-		// TODO: "Placement" code
-		/*
-		self.style.top = "100%";
-		self.style.marginTop = -height + "px";
+		if (options.align === 'center') {
+			self.style.left = "50%";
+			self.style.marginLeft = (-1 * width) / 2 + "px";		
+		}
 		
-		self.style.top = "50%";
-		self.style.left = "50%";
-		self.style.marginLeft = (-1 * width) / 2 + "px";
-		self.style.marginTop = (-1 * height) / 2 + "px";
-		*/
+		if (options.align === 'right') {
+			self.style.left = "100%";
+			self.style.marginLeft = -width + "px";
+		}
+		
+		if (options.valign === 'middle') {
+			self.style.top = "50%";
+			self.style.marginTop = (-1 * height) / 2 + "px";
+		}
+
+		if (options.valign === 'bottom') {
+			self.style.top = "100%";
+			self.style.marginTop = -height + "px";
+		}
+		
 	};
 	
 	return self;

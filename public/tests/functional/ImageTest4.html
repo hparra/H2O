@@ -1,0 +1,278 @@
+<!-- Alignment tests for non-square images: portrait -->
+
+<html>
+<head>
+	<title>H2O Image</title>
+	<script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.Image.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function () {
+			test = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'left', valign: 'top'});
+			test.addEventListener("load", function() {
+				$('#MyImage').append(test);
+			}, false);
+			test.load();
+			
+			test2 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'left', valign: 'middle'});
+			test2.addEventListener("load", function() {
+				$('#MyImage2').append(test2);
+			}, false);
+			test2.load();
+			
+			test3 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'left', valign: 'bottom'});
+			test3.addEventListener("load", function() {
+				$('#MyImage3').append(test3);
+			}, false);
+			test3.load();
+			
+			test4 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'center', valign: 'top'});
+			test4.addEventListener("load", function() {
+				$('#MyImage4').append(test4);
+			}, false);
+			test4.load();
+			
+			test5 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'center', valign: 'middle'});
+			test5.addEventListener("load", function() {
+				$('#MyImage5').append(test5);
+			}, false);
+			test5.load();
+			
+			test6 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'center', valign: 'bottom'});
+			test6.addEventListener("load", function() {
+				$('#MyImage6').append(test6);
+			}, false);
+			test6.load();
+			
+			test7 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'right', valign: 'top'});
+			test7.addEventListener("load", function() {
+				$('#MyImage7').append(test7);
+			}, false);
+			test7.load();
+			
+			test8 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'right', valign: 'middle'});
+			test8.addEventListener("load", function() {
+				$('#MyImage8').append(test8);
+			}, false);
+			test8.load();
+			
+			test9 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'right', valign: 'bottom'});
+			test9.addEventListener("load", function() {
+				$('#MyImage9').append(test9);
+			}, false);
+			test9.load();
+			
+			test10 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'left' });
+			test10.addEventListener("load", function() {
+				$('#MyImage10').append(test10);
+			}, false);
+			test10.load();
+			
+			test11 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'center' });
+			test11.addEventListener("load", function() {
+				$('#MyImage11').append(test11);
+			}, false);
+			test11.load();
+			
+			test12 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, align: 'right' });
+			test12.addEventListener("load", function() {
+				$('#MyImage12').append(test12);
+			}, false);
+			test12.load();
+			
+			test13 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, valign: 'top' });
+			test13.addEventListener("load", function() {
+				$('#MyImage13').append(test13);
+			}, false);
+			test13.load();
+			
+			test14 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, valign: 'middle' });
+			test14.addEventListener("load", function() {
+				$('#MyImage14').append(test14);
+			}, false);
+			test14.load();
+			
+			test15 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/rclose.png', padding: 10, valign: 'bottom' });
+			test15.addEventListener("load", function() {
+				$('#MyImage15').append(test15);
+			}, false);
+			test15.load();
+			
+		});
+	</script>
+	<style type="text/css" media="screen">
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		
+		/* Column 1 */
+		#MyImage {
+			position: absolute;
+			background-color: yellow;
+			left: 0;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage2 {
+			position: absolute;
+			background-color: orange;
+			left: 0;
+			top: 33%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage3 {
+			position: absolute;
+			background-color: yellow;
+			left: 0;
+			top: 66%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		
+		/* Column 2 */
+		#MyImage4 {
+			position: absolute;
+			background-color: orange;
+			left: 20%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage5 {
+			position: absolute;
+			background-color: yellow;
+			left: 20%;
+			top: 33%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage6 {
+			position: absolute;
+			background-color: orange;
+			left: 20%;
+			top: 66%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		
+		/* Column 3 */
+		#MyImage7 {
+			position: absolute;
+			background-color: yellow;
+			left: 40%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage8 {
+			position: absolute;
+			background-color: orange;
+			left: 40%;
+			top: 33%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage9 {
+			position: absolute;
+			background-color: yellow;
+			left: 40%;
+			top: 66%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		
+		/* Column 4 */
+		#MyImage10 {
+			position: absolute;
+			background-color: orange;
+			left: 60%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage11 {
+			position: absolute;
+			background-color: yellow;
+			left: 60%;
+			top: 33%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage12 {
+			position: absolute;
+			background-color: orange;
+			left: 60%;
+			top: 66%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		
+		/* Column 5 */
+		#MyImage13 {
+			position: absolute;
+			background-color: yellow;
+			left: 80%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage14 {
+			position: absolute;
+			background-color: orange;
+			left: 80%;
+			top: 33%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+		#MyImage15 {
+			position:absolute;
+			background-color: yellow;
+			left: 80%;
+			top: 66%;
+			width: 20%;
+			height: 33%;
+			overflow: hidden;
+		}
+	</style>
+</head>
+
+<body>
+
+<div id="MyImage"></div>
+<div id="MyImage2"></div>
+<div id="MyImage3"></div>
+
+<div id="MyImage4"></div>
+<div id="MyImage5"></div>
+<div id="MyImage6"></div>
+
+<div id="MyImage7"></div>
+<div id="MyImage8"></div>
+<div id="MyImage9"></div>
+
+<div id="MyImage10"></div>
+<div id="MyImage11"></div>
+<div id="MyImage12"></div>
+
+<div id="MyImage13"></div>
+<div id="MyImage14"></div>
+<div id="MyImage15"></div>
+
+</body>
+</html>
