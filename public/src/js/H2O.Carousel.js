@@ -29,6 +29,8 @@ H2O.Carousel = function(options) {
 	var box;
 	/** @private {Object} */
 	var icon;
+	/** @private {Object} */
+	var automaticscroll;
 	/**
 	* Power constructor for H2O.Carousel
 	* @constructor
@@ -247,7 +249,7 @@ H2O.Carousel = function(options) {
 		for (b = 0; b < boxList.length; b = b + 1) {
 			boxList[b].style.width = boxWidth + "px";
 			boxList[b].style.height = boxHeight + "px";
-		};
+		}
 
 		iconWidth = 0;
 		iconHeight = 0;
@@ -259,7 +261,7 @@ H2O.Carousel = function(options) {
 		    /* Portrait */
 		    iconWidth = boxWidth;
 		    iconHeight = boxWidth;
-		};
+		}
 		
 		// HGP: we should make this an option of some kind. I'm not yet sure how I feel about it.
 		// Where do you think we can use margin/padding appropriately without breaking other things?
@@ -278,13 +280,13 @@ H2O.Carousel = function(options) {
 			iconList[i].style.height = iconHeight + "px";
 			iconList[i].style.marginLeft = -iconWidth / 2 + "px";
 			iconList[i].style.marginTop = -iconHeight / 2 + "px";
-		};
+		}
 
 		/* Reset each page size */
 		for (p in pages) {
 			pages[p].style.width = self.parentNode.offsetWidth + "px";
 			pages[p].style.height = self.parentNode.offsetHeight + "px";
-		};
+		}
 		
 		/* Reset Holder width */
 		holder.style.width = self.parentNode.offsetWidth * self.numOfPages + "px";
@@ -325,7 +327,7 @@ H2O.Carousel = function(options) {
 
 				//holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth) + "px";
 				currentPage = page; // Change Page "State"
-			};
+			}
 		} else if (page === currentPage) {
 			// Shake Animation
 		}
@@ -359,14 +361,30 @@ H2O.Carousel = function(options) {
 	* @function
 	*/
 	self.autoScroll = function() { // Go forward interval number of pages
+		clearTimeout(automaticscroll);
 		self.jumpToPage(currentPage + 1);
+		self.restartTimer();
 	};
+	
+	self.restartTimer = function() {
+		automaticscroll = setTimeout(self.autoScroll, options.scrollDelay);
+	}
+	
+	document.onmousemove = function() {
+		clearTimeout(automaticscroll);
+		self.restartTimer();
+	}
+	
+	document.onclick = function() {
+		clearTimeout(automaticscroll);
+		self.restartTimer();
+	}
 	
 	/**
 	* takes care of the autoscrolling
 	*/
 	if (options.autoScroll === true) {
-		setInterval(self.autoScroll, options.scrollDelay);		
+		self.restartTimer();	
 	}
 		
 	return self;

@@ -1,18 +1,24 @@
-<!-- Non-square Image Test-->
+
 
 <html>
 <head>
-	<title>ImageTest1</title>
+	<title>H2O Image</title>
 	<script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="../../src/js/H2O.js"></script>
 	<script type="text/javascript" src="../../src/js/H2O.Image.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function () {
-			test = H2O.Image({ id: 'image-holder1', src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', alt: 'hi!', padding: 0 });
+			test = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'middle'});
 			test.addEventListener("load", function() {
 				$('#MyImage').append(test);
 			}, false);
 			test.load();
+			
+			test2 = H2O.Image({ src: 'http://marco.calit2.uci.edu/assets/i3/images/shome.png', padding: 0, align: 'left', valign: 'middle'});
+			test2.addEventListener("load", function() {
+				$('#MyImage2').append(test2);
+			}, false);
+			test2.load();
 		});
 	</script>
 	<style type="text/css" media="screen">
@@ -24,11 +30,19 @@
 			width: 100%;
 			height: 100%;
 		}
+		
+		/* Column 1 */
 		#MyImage {
-			background-color: blue;
+			background-color: yellow;
 			width: 100%;
-			height: 75%;
-			overflow: hidden;
+			height: 40%;
+			padding: 0px;
+		}
+		#MyImage2 {
+			background-color: orange;
+			width: 100%;
+			height: 40%;
+			padding: 20px;
 		}
 	</style>
 </head>
@@ -36,6 +50,8 @@
 <body>
 
 <div id="MyImage"></div>
+<div id="MyImage2"></div>
+
 
 </body>
 </html>

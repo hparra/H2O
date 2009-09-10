@@ -6,7 +6,10 @@ set :domain, "marco.calit2.uci.edu"
 set :deploy_to, "/var/www/#{application}"
 set :use_sudo, false
 
-set :user, "marco"
+# set :user, "marco"
+set(:user) do
+  Capistrano::CLI.ui.ask "Give me a ssh user: "
+end
 
 set :scm, :git
 set :repository,  "git@github.com:hparra/H2O.git"

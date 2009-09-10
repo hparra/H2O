@@ -65,11 +65,11 @@ H2O.Button = function(options) {
 		} else if (options.type === 'next') {
 			// button = document.createElement('img');
 			// button.setAttribute('src', '../../images/H2OButtonNext.png');
-			button = H2O.Image({ ID: 'nextbutton', alt: 'Next', src: 'http://marco.calit2.uci.edu/assets/i3/images/H2OButtonNext.png'});
+			button = H2O.Image({ id: 'nextbutton', alt: 'Next', src: 'http://marco.calit2.uci.edu/assets/i3/images/H2OButtonNext.png'});
 		} else if (options.type === 'back') {
 			// button = document.createElement('img');
 			// button.setAttribute('src', '../../images/H2OButtonBack.png');
-			button = H2O.Image({ ID: 'backbutton', alt: 'Back', src: 'http://marco.calit2.uci.edu/assets/i3/images/H2OButtonBack.png'});
+			button = H2O.Image({ id: 'backbutton', alt: 'Back', src: 'http://marco.calit2.uci.edu/assets/i3/images/H2OButtonBack.png'});
 		} else {
 			// Throw Error
 		}
