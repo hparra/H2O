@@ -193,18 +193,12 @@ H2O.Chart = function(options){
 	@param {int} input data will be drawn on the chart.
 */
 	self.feedData = function( newInput ){
-		try {
 			if (isFinite(newInput)) {
 				screenBuffer.push(newInput);
 				drawGraph(newInput);
 			}else{
-				throw "Err1"
+				throw new Error("Invalid number passed to H2O.Chart");
 			}
-		}catch(err){
-			if(err =="Err1"){
-				alert("Invalid number passed to H2O.Chart");
-			}
-		}
 	};
 
 	paintBG = function(){
