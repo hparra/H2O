@@ -191,6 +191,7 @@ H2O.Chart = function(options){
  *  Example: myChart.feedData(100);
  * 	@method feedData
 	@param {int} input data will be drawn on the chart.
+	@exception throws an exception if input number is not finite
 */
 	self.feedData = function( newInput ){
 			if (isFinite(newInput)) {
