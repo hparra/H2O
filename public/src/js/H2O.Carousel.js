@@ -70,6 +70,9 @@ H2O.Carousel = function(options) {
 		if (options.scrollDelay === undefined) {
 			options.scrollDelay = 5000;
 		}
+		if (options.vertical === undefined) {
+			options.vertical = false;
+		}
 		
 		data = options.data; // TODO: check data first and handle necessary stuff
 		
@@ -93,11 +96,19 @@ H2O.Carousel = function(options) {
 		
 		holder = document.createElement('div');
 		holder.setAttribute('id', self.id + '_holder');
-		holder.setAttribute('style','\
-			height: 100%;\
-			left: 0px;\
-		');
-
+		if (options.vertical) {
+			holder.setAttribute('style','\
+				width: 100%;\
+				left: 0px;\
+				top: 0px;\
+			');
+		} else {
+			holder.setAttribute('style','\
+				height: 100%;\
+				left: 0px;\
+			');
+		}
+		
 		self.numOfPages = 0; // total number of pages initialized to 0
 		pages = []; // pages array
 		
@@ -168,6 +179,13 @@ H2O.Carousel = function(options) {
 					height: 100%;\
 				');
 			} else { // Images
+				
+				// var item = H2O.Image({ src: jsonobject.imgsrc, alt: 'hi!', padding: 0 });
+				// item.addEventListener("load", function() {
+				// 	box.appendChild(item);
+				// }, false);
+				// item.load();
+				
 				item = document.createElement('img');
 				item.setAttribute('src', jsonobject.imgsrc); 
 				item.setAttribute('style', '\
@@ -263,13 +281,6 @@ H2O.Carousel = function(options) {
 		    iconHeight = boxWidth;
 		}
 		
-		// HGP: we should make this an option of some kind. I'm not yet sure how I feel about it.
-		// Where do you think we can use margin/padding appropriately without breaking other things?
-		// Good branch later.
-		/* Padding */
-		// iconWidth = iconWidth * (1 - 0.25);
-		// iconHeight = iconHeight * (1 - 0.25);
-		
 		iconWidth = iconWidth - (1 * options.padding);
 		iconHeight = iconHeight - (1 * options.padding);
 		
@@ -288,9 +299,16 @@ H2O.Carousel = function(options) {
 			pages[p].style.height = self.parentNode.offsetHeight + "px";
 		}
 		
-		/* Reset Holder width */
-		holder.style.width = self.parentNode.offsetWidth * self.numOfPages + "px";
-		holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
+		if (options.vertical) {		
+			/* Reset Holder height */
+			holder.style.height = self.parentNode.offsetHeight * self.numOfPages + "px";
+			holder.style.marginTop = ((currentPage - 1) * -self.parentNode.offsetHeight) + "px";
+		} else {
+			/* Reset Holder width */
+			holder.style.width = self.parentNode.offsetWidth * self.numOfPages + "px";
+			holder.style.marginLeft = ((currentPage - 1) * -self.parentNode.offsetWidth) + "px";
+		}
+	
 	};
 	
 	/**
@@ -321,10 +339,16 @@ H2O.Carousel = function(options) {
 				// we may end up having to create our own transition library :P
 				// which makes sense because we can standardize them
 				// 
-				$('#' + self.id + '_holder').animate({
-					"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
-				}, options.animSpeed);
-
+				if (options.vertical) {
+					$('#' + self.id + '_holder').animate({
+						"marginTop" : ((page - 1) * -self.parentNode.offsetHeight)+"px"
+					}, options.animSpeed);
+				} else {
+					$('#' + self.id + '_holder').animate({
+						"marginLeft" : ((page - 1) * -self.parentNode.offsetWidth)+"px"
+					}, options.animSpeed);
+				}
+				
 				//holder.style.marginLeft = ((page - 1) * -self.parentNode.offsetWidth) + "px";
 				currentPage = page; // Change Page "State"
 			}

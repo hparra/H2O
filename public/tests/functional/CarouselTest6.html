@@ -1,0 +1,161 @@
+<!-- Functional Test for H2O.Carousel
+Test: Vertical Carousel Test -->
+
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>CarouselTest6</title>
+	<style type="text/css" media="screen">
+		body {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		#carousel1 {
+			float: left;
+			width: 60%;
+			height: 75%;
+			background-color: orange;
+			margin: 0;
+			padding: 0;
+		}
+		
+		#carousel2 {
+			float: left;
+			width: 40%;
+			height: 75%;
+			background-color: purple;
+			margin: 0;
+			padding: 0;
+		}		
+		
+		#carousel3 {
+			float: left;
+			width: 100%;
+			height: 25%;
+			background-color: gray;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<script type="text/javascript" src="http://marco.calit2.uci.edu/lib/jquery/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.Image.js"></script>
+	<script type="text/javascript" src="../../src/js/H2O.Carousel.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		
+		var datalist = {
+			0: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			1: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			2: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			3: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			4: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			5: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			6: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			7: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			8: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+			9: {
+				title: "The Best Movie Ever",
+				imgsrc: "https://armin.calit2.uci.edu/assets/luoa/icons/coolfuzz/3.png",
+				length: "5:06"
+			},
+		};
+		
+		$(document).ready(function() {
+			
+			car1 = H2O.Carousel({
+				ID: 'car_a',
+				data: datalist,
+				rowAmt: 2,
+				columnAmt: 2,
+				padding: 10,
+				animSpeed: 1000,
+				autoScroll: true,
+				scrollDelay: 2000,
+				vertical: true
+			});
+			$('#carousel1').append(car1);
+			
+			car2 = H2O.Carousel({
+				ID: 'car_b',
+				data: datalist,
+				rowAmt: 1,
+				columnAmt: 1,
+				padding: 10,
+				animSpeed: 1000,
+				autoScroll: true,
+				scrollDelay: 500,
+				vertical: true
+			});
+			$('#carousel2').append(car2);
+			
+			car3 = H2O.Carousel({
+				ID: 'car_c',
+				data: datalist,
+				rowAmt: 1,
+				columnAmt: 5,
+				padding: 10,
+				animSpeed: 2000,
+				autoScroll: true,
+				scrollDelay: 3000,
+				vertical: false
+			});
+			$('#carousel3').append(car3);
+		});
+	</script>
+</head>
+<body>
+
+<div id="carousel1">
+	
+</div>
+<div id="carousel2">
+	
+</div>
+<div id="carousel3">
+	
+</div>
+
+</body>
+</html>
