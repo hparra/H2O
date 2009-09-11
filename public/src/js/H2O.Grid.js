@@ -2,7 +2,8 @@
 H2O.Grid = function(options) {
 	/** @private H2O.Carousel Object */
 	var self = null;
-
+	var numOfBoxes = 0;
+	var isFull = false;
 	/**
 	* Power constructor for H2O.Carousel
 	* @constructor
@@ -61,7 +62,29 @@ H2O.Grid = function(options) {
 		}
 	};
 	
-	self.insert = function(object, number) {
+	self.insert = function(object) {
+		if (!isFull) {
+			box = document.createElement('div');
+	        box.setAttribute('class', self.id + '_box');
+			box.setAttribute('id', 'box' + numOfBoxes);
+			box.setAttribute('style','\
+				position: static;\
+				clear: none;\
+				float: left;\
+				overflow: hidden;\
+				display: block;\
+			');
+			box.appendChild(object);
+			self.appendChild(box);
+			
+			numOfBoxes = numOfBoxes + 1;
+			if (numOfBoxes >= ((options.columns * options.rows) - 1)) {
+				isFull = true;
+			}
+		}
+	}
+	
+	self.replace = function(object, number) {
 		document.getElementById('box' + number).appendChild(object);
 	}
 		
