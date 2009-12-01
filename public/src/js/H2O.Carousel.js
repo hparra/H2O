@@ -395,13 +395,17 @@ H2O.Carousel = function(options) {
 	}
 	
 	document.onmousemove = function() {
-		clearTimeout(automaticscroll);
-		self.restartTimer();
+		if (options.autoScroll === true) {
+			clearTimeout(automaticscroll);
+			self.restartTimer();
+		}
 	}
 	
 	document.onclick = function() {
-		clearTimeout(automaticscroll);
-		self.restartTimer();
+		if (options.autoScroll === true) {
+			clearTimeout(automaticscroll);
+			self.restartTimer();
+		}
 	}
 	
 	/**
