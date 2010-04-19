@@ -1,4 +1,4 @@
-	/**
+/**
  * 
  */
 // USE: my_label = new H2O.Label()

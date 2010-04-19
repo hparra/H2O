@@ -1,5 +1,5 @@
 html.H2O {
-	background-color: pink;
+
 }
 
 body.H2O {
@@ -10,5 +10,12 @@ body.H2O {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-	background-color: blue;
+}
+
+div.H2O {
+	float: left;
+}
+
+h6.H2O {
+	
 }

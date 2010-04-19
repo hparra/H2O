@@ -12,26 +12,9 @@
 	var DEBUG = true;
 	function debug(str) {
 		if (console && DEBUG)
-			console.debug("[H20] " + str);
+			console.debug("[H2O] " + str);
 	}
 	
-	// add default listener on all childrem recurisvely
-	// Breadth First, Post Order
-	/*
-	addDefaultParentResizeEventListener = function(node) {
-		var children = node.childNodes;
-		debug("Entering " + node.tagName + " who has " + children.length + " children");		
-		for (var i = 0; i < children.length; ++i) {
-			debug("child = " + i + ", nodeType = " + children[i].nodeType);
-			if (children[i].nodeType == Node.ELEMENT_NODE) {
-				children[i].addEventListener("parentresize", defaultDispatchParentResizeEvent, false);
-				debug("Added listener to " + children[i].tagName + " (Child #" + i + ")");				
-				addDefaultParentResizeEventListener(children[i]);
-			}
-		}
-		debug("Leaving " + node.tagName);
-	}
-	*/
 	addDefaultParentResizeEventListener = function(node) {
 		/* Add eventListener */
 		if (node.nodeType == Node.ELEMENT_NODE) {
@@ -64,9 +47,19 @@
 	}
 	
 	H2O.onload = function() {
+		/* add ParentResizeEvent listeners */
 		addDefaultParentResizeEventListener(document.body);
 		window.addEventListener("resize", H2O.onresize, false);
-		console.debug("[Peroxide] Loaded");
+		
+		/* find H2O Elements and convert them */
+		labels = document.getElementsByClassName("H2OLabel");
+		for (i = 0; i < labels.length; ++i) {
+			debug("Found H2OLabel: " + labels[i].innerHTML);
+			// convert
+		}
+		
+		/* Done */
+		debug("[Peroxide] Loaded");
 	}
 	
 	H2O.onresize = function(evt) {
