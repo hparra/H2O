@@ -28,7 +28,9 @@
 		self.resize = function(w, h) {
 			this.style.lineHeight = h + "px"; // always correct
 			this.style.fontSize = h + "px";
+			console.debug("Label resized!")
 		}
+
 		
 		initialize();
 	}
