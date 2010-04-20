@@ -6,6 +6,7 @@
 	<script src="../src/H2O.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.Label.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <style type="text/css">
@@ -18,6 +19,7 @@
 		height: 20%;
 		background-color: green;
 	}
+	
 	#left_column {
 		width: 60%;
 		height: 70%;
@@ -38,8 +40,10 @@
 		height: 10%;
 		background-color: teal;
 	}
-	#banner {
-	
+	#some_list li {
+		width: 33.33333%;
+		height: 100%;
+		background-color: blue;
 	}
 </style>
 
@@ -54,10 +58,25 @@
 		</video>
 	</div>
 	<div id="right_row_1" class="H2O">
-		<img id="banner" alt="http://localhost/~hparra/images/uci_textbanner.png" class="H2OImage H2O"/>
+		<ul id="some_list" class="H2O">
+			<li><h6 class="H2O">One</h6></li>
+			<li><h6 class="H2O">Two</h6></li>
+			<li><h6 class="H2O">Three</h6></li>
+			<li><h6 class="H2O">Four</h6></li>
+			<li><h6 class="H2O">Five</h6></li>
+			<li><h6 class="H2O">Six</h6></li>
+			<li><h6 class="H2O">7</h6></li>
+			<li><h6 class="H2O">8</h6></li>
+			<li><h6 class="H2O">9</h6></li>
+		</ul>
 	</div>
-	<div id="right_row_2" class="H2O"></div>
-	<div id="footer" class="H2O"></div>
+	<div id="right_row_2" class="H2O">
+		<img id="banner" alt="http://localhost/~hparra/images/uci_textbanner.png" class="H2O"/>
+	</div>
+	<div id="footer" class="H2O">
+		<a onclick="document.getElementById('some_list').next()" href="#">List.next()</a>
+		<a onclick="document.getElementById('some_list').previous()" href="#">List.previous()</a>
+	</div>
 </body>
 
 </html>

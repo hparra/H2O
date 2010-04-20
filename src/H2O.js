@@ -58,13 +58,16 @@
 		
 		/* traverse all potential H2O Elements and convert them */
 		elements = document.getElementsByClassName("H2O");
-		for (i = 0; i < elements.length; ++i) {
+		for (var i = 0; i < elements.length; ++i) {
 			debug("Found H2OElement: " + elements[i].tagName);
 			switch (elements[i].tagName) {
 			case "IMG": /* terminal */
 				H2O.Image(elements[i]); break;
 			case "H6": /* terminal */
 				H2O.Label(elements[i]); break;
+			case "OL":
+			case "UL":
+				H2O.List(elements[i]); break;
 			case "DIV":
 			case "SPAN":
 			case "VIDEO":
