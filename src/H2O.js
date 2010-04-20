@@ -37,8 +37,11 @@
 		var children = parent.childNodes;
 		resizeEvent = document.createEvent("Event");
 		resizeEvent.initEvent("parentresize", false, false);
-		resizeEvent.width = parent.width;
-		resizeEvent.height = parent.height;
+		
+		/* dimensions of parent in pixels */
+		resizeEvent.width = parent.offsetWidth;
+		resizeEvent.height = parent.offsetHeight;
+		
 		for (i in children) {
 			if (children[i].nodeType == Node.ELEMENT_NODE) {
 				children[i].dispatchEvent(resizeEvent);
@@ -55,7 +58,7 @@
 		labels = document.getElementsByClassName("H2OLabel");
 		for (i = 0; i < labels.length; ++i) {
 			debug("Found H2OLabel: " + labels[i].innerHTML);
-			// convert
+			H2O.Label(labels[i]);
 		}
 		
 		/* Done */
