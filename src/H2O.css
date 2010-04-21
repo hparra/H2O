@@ -20,6 +20,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
+	overflow: hidden;
 }
 body {
 	line-height: 1;
@@ -96,7 +97,6 @@ ol.H2O, ul.H2O {
 /* <li> */
 ol.H2O li, ul.H2O li {
 	display: block;
-	overflow: hidden;
 	float: left;
 }
 

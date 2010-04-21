@@ -40,9 +40,20 @@
 		resizeEvent = document.createEvent("Event");
 		resizeEvent.initEvent("parentresize", false, false);
 		
-		/* dimensions of parent in pixels */
-		resizeEvent.width = parent.offsetWidth;
-		resizeEvent.height = parent.offsetHeight;
+		/* offset doesn't include margin/border */
+		var width = parent.offsetWidth;
+		var height = parent.offsetHeight;
+		
+		/* parent's padding should be subtracted! */
+		var pl = window.getComputedStyle(parent, null).getPropertyValue("padding-left").replace(/%|px/, "");
+		var pr = window.getComputedStyle(parent, null).getPropertyValue("padding-right").replace(/%|px/, "");
+		
+		/* assume it was a percentage. BAD! */
+		pl = pl / 100 * width;
+		pr = pr / 100 * width;
+		
+		resizeEvent.width = width - (pl + pr);
+		resizeEvent.height = height;
 		
 		for (i in children) {
 			if (children[i].nodeType == Node.ELEMENT_NODE) {
