@@ -60,7 +60,7 @@
 			}
 		}
 		
-		self.next = function() {
+		self.showNext = function() {
 			var stack = rows * columns;
 			var i = 0;
 			var j = 0; /* unhidden index */			
@@ -86,7 +86,7 @@
 			
 		}
 		
-		self.previous = function() {
+		self.showPrevious = function() {
 			var stack = rows * columns;
 			var i = 0;
 			var j = 0; /* unhidden index */

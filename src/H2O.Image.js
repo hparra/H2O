@@ -61,15 +61,6 @@
 				height = h;
 			}
 
-			self.style.width = width + "px";
-			self.style.height = height + "px";
-
-
-			options = {
-				align: "center",
-				valign: "middle"
-			}
-
 			/*
 			paddingL = parseInt(document.defaultView.getComputedStyle(self.parentNode, null)['paddingLeft'].replace(/px/, ""));
 			paddingR = parseInt(document.defaultView.getComputedStyle(self.parentNode, null)['paddingRight'].replace(/px/, ""));
@@ -80,10 +71,24 @@
 			console.log(paddingR);
 			console.log(paddingT);
 			console.log(paddingB);
+			
+			paddingB = 0;
+			paddingT = document.defaultView.getComputedStyle(self, null).paddingTop.replace(/%/, "") * h / 100;
+			console.debug("PADDING TOP:" + paddingT);
 
+			
 			width = width - (paddingL + paddingR);
 			height = height - (paddingT + paddingB);
 			*/
+
+			self.style.width = width + "px";
+			self.style.height = height + "px";
+
+
+			options = {
+				align: "center",
+				valign: "middle"
+			}
 
 			if (options.align === 'center') {
 				self.style.left = "50%";
@@ -104,7 +109,7 @@
 				self.style.top = "100%";
 				self.style.marginTop = -height + "px";
 			}
-			
+
 		};
 		
 		self.addEventListener("load", function() {
