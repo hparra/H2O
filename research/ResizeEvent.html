@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">		
+		window.addEventListener("load", function(e) {
+			console.debug(e);
+		}, false);
+		
+		window.addEventListener("load", function(loadEvent) {
+			
+			defaultResizeMethod = function() {
+				var r = document.createEvent("Event");
+				r.initEvent("resize", false, false);
+				this.dispatchEvent(r);
+			};
+			
+			/* default resizer */
+			var zero = document.body;
+			zero.resize = defaultResizeMethod;
+			zero.addEventListener("resize", function(e) {
+				console.debug("ZERO heard resize");
+				/*
+				console.debug("document resized");
+				console.debug("Event.target = " + e.target);
+				console.debug("Event.originalTarget = " + e.originalTarget);
+				console.debug("Event.currentTarget = " + e.currentTarget);
+				*/
+			}, false);
+			
+
+			var one = document.getElementById("one");
+			one.resize = defaultResizeMethod;
+			/* when your parent resizes, resize yourself */
+			one.parentNode.addEventListener("resize", function(e) {
+				console.debug("ONE heard resize");
+				one.resize();
+			}, false);
+			
+			var two = document.getElementById("two");
+			two.resize = defaultResizeMethod;
+			two.parentNode.addEventListener("resize", function(e) {
+				console.debug("TWO heard resize");
+			}, false);
+			
+		}, false);
+		
+		window.addEventListener("resize", function(e) {
+			console.debug("window resized");
+			/*
+			console.debug("Event.type = " + e.type);
+			console.debug("Event.target = " + e.target);
+			console.debug("Event.originalTarget = " + e.originalTarget);
+			console.debug("Event.currentTarget = " + e.currentTarget);
+			console.debug("Event.bubbles = " + e.bubbles);
+			console.debug("Event.cancelable = " + e.cancelable);
+			*/
+			
+			document.body.resize();
+
+		}, false);
+		
+	</script>
+</head>
+
+<body id="zero">
+	<div id="one">
+		<h1 id="two">Resize Event</h1>
+	</div>
+</body>
+
+</html>
