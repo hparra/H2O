@@ -14,7 +14,7 @@
 
 	};
 	
-	H2O.DEBUG = true;
+	H2O.DEBUG = false;
 	
 	/**
 	 * Reports debug info to console if available
@@ -53,6 +53,9 @@
 				/* DO NOTHING */ break;
 			}
 		}
+		
+		/* unhide <body>. triggers resize() */
+		document.body.show();
 		
 		/* force resize */
 		resizeEvent = document.createEvent("Event");

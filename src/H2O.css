@@ -61,10 +61,11 @@ table {
 */
 
 html.H2O {
-
+	background-color: black;
 }
 
 body.H2O {
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
