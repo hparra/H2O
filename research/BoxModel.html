@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<style type="text/css">
+		/* totalWidth = padding-left + padding-right + border-left + border-right + width */
+		/* Ex: 100% = 5% + 5% + 1% + 1% + 88% */
+		/* Of course, % is broken for x-top and x-bottom */
+	
+		body {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			margin: 0;
+			padding: 0;
+			background-color: black;
+		}
+	
+		#one { /* total size = 100px */
+			width: 70%;
+			height: 10%;
+			background-color: pink;
+			margin: 0% 10% 0% 10%;
+			padding: 0% 5% 0% 5%;
+			/*border-left: 5% green solid;*/
+		}
+	
+		#two {
+			width: 100%;
+			height: 100%;
+			background-color: blue;
+		}
+	</style>
+	<script type="text/javascript">
+	
+		function showInfo() {
+			console.debug("---");
+			console.debug("Window: "  + document.width + "x" + document.height);
+			
+			
+			node = document.getElementById("one");
+			
+			/* offSetWidth = width + pl + pr + bl + br */
+
+			console.debug("One: "  + node.offsetWidth + "x" + node.offsetHeight);
+			
+			/* computed width/height */
+			var computedWidth = document.defaultView.getComputedStyle(node, null)['width'];
+			var computedHeight = document.defaultView.getComputedStyle(node, null)['height'];
+			console.debug("-computedWidth: " + computedWidth);
+			console.debug("-computerHeight: " + computedHeight);
+			
+			/* padding */
+			var computedMarginLeft = document.defaultView.getComputedStyle(node, null)['marginLeft'];
+			var computedMarginRight = document.defaultView.getComputedStyle(node, null)['marginRight'];
+			console.debug("-computedMarginLeft: "  + computedMarginLeft);
+			console.debug("-computedMarginRight: "  + computedMarginRight);
+			
+			/* padding */
+			var offsetPaddingLeft = document.defaultView.getComputedStyle(node, null)['paddingLeft'];
+			var offsetPaddingRight = document.defaultView.getComputedStyle(node, null)['paddingRight'];
+			console.debug("-computedPaddingLeft: "  + offsetPaddingLeft);
+			console.debug("-computedPaddingRight: "  + offsetPaddingRight);
+
+			/* border YOU CAN"T SPECIFY % :( "*/
+			var offsetBorderLeft = document.defaultView.getComputedStyle(node, null).borderLeftWidth;
+			var offsetBorderRight = document.defaultView.getComputedStyle(node, null).borderRightWidth;
+			console.debug("-borderLeft: "  + offsetBorderLeft);
+			console.debug("-borderRight: "  + offsetBorderRight);
+		}
+	
+		window.addEventListener("resize", showInfo, false);
+		window.addEventListener("load", showInfo, false);
+	</script>
+</head>
+
+<body id="zero">
+	<div id="one">
+		<div id="two">
+			Hi!
+		</div>
+	</div>
+</body>
+
+</html>
