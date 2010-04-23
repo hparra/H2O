@@ -20,7 +20,7 @@
 	 * Reports debug info to console if available
 	 * @private
 	 *///
-	debug = function(str) {
+	var debug = function(str) {
 		if (console && H2O.DEBUG)
 			console.debug("[H2O] " + str);
 	};
@@ -29,7 +29,7 @@
 	 * Initializes an Element (sub)tree for H2O compliance
 	 * @private
 	 *///
-	initializeTree = function(node) {
+	var initializeTree = function(node) {
 		
 		/* bypass non-Elements (and children) */
 		if (node.nodeType != Node.ELEMENT_NODE) return;
@@ -87,7 +87,8 @@
 	
 	window.addEventListener("load", function() {
 		initializeTree(document.body);
-		//document.body.show();
+		document.body.style.display = "block";
+		document.body.resize();
 	}, true);
 	
 	window.H2O = H2O;

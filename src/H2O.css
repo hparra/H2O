@@ -20,7 +20,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
-	overflow: hidden;
 }
 body {
 	line-height: 1;
@@ -60,12 +59,12 @@ table {
 * H2O
 */
 
-html.H2O {
+html {
 	background-color: black;
 }
 
-body.H2O {
-	display: none;
+body {
+	
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -75,34 +74,37 @@ body.H2O {
 	padding: 0px;
 }
 
-div.H2O {
+div {
 	width: 100%;
 	height: 100%;
 	float: left;
 }
 
-h6.H2O {
-	
+h1, h2, h3, h4, h5, h6 {
+	font-size: 8px;
+	display: inline;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
-img.H2O {
+img {
 	position: relative;
 }
 
 /* <ol> & <ul> */
-ol.H2O, ul.H2O {
+ol, ul {
 	width: 100%;
 	height: 100%;
 }
 
 /* <li> */
-ol.H2O li, ul.H2O li {
+ol li, ul li {
 	display: block;
 	float: left;
 }
 
 /* <video */
-video.H2O {
+video {
 	width: 100%;
 	height: 100%;
 }
