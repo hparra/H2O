@@ -11,28 +11,16 @@
 	*/
 	Label = function(node) {
 		var self = node;
-		
-		/* initializer */	
-		function initialize() {
-			self.addEventListener("parentresize", function(evt) {
-				console.debug("H2O.Label's parent resized: " + evt.width + "x" + evt.height);
-				this.resize(evt.width, evt.height)	
-			}, false);
-			
-			/* force initial resize */
-			self.resize(self.parentNode.offsetWidth, self.parentNode.offsetHeight);
-		}
-		
-		/**
-		*/
-		self.resize = function(w, h) {
-			this.style.lineHeight = h + "px"; // always correct
-			this.style.fontSize = h + "px";
-			console.debug("Label resized!")
-		}
 
-		
-		initialize();
+		self.resize = function() {
+			console.debug("resize");
+			
+			height = document.defaultView.getComputedStyle(self.parentNode, null)['height'];
+			console.debug(height);
+			
+			self.style.lineHeight = height + "px"; // always correct
+			self.style.fontSize = height + "px";
+		}
 	}
 	
 	window.H2O.Label = Label;
