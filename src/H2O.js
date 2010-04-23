@@ -20,9 +20,14 @@
 	 * Reports debug info to console if available
 	 * @private
 	 *///
-	var debug = function(str) {
-		if (console && H2O.DEBUG)
-			console.debug("[H2O] " + str);
+	H2O.debug = function(str) {
+		if (H2O.DEBUG) {
+			if (typeof console !== 'undefined') {
+				console.debug("[H2O] " + str);
+			} else if (opera) {
+				opera.postError("[H2O] " + str);
+			}
+		}
 	};
 	
 	/**
@@ -38,7 +43,7 @@
 		if (node.className.match(/NO_H2O/)) return; /* Too new HTML5/DOM3: node.classList.contains("NO_H2O"); */
 		
 		/* initalize elements by tag */
-		debug(node.tagName);
+		H2O.debug(node.tagName);
 		switch (node.tagName) {
 		case "IMG":
 			H2O.Image(node); break;
