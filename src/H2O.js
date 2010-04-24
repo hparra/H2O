@@ -42,7 +42,7 @@
 		/* bypass Elements (and their children) with "NO_H2O" class */
 		if (node.className.match(/NO_H2O/)) return; /* Too new HTML5/DOM3: node.classList.contains("NO_H2O"); */
 		
-		H2O.debug(node.tagName);
+		//H2O.debug(node.tagName);
 		
 		/* reimplement margin & padding top/left correctly */
 		/* BAD! Should check for % only */

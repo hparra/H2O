@@ -4,54 +4,53 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../src/H2O.css" />
 	<script src="../src/H2O.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../src/H2O.Element.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../src/H2O.Label.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		body {
+			background-color: purple;
+		}
+
+		#container {
+			width: 100%;
+			height: 80%;
+			background-color: teal;
+		}
+
+		#controls {
+			width: 100%;
+			height: 20%;
+			background-color: red;
+		}
+
+		.blue {
+			background-color: blue;
+		}
+
+		.green {
+			background-color: green;
+		}
+
+		/* */
+		#list li { /* 100% = (PL% + PR% + ML% + MR%) * # + WIDTH% */
+			width: 29.33333%; 
+			height: 80%;
+			margin: 5% 1% 5% 1%;
+			padding: 5% 1% 5% 1%;
+			/* padding-left/right not implemented yet */
+			/*
+			padding-left: 1%;
+			padding-right: 1%;
+			*/
+
+
+
+			/* margin-top/down N/A */
+		}
+	</style>
 </head>
 
-<style type="text/css">
-	body {
-		background-color: purple;
-	}
 
-	#container {
-		width: 100%;
-		height: 80%;
-		background-color: teal;
-	}
-
-	#controls {
-		width: 100%;
-		height: 20%;
-		background-color: red;
-	}
-
-	.blue {
-		background-color: blue;
-	}
-	
-	.green {
-		background-color: green;
-	}
-
-	/* */
-	#list li {
-		width: 29.33333%;
-		margin-left: 2%;
-		margin-right: 2%;
-		/* padding-left/right not implemented yet */
-		/*
-		padding-left: 1%;
-		padding-right: 1%;
-		*/
-		
-		height: 100%;
-		padding-top: 1%;
-		
-		/* margin-top/down N/A */
-	}
-</style>
 
 <body class="H2O">
 	<div id="container" class="H2O">
@@ -69,8 +68,8 @@
 		</ul>
 	</div>
 	<div id="controls" class="H2O">
-		<a onclick="document.getElementById('list').showNext()" href="#">List.next()</a>
-		<a onclick="document.getElementById('list').showPrevious()" href="#">List.previous()</a>
+		<a onclick="document.getElementById('list').showPrevious()" href="#">List.showPrevious()</a>
+		<a onclick="document.getElementById('list').showNext()" href="#">List.showNext()</a>
 	</div>
 </body>
 

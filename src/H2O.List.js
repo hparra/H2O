@@ -15,20 +15,22 @@
 		function initialize() {
 			
 			/* deal with children */
-			children = node.getElementsByTagName("LI");
-			console.debug("This has " + children.length + " LIs");
+			children = self.getElementsByTagName("LI");
 			
 			/* hackerade! */
+			H2O.debug("xL width: " +  document.defaultView.getComputedStyle(self, null)['width'].replace(/px/, ""));
 			columns = Math.round(self.offsetWidth / children[0].offsetWidth);
-			console.debug("Columns = " + columns);
-			
 			rows = Math.round(self.offsetHeight / children[0].offsetHeight);
-			console.debug("Rows = " + rows);
+			H2O.debug(columns + " x " + rows);
+			
 			
 			/* hide what isn't shown */
+			/*
 			for (var i = columns * rows; i < children.length; ++i) {
+				H2O.debug("hid");
 				self.hideChild(children[i]);
 			}
+			*/
 		}
 		
 		
@@ -38,6 +40,7 @@
 		
 		self.showChild = function(node) {
 			node.style.display = "block";
+			node.resize();
 		}
 		
 		self.toggleChild = function(node) {
@@ -49,6 +52,8 @@
 		}
 		
 		self.showNext = function() {
+			H2O.debug("NEXT");
+			
 			var stack = rows * columns;
 			var i = 0;
 			var j = 0; /* unhidden index */			
@@ -57,7 +62,7 @@
 			while (i < stack && children.length - j > stack) {
 				console.debug("looking at " + (i + j))
 				if (children[i+j].style.display != "none") {
-					this.hideChild(children[i+j]);
+					self.hideChild(children[i+j]);
 					++i;
 				} else {
 					++j;
@@ -68,7 +73,7 @@
 			var k = i + j;
 			while (children.length - j > stack && k < children.length && k < i + j + stack) {
 				console.debug("showing " + k);
-				this.showChild(children[k]);
+				self.showChild(children[k]);
 				++k;
 			}
 			
@@ -91,7 +96,7 @@
 				i = i - stack;
 				while (i < j) {
 					--j;
-					this.toggleChild(children[j]);
+					self.toggleChild(children[j]);
 				}
 			}
 			

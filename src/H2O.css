@@ -101,12 +101,15 @@ img {
 ol, ul {
 	width: 100%;
 	height: 100%;
+	display: block;
+	overflow: auto;
+	
 }
 
 /* <li> */
 ol li, ul li {
-	display: block;
 	float: left;
+	display: block;
 }
 
 /* <video */
