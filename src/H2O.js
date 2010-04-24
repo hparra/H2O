@@ -42,8 +42,20 @@
 		/* bypass Elements (and their children) with "NO_H2O" class */
 		if (node.className.match(/NO_H2O/)) return; /* Too new HTML5/DOM3: node.classList.contains("NO_H2O"); */
 		
-		/* initalize elements by tag */
 		H2O.debug(node.tagName);
+		
+		/* reimplement margin & padding top/left correctly */
+		/* BAD! Should check for % only */
+		node.percentMarginTop = document.defaultView.getComputedStyle(node, null)['marginTop'].replace(/%|px/, "");
+		node.percentMarginBottom = document.defaultView.getComputedStyle(node, null)['marginBottom'].replace(/%|px/, "");
+		node.percentPaddingTop = document.defaultView.getComputedStyle(node, null)['paddingTop'].replace(/%|px/, "");
+		node.percentPaddingBottom = document.defaultView.getComputedStyle(node, null)['paddingBottom'].replace(/%|px/, "");		
+		node.style.marginTop = 0;
+		node.style.marginBottom = 0;
+		node.style.paddingTop = 0;
+		node.style.paddingBottom = 0;
+		
+		/* initalize elements by tag */
 		switch (node.tagName) {
 		case "IMG":
 			H2O.Image(node); break;
@@ -75,7 +87,16 @@
 		
 		/* define node.resize() if it doesn't exist (it may) */
 		if (typeof node.resize != "function") {
-			node.resize = node.dispatchResizeEvent;
+			node.resize = function() {
+				//var offsetHeight = document.defaultView.getComputedStyle(node.parentNode, null)['height'].replace(/%|px/, "");
+				var offsetHeight = node.parentNode.offsetHeight;
+				//var offsetHeight = node.offsetHeight;
+				node.style.marginTop = (node.percentMarginTop / 100 * offsetHeight) + "px";
+				node.style.marginBottom = (node.percentMarginBottom / 100 * offsetHeight) + "px";
+				node.style.paddingTop = (node.percentPaddingTop / 100 * offsetHeight) + "px";
+				node.style.paddingBottom = (node.percentPaddingBottom / 100 * offsetHeight) + "px";
+				node.dispatchResizeEvent();
+			};
 		}
 
 		if (node === document.body) {

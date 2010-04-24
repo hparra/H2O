@@ -13,13 +13,6 @@
 		
 		/* initializer */	
 		function initialize() {
-			self.addEventListener("parentresize", function(evt) {
-				console.debug("H2O.List's parent resized: " + evt.width + "x" + evt.height);
-				this.resize(evt.width, evt.height)	
-			}, false);
-			
-			/* force initial resize */
-			self.resize(self.parentNode.offsetWidth, self.parentNode.offsetHeight);
 			
 			/* deal with children */
 			children = node.getElementsByTagName("LI");
@@ -38,11 +31,6 @@
 			}
 		}
 		
-		/**
-		*/
-		self.resize = function(w, h) {
-			console.debug("List resized!")
-		}
 		
 		self.hideChild = function(node) {
 			node.style.display = "none";
