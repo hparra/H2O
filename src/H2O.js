@@ -30,6 +30,14 @@
 		}
 	};
 	
+	H2O.createElement = function(str, options) {
+		var e = document.createElement(str);
+		
+		
+		
+		return e;
+	}
+	
 	/**
 	 * Initializes an Element (sub)tree for H2O compliance
 	 * @private

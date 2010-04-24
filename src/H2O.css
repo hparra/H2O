@@ -102,8 +102,7 @@ ol, ul {
 	width: 100%;
 	height: 100%;
 	display: block;
-	overflow: auto;
-	
+	overflow: hidden;
 }
 
 /* <li> */
