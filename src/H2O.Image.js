@@ -51,12 +51,22 @@
 
 			self.style.width = width + "px";
 			self.style.height = height + "px";
+	
+			if (node.className.match(/MIDDLE/)) {
+				self.style.top = "50%";
+				self.style.marginTop = (-1 * height) / 2 + "px";
+			} else if (node.className.match(/BOTTOM/)) {
+				self.style.top = "100%";
+				self.style.marginTop = -height + "px";
+			} 
 
-			
+
+			/*
 			options = {
 				align: "center",
-				valign: "middle"
+				valign: "bottom"
 			}
+			*/
 
 			/* WORKS - but CSS can do better! See http://www.w3.org/Style/Examples/007/center */
 			/*
@@ -72,6 +82,7 @@
 			*/
 
 			/* TODO: implement stripper */
+			/*
 			if (options.valign === 'middle') {
 				self.style.top = "50%";
 				self.style.marginTop = (-1 * height) / 2 + "px";
@@ -81,6 +92,7 @@
 				self.style.top = "100%";
 				self.style.marginTop = -height + "px";
 			}
+			*/
 			
 			
 		};
