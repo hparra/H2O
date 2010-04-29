@@ -21,6 +21,12 @@
 		
 		/* initializer */	
 		function initialize() {
+			
+			/* retain original image information */
+			self.originalWidth = self.width;
+			self.originalHeight = self.height;
+			self.originalRatio = self.width / self.height;
+			
 			/* force initial resize */
 			self.resize();
 
@@ -52,6 +58,7 @@
 			self.style.width = width + "px";
 			self.style.height = height + "px";
 	
+			/* vertical alignment */
 			if (node.className.match(/MIDDLE/)) {
 				self.style.top = "50%";
 				self.style.marginTop = (-1 * height) / 2 + "px";
@@ -97,17 +104,13 @@
 			
 		};
 		
-		self.addEventListener("load", function() {
-			self.originalWidth = self.width;
-			self.originalHeight = self.height;
-			self.originalRatio = self.width / self.height;
-
-			initialize();
-			
-		}, false);
-
-		/* initiate image loading */
+		/* initiate image loading - doesn't work on iPhone or Android */
+		/*
+		self.addEventListener("load", initialize, false);
 		self.src = self.alt;
+		*/
+		
+		initialize();
 		
 	}
 	
