@@ -12,15 +12,20 @@
 		}
 
 		#container {
-			width: 100%;
-			height: 80%;
+			width: 80%;
+			height: 100%;
 			background-color: teal;
 		}
 
-		#controls {
-			width: 100%;
-			height: 20%;
+		.button_container {
+			width: 10%;
+			height: 100%;
 			background-color: red;
+		}
+		
+		.button_container a {
+			margin-left: auto;
+			margin-right: auto;
 		}
 
 		.blue {
@@ -48,35 +53,57 @@
 			padding: 5% 1% 5% 1%;
 			*/
 			width: 33.3333%;
-			height: 100%;
-
-
-
-			/* margin-top/down N/A */
+			height: 50%;
+			-webkit-transition: opacity 0.5s linear;
 		}
+		/*
+		#list li:hover {
+		  
+		}
+		*/
 	</style>
+	<script type="text/javascript">
+		/*
+		for(var i = 0; i < 10; ++i) {
+			var li = document.createElement('LI');
+
+			li.appendChild(img);
+		}
+		*/
+	</script>
 </head>
 
-<script type="text/javascript">
-	/*
-	for(var i = 0; i < 10; ++i) {
-		var li = document.createElement('LI');
-		
-		li.appendChild(img);
-	}
-	*/
-</script>
+
 
 <body class="H2O">
+	<div class="button_container">
+		<a onclick="document.getElementById('list').showPrevious()" href="#">PREV</a>
+	</div>
 	<div id="container" class="H2O">
 		<ul id="list" class="H2O">
-			<li class="H2O green"></li>
-			<li class="H2O pink"><img id="banner" src="1-1226265697kzA8.jpg" class="H2O"/></li>
+			<li class="blue">0</li>
+			<li class="pink">1</li>
+			<li class="blue">2</li>
+			<li class="pink">3</li>
+			<li class="blue">4</li>
+			<li class="pink">5</li>
+			<li class="blue">6</li>
+			<li class="pink">7</li>
+			<li class="blue">8</li>
+			<li class="pink">9</li>
+			<li class="blue">10</li>
+			<li class="pink">11</li>
+			<li class="blue">12</li>
+			<li class="pink">13</li>
+			<li class="blue">14</li>
+			<li class="pink">15</li>
+			<li class="blue">16</li>
+			<li class="pink">17</li>
+			<li class="blue">18</li>
 		</ul>
 	</div>
-	<div id="controls" class="H2O">
-		<a onclick="document.getElementById('list').showPrevious()" href="#">List.showPrevious()</a>
-		<a onclick="document.getElementById('list').showNext()" href="#">List.showNext()</a>
+	<div class="button_container">
+		<a onclick="document.getElementById('list').showNext()" href="#">NEXT</a>
 	</div>
 </body>
 
