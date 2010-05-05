@@ -28,10 +28,11 @@
 			self.originalRatio = self.width / self.height;
 			
 			/* force initial resize */
-			self.resize();
+			//self.resize();
 
 			/* unhide */
-			self.style.display = "block";
+			//self.style.display = "block";
+			self.show();
 		}
 		
 		/**

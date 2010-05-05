@@ -24,7 +24,7 @@
 		if (H2O.DEBUG) {
 			if (typeof console !== 'undefined') {
 				console.debug("[H2O] " + str);
-			} else if (opera) {
+			} else if (typeof opera !== 'undefined') {
 				opera.postError("[H2O] " + str);
 			}
 		}
@@ -81,6 +81,49 @@
 		/* getComputedPaddingBottom() */
 		node.getComputedPaddingBottom = function() {
 			return document.defaultView.getComputedStyle(this, null)['paddingBottom'];
+		}
+		
+		/* getComputedMarginTop() */
+		node.getComputedMarginLeft = function() {
+			return document.defaultView.getComputedStyle(this, null)['marginLeft'];
+		}
+		
+		/* getComputedMarginBottom() */
+		node.getComputedMarginRight = function() {
+			return document.defaultView.getComputedStyle(this, null)['marginRight'];
+		}
+		
+		/* getComputedPaddingLeft() */
+		node.getComputedPaddingLeft = function() {
+			return document.defaultView.getComputedStyle(this, null)['paddingLeft'];
+		}
+		
+		/* getComputedPaddingBottom() */
+		node.getComputedPaddingRight = function() {
+			return document.defaultView.getComputedStyle(this, null)['paddingRight'];
+		}
+		
+		/* Prerendering, as % */
+		node.getComputedOffsetWidth = function() {
+			var width = parseInt(this.getComputedWidth().replace(/%/, ""));
+			var paddingLeft = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
+			var paddingRight = parseInt(this.getComputedPaddingRight().replace(/%/, ""));
+			var marginLeft = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
+			var marginRight = parseInt(this.getComputedPaddingRight().replace(/%/, ""));
+			/* TODO: include 'border' */
+			
+			return width + paddingLeft + paddingRight + marginLeft + marginRight;
+		}
+		
+		/* Prerendering, as % */
+		node.getComputedOffsetHeight = function() {
+			var height = parseInt(this.getComputedHeight().replace(/%/, ""));
+			var paddingTop = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
+			var paddingBottom = parseInt(this.getComputedPaddingBottom().replace(/%/, ""));
+			var marginTop = parseInt(this.getComputedMarginTop().replace(/%/, ""));
+			var marginBottom = parseInt(this.getComputedMarginBottom().replace(/%/, ""));
+			
+			return height + paddingTop + paddingBottom + marginTop + marginBottom;
 		}
 		
 		/* hide() */

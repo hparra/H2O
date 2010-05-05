@@ -32,16 +32,15 @@
 			//var rows = Math.round(self.offsetHeight / children[0].offsetHeight);
 
 			/* expecting % */
-			var width = children[0].getComputedWidth().replace(/%/, "");
-			
-			var height = children[0].getComputedHeight().replace(/%/, "");
-							//+ children[0].getComputedMarginTop().replace(/%/, "")
-							//+ children[0].getComputedMarginBottom().replace(/%/, "");
+			var width = children[0].getComputedOffsetWidth();
+			var height = children[0].getComputedOffsetHeight();
 			
 			rows = Math.round(100 / height);
 			columns = Math.round(100 / width);
 			
 			perpage = (columns * rows) || 1;
+			
+			H2O.debug("Perpage: " + perpage);
 			
 			/* hide what isn't shown */
 			for (var i = perpage; i < children.length; ++i) {
