@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<html class="H2O">
+<head>
+	<link rel="stylesheet" type="text/css" href="../src/H2O.css" />
+	<script src="../src/H2O.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.ListItem.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		body {
+			background-color: purple;
+		}
+
+		#container {
+			width: 80%;
+			height: 100%;
+			background-color: teal;
+		}
+
+		.button_container {
+			width: 10%;
+			height: 100%;
+			background-color: red;
+		}
+		
+		.button_container a {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.blue {
+			background-color: blue;
+		}
+
+		.green {
+			background-color: green;
+		}
+		
+		.pink {
+			background-color: pink;
+		}
+
+		#list {
+		
+		}
+
+		/* */
+		#list li { /* 100% = (PL% + PR% + ML% + MR%) * # + WIDTH% */
+			/*
+			width: 29.33333%; 
+			height: 80%;
+			margin: 5% 1% 5% 1%;
+			padding: 5% 1% 5% 1%;
+			*/
+			width: 33.3333%;
+			height: 50%;
+			-webkit-transition: opacity 0.5s linear;
+		}
+		/*
+		#list li:hover {
+		  
+		}
+		*/
+	</style>
+	<script type="text/javascript">
+		window.addEventListener("load", function() {
+			var ul = document.getElementById('numbers');
+			H2O.debug(ul);
+			var li;
+			
+			/* Create H2O-compliant <li> */
+			for (var i = 0; i < 8; ++i) {
+				li = new H2O.ListItem();
+				li.innerHTML = i;
+				ul.appendChild(li);
+			}
+			
+			/* Make <li> H2O-compliant */
+			for (var i = 8; i < 16; ++i) {
+				li = document.createElement("li");
+				H2O.ListItem.extend(li);
+				li.innerHTML = i;
+				ul.appendChild(li);
+			}
+			
+		}, false);
+	</script>
+</head>
+
+
+
+<body>
+	<div class="button_container">
+		<a onclick="document.getElementById('list').showPrevious()" href="#">PREV</a>
+	</div>
+	<div id="container">
+		<ul id="numbers" class="NO_H2O">
+		</ul>
+	</div>
+	<div class="button_container">
+		<a onclick="document.getElementById('list').showNext()" href="#">NEXT</a>
+	</div>
+</body>
+
+</html>

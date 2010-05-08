@@ -2,9 +2,6 @@
 (function() {
 	if (window.H2O.List) return;
 
-	/**
-	* Label
-	*/
 	List = function(node) {
 		var self = node;
 		var children;
@@ -47,13 +44,7 @@
 				//children[i].hide();
 			}
 		}
-		
-		self.addChild = function(node) {
-			self.appendChild(node);
-			self.resize();
-			self.children = self.getElementsByTagName("LI");
-		}
-				
+
 		self.showNext = function(count) {
 			count = count || perpage;
 			var notLastPage = children.length - focus > perpage;
