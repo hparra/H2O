@@ -23,135 +23,16 @@
 	H2O.debug = function(str) {
 		if (H2O.DEBUG) {
 			if (typeof console !== 'undefined') {
-				console.debug("[H2O] " + str);
+				console.debug(str);
 			} else if (typeof opera !== 'undefined') {
-				opera.postError("[H2O] " + str);
+				opera.postError(str);
 			}
 		}
 	};
 	
-	H2O.createElement = function(str, options) {
-		var e = document.createElement(str);
-		
-		
-		
-		return e;
-	}
-	
-	/**
-	* Enhances an Element with additional methods and properties
-	*///
-	H2O.enhanceElement = function(node) {
-		/* reimplement margin & padding top/left correctly */
-		/* BAD! Should check for % only */
-		node.percentMarginTop = document.defaultView.getComputedStyle(node, null)['marginTop'].replace(/%|px/, "");
-		node.percentMarginBottom = document.defaultView.getComputedStyle(node, null)['marginBottom'].replace(/%|px/, "");
-		node.percentPaddingTop = document.defaultView.getComputedStyle(node, null)['paddingTop'].replace(/%|px/, "");
-		node.percentPaddingBottom = document.defaultView.getComputedStyle(node, null)['paddingBottom'].replace(/%|px/, "");		
-		node.style.marginTop = 0;
-		node.style.marginBottom = 0;
-		node.style.paddingTop = 0;
-		node.style.paddingBottom = 0;
-
-		/* getComputedWidth() */
-		node.getComputedWidth = function() {
-			return document.defaultView.getComputedStyle(this, null)['width'];
-		}
-
-		/* getComputedHeight() */
-		node.getComputedHeight = function() {
-			return document.defaultView.getComputedStyle(this, null)['height'];
-		}
-
-		/* getComputedMarginTop() */
-		node.getComputedMarginTop = function() {
-			return document.defaultView.getComputedStyle(this, null)['marginTop'];
-		}
-		
-		/* getComputedMarginBottom() */
-		node.getComputedMarginBottom = function() {
-			return document.defaultView.getComputedStyle(this, null)['marginBottom'];
-		}
-		
-		/* getComputedPaddingTop() */
-		node.getComputedPaddingTop = function() {
-			return document.defaultView.getComputedStyle(this, null)['paddingTop'];
-		}
-		
-		/* getComputedPaddingBottom() */
-		node.getComputedPaddingBottom = function() {
-			return document.defaultView.getComputedStyle(this, null)['paddingBottom'];
-		}
-		
-		/* getComputedMarginTop() */
-		node.getComputedMarginLeft = function() {
-			return document.defaultView.getComputedStyle(this, null)['marginLeft'];
-		}
-		
-		/* getComputedMarginBottom() */
-		node.getComputedMarginRight = function() {
-			return document.defaultView.getComputedStyle(this, null)['marginRight'];
-		}
-		
-		/* getComputedPaddingLeft() */
-		node.getComputedPaddingLeft = function() {
-			return document.defaultView.getComputedStyle(this, null)['paddingLeft'];
-		}
-		
-		/* getComputedPaddingBottom() */
-		node.getComputedPaddingRight = function() {
-			return document.defaultView.getComputedStyle(this, null)['paddingRight'];
-		}
-		
-		/* Prerendering, as % */
-		node.getComputedOffsetWidth = function() {
-			var width = parseInt(this.getComputedWidth().replace(/%/, ""));
-			var paddingLeft = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
-			var paddingRight = parseInt(this.getComputedPaddingRight().replace(/%/, ""));
-			var marginLeft = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
-			var marginRight = parseInt(this.getComputedPaddingRight().replace(/%/, ""));
-			/* TODO: include 'border' */
-			
-			return width + paddingLeft + paddingRight + marginLeft + marginRight;
-		}
-		
-		/* Prerendering, as % */
-		node.getComputedOffsetHeight = function() {
-			var height = parseInt(this.getComputedHeight().replace(/%/, ""));
-			var paddingTop = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
-			var paddingBottom = parseInt(this.getComputedPaddingBottom().replace(/%/, ""));
-			var marginTop = parseInt(this.getComputedMarginTop().replace(/%/, ""));
-			var marginBottom = parseInt(this.getComputedMarginBottom().replace(/%/, ""));
-			
-			return height + paddingTop + paddingBottom + marginTop + marginBottom;
-		}
-		
-		/* hide() */
-		if (!node.hide) {
-			node.hide = function() {
-				this.style.display = "none";
-			}
-		}
-		
-		/* show() */
-		if (!node.show) {
-			node.show = function() {
-				this.style.display = "block";
-				this.resize();
-			}
-		}
-		
-		/* toggle() */
-		if (!node.toggle) {
-			node.toggle = function() {
-				if (this.style.display == "none") {
-					this.show();
-				} else {
-					this.hide();
-				}
-			}
-		}
-	}
+	H2O.createElement = function(str) {
+		return new H2O.Element(str);
+	};
 	
 	/**
 	 * Initializes an Element (sub)tree for H2O compliance
@@ -172,8 +53,6 @@
 		
 		//H2O.debug(node.tagName);
 		
-		H2O.enhanceElement(node);
-		
 		/* initalize elements by tag */
 		switch (node.tagName) {
 		case "IMG":
@@ -185,52 +64,27 @@
 		case "H5":
 		case "H6":
 			H2O.Label(node); break;
+		case "LI":
+			H2O.ListItem.extend(node); break;
 		case "OL":
 		case "UL":
-			H2O.List(node); break;
+			H2O.List.extend(node); break;
 		case "DIV":
 		case "SPAN":
 		case "VIDEO":
 		default:
-			/* DO NOTHING */ break;
+			H2O.Element.extend(node); break;
 		}
 		
-		/* define dispatchResizeEvent() if it doesn't exist (it shouldn't) */
-		if (typeof node.dispatchResizeEvent != "function") {
-			node.dispatchResizeEvent = function() {
-				var e = document.createEvent("Event");
-				e.initEvent("resize", false, false);
-				node.dispatchEvent(e);
-			};
-		}
-		
-		/* define node.resize() if it doesn't exist (it may) */
-		if (typeof node.resize != "function") {
-			node.resize = function() {
-				//var offsetHeight = document.defaultView.getComputedStyle(node.parentNode, null)['height'].replace(/%|px/, "");
-				var offsetHeight = node.parentNode.offsetHeight;
-				//var offsetHeight = node.offsetHeight;
-				node.style.marginTop = (node.percentMarginTop / 100 * offsetHeight) + "px";
-				node.style.marginBottom = (node.percentMarginBottom / 100 * offsetHeight) + "px";
-				node.style.paddingTop = (node.percentPaddingTop / 100 * offsetHeight) + "px";
-				node.style.paddingBottom = (node.percentPaddingBottom / 100 * offsetHeight) + "px";
-				node.dispatchResizeEvent();
-			};
-		}
 
-		if (node === document.body) {
-			window.addEventListener("resize", document.body.resize, false);
-		} else {
-			node.parentNode.addEventListener("resize", node.resize, false);
-		}
 		
 
 	};
 	
 	window.addEventListener("load", function() {
 		initializeTree(document.body);
-		document.body.show();
-		//document.body.resize();
+		//document.body.show();
+		document.body.resize();
 	}, true);
 	
 	window.H2O = H2O;

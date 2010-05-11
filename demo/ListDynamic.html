@@ -4,7 +4,9 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../src/H2O.css" />
 	<script src="../src/H2O.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.Element.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.ListItem.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		body {
@@ -63,17 +65,21 @@
 		*/
 	</style>
 	<script type="text/javascript">
-		var ul = document.getElementById('ul');
-		for (var i = 0; i < 16; ++i) {
-			li = new H2O.ListItem();
-			li.id = track["Name"];
-			li.innerHTML = track["Finding Nemo"];
-			ul.appendItem(li);
-		}
-		
-		var container = document.getElementById('container');
-		container.appendChild(ul);
-		
+		window.addEventListener("load", function() {
+			var div = document.getElementById('container');
+			var ul = new H2O.List();
+			ul.id = "list";
+			
+			var li;
+			for (var i = 0; i < 16; ++i) {
+				li = new H2O.ListItem();
+				li.innerHTML = i;
+				ul.appendChild(li);
+			}
+			div.appendChild(ul);
+			ul.calculateViewportLength();
+			H2O.debug(ul.perpage);
+		}, true);
 	</script>
 </head>
 
@@ -84,9 +90,6 @@
 		<a onclick="document.getElementById('list').showPrevious()" href="#">PREV</a>
 	</div>
 	<div id="container">
-		<ul id="list" class="NO_H2O">
-			
-		</ul>
 	</div>
 	<div class="button_container">
 		<a onclick="document.getElementById('list').showNext()" href="#">NEXT</a>

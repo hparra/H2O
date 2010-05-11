@@ -2,67 +2,74 @@
 (function() {
 	if (window.H2O.List) return;
 
-	List = function(node) {
-		var self = node;
-		var children;
-		var focus;
-		var columns;
-		var rows;
-		var perpage;
-		
-		/* initializer */	
-		function initialize() {
-			
-			/* deal with children */
-			children = self.getElementsByTagName("LI");
-			for (var i = 0; i < children.length; ++i) {
-				children[i].addEventListener('webkitTransitionEnd', function(e) { 
-					this.toggle();
-					H2O.debug("??? " + this.style.display );
-				}, false );
-			}
-			
-			focus = 0;
+	var List = function() {
+		return List.extend(document.createElement("UL"));
+	}
 
-			/* Only works if elements have been rendered */
-			//var columns = Math.round(self.offsetWidth / children[0].offsetWidth);
-			//var rows = Math.round(self.offsetHeight / children[0].offsetHeight);
+	List.extend = function(node) {
+		H2O.Element.extend(node);
 
-			/* expecting % */
-			var width = children[0].getComputedOffsetWidth();
-			var height = children[0].getComputedOffsetHeight();
-			
-			rows = Math.round(100 / height);
-			columns = Math.round(100 / width);
-			
-			perpage = (columns * rows) || 1;
-			
-			H2O.debug("Perpage: " + perpage);
-			
-			/* hide what isn't shown */
-			for (var i = perpage; i < children.length; ++i) {
-				//children[i].hide();
-			}
+		node.perpage = null;
+		node.focus = null;
+
+		node.getItems = function() {
+			return this.getElementsByTagName("LI");
 		}
-
-		self.showNext = function(count) {
-			count = count || perpage;
-			var notLastPage = children.length - focus > perpage;
+		
+		/* showNext() */
+		node.showNext = function(count) {
+			count = count || this.perpage;
+			var children = this.getItems();
+			var notLastPage = children.length - this.focus > this.perpage;
 			for (var i = 0; i < count && notLastPage; ++i) {
-				children[focus].hide();
-				++focus;
+				children[this.focus].hide();
+				++this.focus;
 			}
 		}
 		
-		self.showPrevious = function(count) {
-			count = count || perpage;
-			for (var i = 0; i < count && focus > 0; ++i) {
-				--focus;			
-				children[focus].show();
+		/* showPrevious() */
+		node.showPrevious = function(count) {
+			count = count || this.perpage;
+			var children = this.getItems();
+			for (var i = 0; i < count && this.focus > 0; ++i) {
+				--this.focus;			
+				children[this.focus].show();
 			}
+		}
+		
+
+		//
+		node.calculateViewportLength = function() {
+			var items = this.getItems();
+			if (items.length > 0) {
+				var item = items[0];
+				
+				/* expecting % - only needed if not rendered */
+				var width = item.getComputedOffsetWidth();
+				var height = item.getComputedOffsetHeight();
+				
+				var rows;
+				var columns;				
+				if (false) {
+					rows = Math.round(100 / height);
+					columns = Math.round(100 / width);
+				} else {
+					rows = item.parentNode.offsetHeight / item.offsetHeight;
+					columns = item.parentNode.offsetWidth / item.offsetWidth;
+				}
+				
+				this.focus = 0;
+				this.perpage = (columns * rows) || 1;
+			}
+		}
+		
+		function initialize() {
+			node.calculateViewportLength();
 		}
 		
 		initialize();
+		
+		return node;
 	}
 	
 	window.H2O.List = List;

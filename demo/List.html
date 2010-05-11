@@ -4,7 +4,9 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../src/H2O.css" />
 	<script src="../src/H2O.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.Element.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/H2O.ListItem.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		body {
@@ -62,25 +64,16 @@
 		}
 		*/
 	</style>
-	<script type="text/javascript">
-		/*
-		for(var i = 0; i < 10; ++i) {
-			var li = document.createElement('LI');
-
-			li.appendChild(img);
-		}
-		*/
-	</script>
 </head>
 
 
 
-<body class="H2O">
+<body>
 	<div class="button_container">
 		<a onclick="document.getElementById('list').showPrevious()" href="#">PREV</a>
 	</div>
-	<div id="container" class="H2O">
-		<ul id="list" class="H2O">
+	<div id="container">
+		<ul id="list">
 			<li class="blue">0</li>
 			<li class="pink">1</li>
 			<li class="blue">2</li>

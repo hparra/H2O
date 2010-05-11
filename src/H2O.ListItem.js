@@ -8,14 +8,14 @@
 	* Contructs an H2O ListItem (<li>) element
 	*///
 	var ListItem = function() {
-		return ListItem.extend(document.createElement("li"));
+		return ListItem.extend(document.createElement("LI"));
 	}
 	
 	/**
 	* Extends an <li> to have H2O features 
 	*///
 	ListItem.extend = function(node) {
-		node.isH2O = true;
+		H2O.Element.extend(node);
 		return node;
 	}
 	
