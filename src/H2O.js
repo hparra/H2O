@@ -34,6 +34,18 @@
 		return new H2O.Element(str);
 	};
 	
+	H2O.getLocationSearch = function() {
+		var query = {};
+		if (document.location.search) {
+			var pairs = document.location.search.substr(1).split("&");
+			for (var i = 0; i < pairs.length; ++i) {
+				var couple = pairs[i].split("=");
+				query[couple[0]] = couple[1];
+			}
+		}
+		return query;
+	};
+	
 	/**
 	 * Initializes an Element (sub)tree for H2O compliance
 	 * @private
@@ -51,12 +63,10 @@
 			initializeTree(node.childNodes[i]);
 		}
 		
-		//H2O.debug(node.tagName);
-		
 		/* initalize elements by tag */
 		switch (node.tagName) {
 		case "IMG":
-			H2O.Image(node); break;
+			H2O.Image.extend(node); break;
 		case "H1":
 		case "H2":
 		case "H3":
@@ -69,22 +79,22 @@
 		case "OL":
 		case "UL":
 			H2O.List.extend(node); break;
-		case "DIV":
-		case "SPAN":
-		case "VIDEO":
 		default:
+			H2O.debug(node.tagName);
 			H2O.Element.extend(node); break;
 		}
-		
-
-		
-
 	};
 	
 	window.addEventListener("load", function() {
 		initializeTree(document.body);
-		//document.body.show();
-		document.body.resize();
+		document.body.show();
+		//document.body.resize();
+		
+		// dispatch the H2O load event
+		var e = document.createEvent("Event");
+		e.initEvent("H2O.LOAD", false, false);
+		window.dispatchEvent(e);
+		
 	}, true);
 	
 	window.H2O = H2O;

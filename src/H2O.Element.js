@@ -8,48 +8,46 @@
 	* Doesn't do anything (Maybe later? Or a parser?)
 	*///
 	var Element = function(str) {
-		var element = document.createElement(str);
-		switch (element.tagName) {
-		case "IMG":
-			H2O.Image(node); break;
-		case "H1":
-		case "H2":
-		case "H3":
-		case "H4":
-		case "H5":
-		case "H6":
-			H2O.Label(node); break;
-		case "LI":
-			H2O.ListItem.extend(node); break;
-		case "OL":
-		case "UL":
-			H2O.List.extend(node); break;
-		case "DIV":
-		case "SPAN":
-		case "VIDEO":
-		default:
-			H2O.Element.extend(node); break;
-		}
 		return null;
 	}
 	
-	/**
-	* Extends a HTMLElement descendant to have H2O features 
-	*///
-	Element.extend = function(node) {
-		node.isH2O = true;
+	Element.parsePercent = function(str) {
+		if (str.match(/%/, "")) {
+			return parseInt(str.replace(/%/, ""));
+		} else if (str.match(/px/, "")) {
+			var px = parseInt(str.replace(/px/, ""));
+			if (px == 0) {
+				return 0;
+			}
+			else {
+				
+			}
+		}
 		
-		/* reimplement margin & padding top/left correctly */
-		/* BAD! Should check for % only */
-		node.percentMarginTop = document.defaultView.getComputedStyle(node, null)['marginTop'].replace(/%|px/, "");
-		node.percentMarginBottom = document.defaultView.getComputedStyle(node, null)['marginBottom'].replace(/%|px/, "");
-		node.percentPaddingTop = document.defaultView.getComputedStyle(node, null)['paddingTop'].replace(/%|px/, "");
-		node.percentPaddingBottom = document.defaultView.getComputedStyle(node, null)['paddingBottom'].replace(/%|px/, "");		
-		node.style.marginTop = 0;
-		node.style.marginBottom = 0;
-		node.style.paddingTop = 0;
-		node.style.paddingBottom = 0;
-
+		return null;
+	};
+	
+	/* TODO: DELETE! */
+	Element.getPercentedAttribute = function(element, attribute) {
+		var value = document.defaultView.getComputedStyle(element, null).getPropertyValue(attribute);
+		H2O.debug("getPercentedAttribute => " + value);
+		if (value.match(/%/, "")) {
+			return parseInt(value.replace(/%/, ""));
+		} else if (value.match(/px/, "")) {
+			var px = parseInt(value.replace(/px/, ""));
+			if (px == 0) {
+				return 0;
+			}
+			else {
+				H2O.debug("SHITE! " + document.defaultView.getComputedStyle(element, null)["height"].replace(/px/, "") / px);
+			}
+		}
+	};
+	
+	/**
+	*
+	*///
+	Element.addComputedMethods = function(node) {
 		/* getComputedWidth() */
 		node.getComputedWidth = function() {
 			return document.defaultView.getComputedStyle(this, null)['width'];
@@ -114,14 +112,58 @@
 		
 		/* Prerendering, as % */
 		node.getComputedOffsetHeight = function() {
-			var height = parseInt(this.getComputedHeight().replace(/%/, ""));
-			var paddingTop = parseInt(this.getComputedPaddingLeft().replace(/%/, ""));
-			var paddingBottom = parseInt(this.getComputedPaddingBottom().replace(/%/, ""));
-			var marginTop = parseInt(this.getComputedMarginTop().replace(/%/, ""));
-			var marginBottom = parseInt(this.getComputedMarginBottom().replace(/%/, ""));
+			var height = parseInt(node.getComputedHeight().replace(/%/, ""));
+			var paddingTop = parseInt(node.getComputedPaddingLeft().replace(/%/, ""));
+			var paddingBottom = parseInt(node.getComputedPaddingBottom().replace(/%/, ""));
+			var marginTop = parseInt(node.getComputedMarginTop().replace(/%/, ""));
+			var marginBottom = parseInt(node.getComputedMarginBottom().replace(/%/, ""));
 			
 			return height + paddingTop + paddingBottom + marginTop + marginBottom;
 		}
+	}
+	
+	/* reimplement margin & padding top/bottom as expected, not DOM spec */
+	/* The trick here is that node has not yet been rendered, and still has % in ComputedStyle */
+	//node.percentMarginTop = document.defaultView.getComputedStyle(node, null)['marginTop'].replace(/%/, "");
+	/* I HATE THIS IMPLEMENTATION */
+	Element.cssHacks = function(node) {
+
+		if (typeof node.percentMarginTop === "undefined") {
+			node.percentMarginTop = Element.getPercentedAttribute(node, "margin-top");
+		}
+		
+		if (typeof node.percentMarginBottom === "undefined") {
+			node.percentMarginBottom = document.defaultView.getComputedStyle(node, null)['marginBottom'].replace(/%/, "");
+		}
+		
+		if (typeof node.percentPaddingTop === "undefined") {
+			node.percentPaddingTop = document.defaultView.getComputedStyle(node, null)['paddingTop'].replace(/%/, "");
+		}
+		
+		if (typeof node.percentPaddingBottom === "undefined") {
+			node.percentPaddingBottom = document.defaultView.getComputedStyle(node, null)['paddingBottom'].replace(/%/, "");
+		}
+		
+		/* reset (margin, padding) * (top, height) */
+		node.style.marginTop = 0;
+		node.style.marginBottom = 0;
+		node.style.paddingTop = 0;
+		node.style.paddingBottom = 0;
+	}
+	
+	/**
+	* Extends a HTMLElement descendant to have H2O features 
+	*///
+	Element.extend = function(node) {
+		node.isH2O = true;
+		
+		node.percentWidth = Element.parsePercent(document.defaultView.getComputedStyle(node, null)['width']);
+		node.percentHeight = Element.parsePercent(document.defaultView.getComputedStyle(node, null)['height']);
+		H2O.debug(node.tagName + " percentWidth: " + node.percentWidth + "; percentHeight: " + node.percentHeight + ";");
+
+		Element.cssHacks(node);
+		Element.addComputedMethods(node);
+		
 		
 		/* hide() */
 		if (!node.hide) {
@@ -133,8 +175,8 @@
 		/* show() */
 		if (!node.show) {
 			node.show = function() {
-				this.style.display = "block";
-				this.resize();
+				node.style.display = "block";
+				node.resize();
 			}
 		}
 		
@@ -149,6 +191,19 @@
 			}
 		}
 		
+		node.resizeMarginBox = function() {
+			var offsetHeight = node.parentNode.offsetHeight;
+			node.style.marginTop = (node.percentMarginTop / 100 * offsetHeight) + "px";
+			node.style.marginBottom = (node.percentMarginBottom / 100 * offsetHeight) + "px";
+		}
+		
+		node.resizePaddingBox = function() {
+			var offsetHeight = node.parentNode.offsetHeight;
+			node.style.paddingTop = (node.percentPaddingTop / 100 * offsetHeight) + "px";
+			node.style.paddingBottom = (node.percentPaddingBottom / 100 * offsetHeight) + "px";
+		}
+		
+		
 		/* define dispatchResizeEvent() if it doesn't exist (it shouldn't) */
 		if (typeof node.dispatchResizeEvent != "function") {
 			node.dispatchResizeEvent = function() {
@@ -161,9 +216,8 @@
 		/* define node.resize() if it doesn't exist (it may) */
 		if (typeof node.resize != "function") {
 			node.resize = function() {
-				//var offsetHeight = document.defaultView.getComputedStyle(node.parentNode, null)['height'].replace(/%|px/, "");
+				/* calculate marginBoxHeight and paddingBoxHeight by original % */
 				var offsetHeight = node.parentNode.offsetHeight;
-				//var offsetHeight = node.offsetHeight;
 				node.style.marginTop = (node.percentMarginTop / 100 * offsetHeight) + "px";
 				node.style.marginBottom = (node.percentMarginBottom / 100 * offsetHeight) + "px";
 				node.style.paddingTop = (node.percentPaddingTop / 100 * offsetHeight) + "px";
@@ -173,8 +227,8 @@
 		}
 
 		/* Adding EventListener for parentNode resize if already in DOMTree */
-		if (node === document.body) {
-			window.addEventListener("resize", document.body.resize, false);
+		if (node.tagName === "BODY") {
+			window.addEventListener("resize", node.resize, false);
 		} else {
 			if (node.parentNode) {
 				node.parentNode.addEventListener("resize", node.resize, false);
@@ -185,13 +239,15 @@
 		node.addEventListener("DOMNodeInserted", function(evt) {
 			if (evt.target.isH2O && evt.target.nodeType === Node.ELEMENT_NODE) {
 				evt.stopPropagation();
-				H2O.debug("Hey! " + evt.target + " was added " + evt.target.parentNode);
 				
 				if (node.parentNode.isH2O) {
 					node.parentNode.addEventListener("resize", node.resize, false);
 				}
 			}
+			
+			node.resize();
 		}, false);
+		
 		
 		return node;
 	}

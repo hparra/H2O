@@ -32,11 +32,19 @@
 		}
 		
 	</style>
+	<script type="text/javascript">
+		window.addEventListener("H2O.LOAD", function() {
+			H2O.debug("Loading");
+			var div = document.getElementById("box");
+			var img = new H2O.Image();
+			img.src = "1-1226265697kzA8.jpg";
+			div.appendChild(img);
+		}, false);
+	</script>
 </head>
 
 <body>
-	<div class="box">
-		<img id="picture" src="1-1226265697kzA8.jpg" class="MIDDLE"/>
+	<div id="box" class="box">
 	</div>
 </body>
 

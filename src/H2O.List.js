@@ -50,7 +50,7 @@
 				
 				var rows;
 				var columns;				
-				if (false) {
+				if (true) {
 					rows = Math.round(100 / height);
 					columns = Math.round(100 / width);
 				} else {

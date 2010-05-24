@@ -2,12 +2,12 @@
 
 <html class="H2O">
 <head>
-	<link rel="stylesheet" type="text/css" href="../src/H2O.css" />
-	<script src="../src/H2O.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../src/H2O.Element.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../src/H2O.ListItem.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="../../src/H2O.css" />
+	<script src="../../src/H2O.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../src/H2O.Element.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../src/H2O.Image.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../src/H2O.ListItem.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../src/H2O.List.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		body {
 			background-color: purple;
@@ -54,19 +54,23 @@
 			margin: 5% 1% 5% 1%;
 			padding: 5% 1% 5% 1%;
 			*/
-			width: 33.3333%;
-			height: 50%;
-			-webkit-transition: opacity 0.5s linear;
+			width: 25.3333%;
+			height: 42%;
+			margin: 2% 2% 2% 2%;
+			padding: 2% 2% 2% 2%;
 		}
-		/*
-		#list li:hover {
-		  
+		
+		#list li:focus, #list li:hover {
+		  background-color: yellow;
 		}
-		*/
+		
+		
+		.inside {
+			background-color: green;
+		}
+		
 	</style>
 </head>
-
-
 
 <body>
 	<div class="button_container">
@@ -74,7 +78,7 @@
 	</div>
 	<div id="container">
 		<ul id="list">
-			<li class="blue">0</li>
+			<li class="blue" tabIndex="1"><div class="inside">0</div></li>
 			<li class="pink">1</li>
 			<li class="blue">2</li>
 			<li class="pink">3</li>
