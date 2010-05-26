@@ -2,51 +2,65 @@
 (function() {
 	if (window.H2O.Label) return;
 
-	/**
-	* Label
-	*/
 	var Label = function(node) {
-		var self = node;
+		var element = Label.extend(document.createElement("H6"));
 
-		self.resize = function() {
-			
-			var parentWidth = document.defaultView.getComputedStyle(self.parentNode, null)['width'].replace(/px/, "");
-			var parentHeight = document.defaultView.getComputedStyle(self.parentNode, null)['height'].replace(/px/, "");
-			var fontSize = document.defaultView.getComputedStyle(self, null)['fontSize'].replace(/px/, "");
-			var scrollSlope = self.scrollHeight / self.scrollWidth;
+		element.addEventListener("DOMNodeInserted", function(evt) {
+			element.parentNode.addEventListener("resize", element.resize, false);
+		}, false);
+		
+		return element;
+	}
+	
+	Label.extend = function(node) {
+		H2O.Element.extend(node);
+		
+		node.resize = function() {
+			var parentWidth = document.defaultView.getComputedStyle(node.parentNode, null)['width'].replace(/px/, "");
+			var parentHeight = document.defaultView.getComputedStyle(node.parentNode, null)['height'].replace(/px/, "");
+			var fontSize = document.defaultView.getComputedStyle(node, null)['fontSize'].replace(/px/, "");
+			var scrollSlope = node.scrollHeight / node.scrollWidth;
 			
 			/* center text vertically */
-			self.style.lineHeight = parentHeight + "px";
+			node.style.lineHeight = parentHeight + "px";
+
+			H2O.debug("parentXY: " + parentWidth  + "x" +  parentHeight);
+			H2O.debug("--fontSize: " + fontSize);
+			H2O.debug("--scrollXY: " + node.scrollWidth + "x" +  node.scrollHeight);
+			H2O.debug("--scrollSlope: " + scrollSlope);
 
 			if (isNaN(scrollSlope)) { /* for Webkit bug */
 				/* Conservative: assumes each character is as wide as its height */
-				var proposedFontSize = (parentWidth / self.childNodes[0].length);
+				var proposedFontSize = (parentWidth / node.childNodes[0].length);
 				if (proposedFontSize < parentHeight) {
-					self.style.fontSize = proposedFontSize + 'px';
+					node.style.fontSize = proposedFontSize + 'px';
 				} else {
-					self.style.fontSize = parentHeight + "px";
+					node.style.fontSize = parentHeight + "px";
 				}
 			} else {
 			
-				var ratio = parentWidth / self.scrollWidth;
+				var ratio = parentWidth / node.scrollWidth;
 				var heightBound = scrollSlope * parentWidth;
-				/*
-				H2O.debug("parentXY: " + parentWidth  + "x" +  parentHeight);
-				H2O.debug("--fontSize: " + fontSize);
-				H2O.debug("--scrollXY: " + self.scrollWidth + "x" +  self.scrollHeight);
-				H2O.debug("--scrollSlope: " + scrollSlope);
+				
+
 				H2O.debug("--heightBound: " + heightBound);			
-				*/
+				
 				if (heightBound < parentHeight) {
-					self.style.fontSize = fontSize * ratio + "px";
+					node.style.fontSize = fontSize * ratio + "px";
 				
 				} else {
-					self.style.fontSize = parentHeight + "px";
+					node.style.fontSize = parentHeight + "px";
 				}
 			}
-			
-			self.dispatchResizeEvent();
 		}
+		
+		if (node.parentNode) {
+			H2O.debug("HELO?");
+			node.parentNode.addEventListener("resize", node.resize, false);
+		}		
+		
+		//node.dispatchResizeEvent();
+		return node;
 	}
 	
 	window.H2O.Label = Label;

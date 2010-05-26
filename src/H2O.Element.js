@@ -8,7 +8,8 @@
 	* Doesn't do anything (Maybe later? Or a parser?)
 	*///
 	var Element = function(str) {
-		return null;
+		var element = document.createElement(str);
+		return H2O.Element.extend(element);
 	}
 	
 	Element.parsePercent = function(str) {

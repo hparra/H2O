@@ -73,7 +73,7 @@
 		case "H4":
 		case "H5":
 		case "H6":
-			H2O.Label(node); break;
+			H2O.Label.extend(node); break;
 		case "LI":
 			H2O.ListItem.extend(node); break;
 		case "OL":
